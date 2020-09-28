@@ -47,10 +47,10 @@ export default function App() {
 
 function Home() {
   return (
-   <main>
+   <main className="main-page" id="main-page-id">
     <h2>PolySearch</h2>
 
-    <div className="game-buttons">
+    <div className="game-buttons-div">
       <button className="game-buttons">New Game</button>
       <button className="game-buttons">Join Game</button>
       <button className="game-buttons">Resume Game</button>
@@ -65,5 +65,11 @@ function About() {
 }
 
 function Users() {
-  return <h2>Users</h2>;
+  return (
+  <div>
+    <h2>Users</h2>
+    
+  </div>
+  
+  )
 }

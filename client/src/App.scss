@@ -37,7 +37,18 @@
   }
 }
 
+.game-buttons-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 .game-buttons {
   display: block;
+}
+
+#main-page-id {
+  text-align: center;
+  background-image: url('/home/ryan/lighthouse/final/polysearch/docs/paris-background.jpg');
 }
