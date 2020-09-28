@@ -8,6 +8,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+//import DifficultyButton from "./components/DifficultyButton";
+import NewGameSetup from "./components/NewGameSetup";
 
 export default function App() {
   return (
@@ -24,6 +26,9 @@ export default function App() {
             <li>
               <Link to="/users">Users</Link>
             </li>
+            <li>
+              <Link to="/newgame">New Game</Link>
+            </li>            
           </ul>
         </nav>
 
@@ -36,6 +41,9 @@ export default function App() {
           <Route path="/users">
             <Users />
           </Route>
+          <Route path="/newgame">
+            <NewGame />
+          </Route>          
           <Route path="/">
             <Home />
           </Route>
@@ -72,4 +80,12 @@ function Users() {
   </div>
   
   )
+}
+
+function NewGame() {
+  return (
+    <div>
+      <NewGameSetup />
+    </div>
+  );
 }
