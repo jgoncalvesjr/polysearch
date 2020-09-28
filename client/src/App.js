@@ -2,28 +2,68 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.scss';
 import useApplicationData from './hooks/useApplicationData';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
-  const { state, dispatch } = useApplicationData();
-
-  const userList = state.users.map(user => (
-    <li key={user.id}>
-      {user.username} {user.avatar} {user.email}
-    </li>
-  ));
-
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-         <h1>Users</h1>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
 
-      {state.loading && <h3>Loading...</h3>}
-
-      <ul>{!state.loading && userList}</ul>
-      </header>
-    </div>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
-export default App;
+function Home() {
+  return (
+   <main>
+    <h2>PolySearch</h2>
+
+    <div className="game-buttons">
+      <button className="game-buttons">New Game</button>
+      <button className="game-buttons">Join Game</button>
+      <button className="game-buttons">Resume Game</button>
+    </div>
+
+  </main> 
+  );
+}
+
+function About() {
+  return <h2>About</h2>;
+}
+
+function Users() {
+  return <h2>Users</h2>;
+}
