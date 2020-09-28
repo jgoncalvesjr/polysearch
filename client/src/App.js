@@ -48,13 +48,17 @@ export default function App() {
 function Home() {
   return (
    <main className="main-page" id="main-page-id">
-    <h2>PolySearch</h2>
+     <div className="transparent-box">
+       
+       <h2 id="main-page-title">PolySearch</h2>
+        <div className="game-buttons-div">
+          <button className="game-buttons">New Game</button>
+          <button className="game-buttons">Join Game</button>
+          <button className="game-buttons">Resume Game</button>
+        </div>
 
-    <div className="game-buttons-div">
-      <button className="game-buttons">New Game</button>
-      <button className="game-buttons">Join Game</button>
-      <button className="game-buttons">Resume Game</button>
-    </div>
+      </div>
+
 
   </main> 
   );

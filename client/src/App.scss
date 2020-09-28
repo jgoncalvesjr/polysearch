@@ -37,18 +37,39 @@
   }
 }
 
+/* Main Page Style is below.*/
 .game-buttons-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
 .game-buttons {
   display: block;
+  
 }
 
 #main-page-id {
   text-align: center;
-  background-image: url('/home/ryan/lighthouse/final/polysearch/docs/paris-background.jpg');
+  font-weight: bold;
+  background-image: url('/docs/paris-background.jpg');
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  
+}
+
+.main-page .transparent-box {
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.4;
+}
+
+#main-page-title{
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
 }
