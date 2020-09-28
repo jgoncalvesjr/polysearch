@@ -48,7 +48,7 @@ export default function App() {
 function Home() {
   return (
    <main className="main-page" id="main-page-id">
-     <div className="transparent-box">
+     <div className="transparent-box" id="main-box">
        
        <h2 id="main-page-title">PolySearch</h2>
         <div className="game-buttons-div">
