@@ -1,11 +1,12 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
-import dataReducer, { SET_USERS } from '../reducers/dataReducer';
+import dataReducer, { SET_USERS,  DIFFICULTY_SETTING } from '../reducers/dataReducer';
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
     users: [],
     loading: true,
+    difficulty: "Easy"
   });
 
   useEffect(() => {
@@ -18,9 +19,12 @@ const useApplicationData = () => {
     });
   }, []);
 
+  const setDifficulty = pdifficulty => dispatch({type: DIFFICULTY_SETTING, difficulty: pdifficulty});
+
   return {
     state,
     dispatch,
+    setDifficulty
   };
 };
 

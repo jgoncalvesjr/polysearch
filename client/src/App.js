@@ -8,6 +8,7 @@ import {
   Route,
   Link, Redirect
 } from "react-router-dom";
+import NewGameSetup from "./components/NewGameSetup";
 
 export default function App() {
   return (
@@ -24,6 +25,9 @@ export default function App() {
             <li>
               <Link to="/game-over">Game Over</Link>
             </li>
+            <li>
+              <Link to="/newgame">New Game</Link>
+            </li>            
           </ul>
         </nav>
 
@@ -36,6 +40,9 @@ export default function App() {
           <Route path="/game-over">
             <GameOver />
           </Route>
+          <Route path="/newgame">
+            <NewGame />
+          </Route>          
           <Route path="/">
             <Home />
           </Route>
@@ -101,11 +108,22 @@ function MultiplayerLobby() {
   )
 }
 
+function NewGame() {
+  return (
+  <div className="gameMainContainer">
+    <div className="dvGameBoardContainer">
+      <div className="dvGameBoardContents">
+      <NewGameSetup />
+      </div>
+    </div>
+  </div>
+  );
+}
 // Preliminary Button logic is below
 
 // buttons for the main page.
 function newGameButton() {
-  alert('You pressed the new game button!');
+  document.location.href = "/newgame";
 };
 
 function joinGameButton() {
