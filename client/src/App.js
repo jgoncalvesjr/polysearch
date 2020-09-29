@@ -51,6 +51,7 @@ function Home() {
      <div className="transparent-box" id="main-box">
        
        <h2 id="main-page-title">PolySearch</h2>
+      
         <div className="game-buttons-div">
           <button className="game-buttons" onClick={newGameButton}>New Game</button>
           <button className="game-buttons" onClick={joinGameButton}>Join Game</button>
@@ -82,10 +83,21 @@ function GameOver() {
 
 function MultiplayerLobby() {
   return (
-  <div>
-    <h2>Multiplayer Lobby</h2>
-  </div>
-  
+    <main id="multiplayer-lobby">
+      <div id="multiplayer-lobby-box">
+        <h2 id="multiplayer-lobby-title">Game Lobby</h2>
+        <div id="">List of Players Go Here</div>
+        <h3 id="lobby-url">Use this link to invite people to play! LINK HERE</h3>
+        <div>
+          <h3>Difficulty: </h3>
+          <h3>Game Mode: </h3>
+        </div>
+        <div id='multiplayer-lobby-button-group'>
+          <button className="multiplayer-lobby-buttons" onClick={startGameButton}>Start Game</button>
+          <button className="multiplayer-lobby-buttons" onClick={mainMenuButton}>Cancel</button>
+        </div>
+      </div>
+   </main> 
   )
 }
 
@@ -105,7 +117,6 @@ function resumeGameButton() {
 };
 
 // buttons for the game over page.
-
 function playAgain() {
   alert('You pressed the Play Again Button!');
 };
@@ -116,4 +127,13 @@ function joinPolySearchButton() {
 
 function mainMenuButton() {
   document.location.href = "/";
+};
+
+// buttons for the game lobby page.
+function startGameButton() {
+  alert('You pressed the Start Game Button!');
+};
+
+function cancelButton() {
+  alert('You Pressed the Cancel Button!');
 };
