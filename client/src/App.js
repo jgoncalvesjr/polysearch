@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, Redirect
 } from "react-router-dom";
 
 export default function App() {
@@ -16,13 +16,13 @@ export default function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">Main Page</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/multiplayer-lobby">Multiplayer Lobby</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link to="/game-over">Game Over</Link>
             </li>
           </ul>
         </nav>
@@ -30,11 +30,11 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/multiplayer-lobby">
+            <MultiplayerLobby />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/game-over">
+            <GameOver />
           </Route>
           <Route path="/">
             <Home />
@@ -64,22 +64,36 @@ function Home() {
   );
 }
 
-function About() {
-  return <h2>About</h2>;
+function GameOver() {
+  return (
+    <main id="game-over">
+      <div id="game-over-box">
+        <h2 id="game-over-title">GAME OVER</h2>
+        <div id="">Match Rankings Go Here</div>
+        <div id='game-over-button-group'>
+          <button className="game-over-buttons" onClick={playAgain}>Play Again</button>
+          <button className="game-over-buttons" onClick={joinPolySearchButton}>Join PolySearch</button>
+          <button className="game-over-buttons" onClick={mainMenuButton}>Back to Main Menu</button>
+        </div>
+      </div>
+   </main> 
+   );
 }
 
-function Users() {
+function MultiplayerLobby() {
   return (
   <div>
-    <h2>Users</h2>
+    <h2>Multiplayer Lobby</h2>
   </div>
   
   )
 }
 
 // Preliminary Button logic is below
+
+// buttons for the main page.
 function newGameButton() {
-  alert('You pressed the new game screen!');
+  alert('You pressed the new game button!');
 };
 
 function joinGameButton() {
@@ -88,4 +102,18 @@ function joinGameButton() {
 
 function resumeGameButton() {
   alert('You pressed the resume game button!');
+};
+
+// buttons for the game over page.
+
+function playAgain() {
+  alert('You pressed the Play Again Button!');
+};
+
+function joinPolySearchButton() {
+  alert('You Pressed the Join PolySearch Button!');
+};
+
+function mainMenuButton() {
+  document.location.href = "/";
 };
