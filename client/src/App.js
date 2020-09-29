@@ -52,9 +52,9 @@ function Home() {
        
        <h2 id="main-page-title">PolySearch</h2>
         <div className="game-buttons-div">
-          <button className="game-buttons">New Game</button>
-          <button className="game-buttons">Join Game</button>
-          <button className="game-buttons">Resume Game</button>
+          <button className="game-buttons" onClick={newGameButton}>New Game</button>
+          <button className="game-buttons" onClick={joinGameButton}>Join Game</button>
+          <button className="game-buttons" onClick={resumeGameButton}>Resume Game</button>
         </div>
 
       </div>
@@ -72,8 +72,20 @@ function Users() {
   return (
   <div>
     <h2>Users</h2>
-    
   </div>
   
   )
 }
+
+// Preliminary Button logic is below
+function newGameButton() {
+  alert('You pressed the new game screen!');
+};
+
+function joinGameButton() {
+  alert('You pressed the join game button!');
+};
+
+function resumeGameButton() {
+  alert('You pressed the resume game button!');
+};
