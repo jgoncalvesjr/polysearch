@@ -9,6 +9,7 @@ import {
   Link, Redirect
 } from "react-router-dom";
 import NewGameSetup from "./components/NewGameSetup";
+import Registration from './components/auth/Registration';
 
 export default function App() {
   return (
@@ -27,25 +28,39 @@ export default function App() {
             </li>
             <li>
               <Link to="/newgame">New Game</Link>
+            </li>
+            <li>
+              <Link to="/registration">Registration</Link>
             </li>            
           </ul>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+            renders the first one that matches the current URL.
+            NOTE THAT ORDER MATTERS HERE!             
+            */}
         <Switch>
+          
+          <Route path="/registration">
+            <Registration />
+          </Route>
+
           <Route path="/multiplayer-lobby">
             <MultiplayerLobby />
           </Route>
+
           <Route path="/game-over">
             <GameOver />
           </Route>
+
           <Route path="/newgame">
             <NewGame />
-          </Route>          
+          </Route>      
+
           <Route path="/">
             <Home />
           </Route>
+
         </Switch>
       </div>
     </Router>
@@ -58,7 +73,6 @@ function Home() {
      <div className="transparent-box" id="main-box">
        
        <h2 id="main-page-title">PolySearch</h2>
-      
         <div className="game-buttons-div">
           <button className="game-buttons" onClick={newGameButton}>New Game</button>
           <button className="game-buttons" onClick={joinGameButton}>Join Game</button>
@@ -119,6 +133,8 @@ function NewGame() {
   </div>
   );
 }
+
+
 // Preliminary Button logic is below
 
 // buttons for the main page.
