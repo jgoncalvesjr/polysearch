@@ -10,9 +10,13 @@ const languagesRouter = require('./routes/languages');
 
 const app = express();
 
-const {getGameWords} = require('./helpers/apiHelpers');
+const {getGameWords, getMockGameWords, apiCall} = require('./helpers/apiHelpers');
 
-console.log(getGameWords(3,5));
+// console.log(getMockGameWords(3,5));
+getGameWords(2,8)
+  .then(console.log);
+// apiCall('br');
+
 
 // DB and helpers
 const db = require('./db');
