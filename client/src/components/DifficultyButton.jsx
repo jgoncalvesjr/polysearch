@@ -2,18 +2,15 @@ import React from "react";
 import "./DifficultyButton.scss";
 //const classNames = require('classnames');
 
-export default function DifficultyButton({caption, selected}) {
+export default function DifficultyButton(props) {
 
-  //let buttonClass = classNames("button");
-  let buttonClass = selected ? "difficultybutton selected" : "difficultybutton";
+  let buttonClass = props.selected ? "difficultybutton selected" : "difficultybutton";
 
-  console.log("caption", caption, "selected", selected);
   return (
     <button class={buttonClass}
-    //onClick={props.onClick}
-    //disabled={props.disabled}
+    onClick={() => props.onClick(props.name)}
     >
-    {caption}
+    {props.name}
   </button>  
   );
 }

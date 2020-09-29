@@ -8,7 +8,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-//import DifficultyButton from "./components/DifficultyButton";
 import NewGameSetup from "./components/NewGameSetup";
 
 export default function App() {
@@ -84,8 +83,12 @@ function Users() {
 
 function NewGame() {
   return (
-    <div>
+  <div className="gameMainContainer">
+    <div className="dvGameBoardContainer">
+      <div className="dvGameBoardContents">
       <NewGameSetup />
+      </div>
     </div>
+  </div>
   );
 }

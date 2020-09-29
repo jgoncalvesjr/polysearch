@@ -52,3 +52,32 @@
   text-align: center;
   background-image: url('/home/ryan/lighthouse/final/polysearch/docs/paris-background.jpg');
 }
+
+
+.gameMainContainer {
+  display:flex;
+  justify-content:center;
+  width:100%;
+ }
+ .dvGameBoardContainer {
+   position: relative;
+   display: inline-block;
+   width: 80%;
+   height: 400px;
+   background-color: #FFF;
+   border:1px solid #000;
+   border-radius: 10px;
+   opacity: 0.64;
+ }
+ 
+ .dvGameBoardContents {
+   position: absolute;
+   display:flex;
+   justify-content:center;
+   left: 0px;
+   top: 0px;
+ 
+   width: 100%;
+   height: 100%;
+   opacity: 1;
+  }
