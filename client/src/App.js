@@ -60,7 +60,7 @@ function Home() {
        <h2 id="main-page-title">PolySearch</h2>
       
         <div className="game-buttons-div">
-          <button className="game-buttons" onClick={NewGame}>New Game</button>
+          <button className="game-buttons" onClick={newGameButton}>New Game</button>
           <button className="game-buttons" onClick={joinGameButton}>Join Game</button>
           <button className="game-buttons" onClick={resumeGameButton}>Resume Game</button>
         </div>
@@ -122,9 +122,9 @@ function NewGame() {
 // Preliminary Button logic is below
 
 // buttons for the main page.
-/*function newGameButton() {
-  alert('You pressed the new game button!');
-};*/
+function newGameButton() {
+  document.location.href = "/newgame";
+};
 
 function joinGameButton() {
   alert('You pressed the join game button!');
