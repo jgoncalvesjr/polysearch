@@ -2,6 +2,9 @@ import React, { Children } from "react";
 import DifficultyButton from "./DifficultyButton";
 import NewGameSetup from './NewGameSetup';
 import useApplicationData from '../hooks/useApplicationData';
+import GridRow from "./GridRow";
+
+import './GameBoard.scss';
 
 export default function GameBoard(props) {
 
@@ -11,7 +14,12 @@ export default function GameBoard(props) {
     getNewGame,
   } = useApplicationData();
 
+  const gameGrid = props.game.rows.map(row => {
+    return <GridRow row={row} />
+  });
   return (
-    <div>{props.game}</div>
+    <div className='board-table'>
+      {gameGrid}
+    </div>
   );
 }
