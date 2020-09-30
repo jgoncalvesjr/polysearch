@@ -8,9 +8,14 @@ import {
   Route,
   Link, Redirect
 } from "react-router-dom";
+
 import NewGameSetup from "./components/NewGameSetup";
 import Registration from './components/auth/Registration';
 import Login from "./components/auth/Login"
+//import NewGameSetup from "./components/NewGameSetup";
+//import GameBoard from "./components/GameBoard.jsx";
+//import Game from './components/Game';
+import Application from './components/Application';
 
 export default function App() {
   return (
@@ -134,14 +139,23 @@ function NewGame() {
   <div className="gameMainContainer">
     <div className="dvGameBoardContainer">
       <div className="dvGameBoardContents">
-      <NewGameSetup />
+      <Application />
       </div>
     </div>
   </div>
   );
 }
-
-
+/* function WordGame() {
+  return (
+  <div className="gameMainContainer">
+    <div className="dvGameBoardContainer">
+      <div className="dvGameBoardContents">
+      <GameBoard />
+      </div>
+    </div>
+  </div>
+  );
+} */
 // Preliminary Button logic is below
 
 // buttons for the main page.

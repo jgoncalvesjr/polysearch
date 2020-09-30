@@ -90,7 +90,7 @@ const getMockGameWords = (languages, words) => {
   const block = [];
   const gameLanguages = [];
   while (gameLanguages.length < languages) {
-    const newLanguage = data[Math.round(Math.random() * data.length)].language;
+    const newLanguage = data[Math.floor(Math.random() * data.length)].language;
     if (!gameLanguages.includes(newLanguage)) {
       gameLanguages.push(newLanguage);
     }
