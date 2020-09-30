@@ -10,18 +10,17 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const languagesRouter = require('./routes/languages');
 const gameRouter = require("./routes/game");
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
 //const apiHelpers = require('./helpers/apiHelpers');
-const {getGameWords} = require('./helpers/apiHelpers');
-
-//console.log(getGameWords(3,5));
-//console.log(apiHelpers);
-const registerRouter = require('./routes/register');
-const loginRouter = require('./routes/login');
-
 // const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
+
+// getGameWords(2,6)
+// .then(console.log);
+//console.log(apiHelpers);
 
 // console.log(getMockGameWords(3,5));
 // const async words = await getGameWords(2,8);
