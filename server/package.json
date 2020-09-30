@@ -6,9 +6,11 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
+    "windowsDebug": "@powershell -Command $env:DEBUG='*';node ./bin/www.js",
     "db:reset": "node ./db/reset.js"
   },
   "dependencies": {
+    "@sbj42/word-search-generator": "^0.1.1",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
