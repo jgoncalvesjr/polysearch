@@ -10,18 +10,16 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const languagesRouter = require('./routes/languages');
 const gameRouter = require("./routes/game");
-
-const app = express();
-
-//const apiHelpers = require('./helpers/apiHelpers');
-const {getGameWords} = require('./helpers/apiHelpers');
-
-//console.log(getGameWords(3,5));
-//console.log(apiHelpers);
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 
 const app = express();
+
+//const apiHelpers = require('./helpers/apiHelpers');
+// const {getGameWords} = require('./helpers/apiHelpers');
+
+//console.log(getGameWords(3,5));
+//console.log(apiHelpers);
 
 
 // const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
