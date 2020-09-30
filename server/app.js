@@ -3,16 +3,23 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cookieSession = require('cookie-session');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const languagesRouter = require('./routes/languages');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
 
 const app = express();
 
-const {getGameWords} = require('./helpers/apiHelpers');
 
-console.log(getGameWords(3,5));
+// const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
+
+// console.log(getMockGameWords(3,5));
+// const async words = await getGameWords(2,8);
+// console.log(words);
+
 
 // DB and helpers
 const db = require('./db');
@@ -27,10 +34,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['randomstring', 'anotherrandomstring'],
+}));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/languages', languagesRouter(dbHelpers));
+app.use('/register', registerRouter(dbHelpers));
+app.use('/login', loginRouter(dbHelpers));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
