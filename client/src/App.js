@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import NewGameSetup from "./components/NewGameSetup";
 import Registration from './components/auth/Registration';
+import Login from "./components/auth/Login"
 
 export default function App() {
   return (
@@ -31,6 +32,9 @@ export default function App() {
             </li>
             <li>
               <Link to="/registration">Registration</Link>
+            </li>
+            <li>
+              <Link to="/login">login</Link>
             </li>            
           </ul>
         </nav>
@@ -40,6 +44,9 @@ export default function App() {
             NOTE THAT ORDER MATTERS HERE!             
             */}
         <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
           
           <Route path="/registration">
             <Registration />
