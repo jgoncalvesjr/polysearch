@@ -1,6 +1,6 @@
 import React, { Children } from "react";
 import DifficultyButton from "./DifficultyButton";
-import useApplicationData from '../hooks/useApplicationData';
+//import useApplicationData from '../hooks/useApplicationData';
 
 const difficultySettings = [
   {
@@ -24,19 +24,19 @@ const difficultySettings = [
     name: "Custom"
   }
 ];
-export default function NewGameSetup() {
+export default function NewGameSetup(props) {
   
-  const {
+/*   const {
     state,
     setDifficulty,
   } = useApplicationData();
-
+ */
   const dificultyButtonsArray = difficultySettings.map(el => {
   return <DifficultyButton 
           key={el.id} 
           name={el.name} 
-          selected={el.name === state.difficulty} 
-          onClick={setDifficulty}
+          selected={el.name === props.difficulty} 
+          onClick={props.setDifficulty}
         />
   });      
   console.log(dificultyButtonsArray);  
@@ -77,7 +77,7 @@ export default function NewGameSetup() {
         <div><input value="06:00" /></div>
       </div>
       <div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-        <div><button>Start Game</button></div>
+        <div><button onClick={props.startGame}>Start Game</button></div>
         <div><button>Cancel</button></div>
       </div>
     </div>
