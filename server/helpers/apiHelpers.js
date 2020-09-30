@@ -1,4 +1,5 @@
-// const axios = require('axios');
+require('dotenv').config();
+const axios = require('axios');
 const {
   jsonBR,
   jsonFR,
@@ -28,18 +29,62 @@ const getWords = data => {
   return words;
 };
 
-const getAllWords = () => {
+const getAllMockWords = () => {
   const group = getWords(jsonBR)
-                  .concat(getWords(jsonEN))
-                  .concat(getWords(jsonFR))
-                  .concat(getWords(jsonIT))
-                  .concat(getWords(jsonES));
+    .concat(getWords(jsonEN))
+    .concat(getWords(jsonFR))
+    .concat(getWords(jsonIT))
+    .concat(getWords(jsonES));
   return group;
 };
 
-const getGameWords = (languages, words) => {
-  const data = getAllWords();
-  console.log(Array.isArray(data));
+const randomLanguage = () => {
+  const languages = ['en', 'br', 'fr', 'es', 'it'];
+  return languages[Math.round(Math.random() * languages.length)];
+};
+
+const apiCall = language => {
+  return axios.get(`https://dictapi.lexicala.com/search?source=global&language=${language}&sample=30&page-length=30&pos=noun&page=1&monosemous=true`, {
+    headers: {
+      'Authorization': `Basic ${process.env.APITOKEN}`
+    }
+  })
+    .then((res) => {
+      // console.log(res.data);
+      return getWords(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const getGameWords = async(languages, words) => {
+  let data = [];
+  const block = [];
+  const gameLanguages = [];
+  while (gameLanguages.length < languages) {
+    const newLanguage = randomLanguage();
+    if (!gameLanguages.includes(newLanguage)) {
+      gameLanguages.push(newLanguage);
+    }
+  }
+  const calls = await Promise.all(gameLanguages.map(apiCall));
+  data = calls.reduce((acc, val) => acc.concat(val), []);
+  // console.log(Array.isArray(data));
+  // console.log(data.length);
+  // console.log(gameLanguages);
+  while (block.length < words) {
+    const newWord = data[Math.round(Math.random() * data.length)];
+    if (gameLanguages.includes(newWord.language) && newWord.word.length >= 3 && newWord.word.length <= 10) {
+      block.push(newWord);
+    }
+  }
+  return block;
+};
+
+const getMockGameWords = (languages, words) => {
+  const data = getAllMockWords();
+  // console.log(Array.isArray(data));
   // console.log(data[0]);
   // console.log(data[0]);
   const block = [];
@@ -50,7 +95,7 @@ const getGameWords = (languages, words) => {
       gameLanguages.push(newLanguage);
     }
   }
-  console.log(gameLanguages);
+  // console.log(gameLanguages);
   while (block.length < words) {
     const newWord = data[Math.round(Math.random() * data.length)];
     if (gameLanguages.includes(newWord.language) && newWord.word.length >= 3 && newWord.word.length <= 10) {
@@ -62,4 +107,6 @@ const getGameWords = (languages, words) => {
 
 module.exports = {
   getGameWords,
+  getMockGameWords,
+  apiCall
 };
