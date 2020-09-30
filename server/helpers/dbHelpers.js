@@ -21,6 +21,17 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const getAllGames = () => {
+    const query = {
+      text: 'SELECT * FROM games',
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
   const addUser = (newUser) => {
     const query = {
       text: `INSERT INTO users (username, email, password, avatar, multiplayer_wins)
@@ -50,6 +61,7 @@ module.exports = (db) => {
   return {
     getUsers,
     getLanguages,
+    getAllGames,
     addUser,
     logUser
   };

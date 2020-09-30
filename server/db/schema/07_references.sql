@@ -2,6 +2,8 @@ ALTER TABLE "game_players" ADD FOREIGN KEY ("player_id") REFERENCES "users" ("id
 
 ALTER TABLE "game_players" ADD FOREIGN KEY ("game_id") REFERENCES "games" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "games" ADD FOREIGN KEY ("host_id") REFERENCES "users" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "scores" ADD FOREIGN KEY ("player_id") REFERENCES "users" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "scores" ADD FOREIGN KEY ("game_id") REFERENCES "games" ("id") ON DELETE CASCADE;
