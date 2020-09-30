@@ -21,9 +21,6 @@ const {getGameWords} = require('./helpers/apiHelpers');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 
-const app = express();
-
-
 // const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
 
 // console.log(getMockGameWords(3,5));

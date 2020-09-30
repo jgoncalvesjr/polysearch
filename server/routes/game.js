@@ -24,6 +24,7 @@ const getGame = () => {
   return new Promise((resolve, reject) => {
     try {
       const gameWords = getGameWords(3, 12);
+      console.log("gamewords", gameWords)
       const boardWords = getBoardWords(gameWords);
       const puzzle = generator.generate({
         words: boardWords,
@@ -35,7 +36,7 @@ const getGame = () => {
       const filteredBoardWords = gameWords.filter(wordOj => puzzle.words.includes(wordOj.word));
       const gameBoardAndWords = {rows,  words:filteredBoardWords}
       if (!rows) {
-        reject("now words found");
+        reject("no words found");
       } else {
         resolve(gameBoardAndWords);
       }      
