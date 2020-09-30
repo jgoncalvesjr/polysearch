@@ -12,5 +12,11 @@ module.exports = ({ getUsers }) => {
       .catch((err) => res.json({ err }));
   });
 
+  router.post('/', (req, res) => {
+    console.log('user post endpoint')
+    res.json('it works')
+  });
+
   return router;
 };
+

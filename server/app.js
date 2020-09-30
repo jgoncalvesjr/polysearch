@@ -3,11 +3,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const bodyParser = require("body-parser");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const languagesRouter = require('./routes/languages');
-
+const cors=require('cors');
 const app = express();
 
 const {getGameWords} = require('./helpers/apiHelpers');
@@ -17,7 +17,7 @@ console.log(getGameWords(3,5));
 // DB and helpers
 const db = require('./db');
 const dbHelpers = require('./helpers/dbHelpers')(db);
-
+app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
