@@ -9,6 +9,7 @@ export default class Registration extends Component {
       email: "",
       password: "",
       username: "",
+      avatar: "",
       registrationErrors: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,15 +26,18 @@ export default class Registration extends Component {
     const {
       email,
       password,
-      username
+      username,
+      avatar
     } = this.state;
 
-    axios.post("http://localhost:3002/api/users", {
-      users: {
+    axios.post("http://localhost:3002/register", {
+      
         email: email,
         password: password,
-        username: username
-      }
+        username: username,
+        avatar: avatar,
+        multiplayerWins: 0
+      
     }
     ).then(response => {
       console.log("registration response", response);
@@ -41,6 +45,7 @@ export default class Registration extends Component {
     .catch(error => {
       console.log("registration error", error);
     })
+
     event.preventDefault();
   }
 
@@ -71,6 +76,14 @@ export default class Registration extends Component {
           value={this.state.username} 
           onChange={this.handleChange} 
           required />
+
+          <input 
+          type="avatar"
+          name="avatar" 
+          placeholder="Avatar" 
+          value={this.state.avatar} 
+          onChange={this.handleChange}
+          /> 
 
           <button type="submit">Register</button>
 

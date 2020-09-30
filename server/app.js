@@ -13,6 +13,9 @@ const loginRouter = require('./routes/login');
 
 const app = express();
 
+// need this so you don't cors policy error
+const cors = require('cors');
+app.use(cors());
 
 // const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
 
@@ -24,7 +27,7 @@ const app = express();
 // DB and helpers
 const db = require('./db');
 const dbHelpers = require('./helpers/dbHelpers')(db);
-app.use(cors());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
