@@ -19,8 +19,31 @@ const getGridRows = puzzle => {
   }
   return gridWords;
 };
-
-const getGame = () => {
+const getGameAsync = async () => {
+  try {
+    const gameWords = await getGameWords(3, 12);
+    console.log("gamewords", gameWords)
+    const boardWords = getBoardWords(gameWords);
+    const puzzle = generator.generate({
+      words: boardWords,
+      height: 20,
+      width: 20
+    });      
+    const rows = getGridRows(puzzle);
+    //const filteredBoardWords = getFilteredBoardwords(gameWords, puzzle.words);
+    const filteredBoardWords = gameWords.filter(wordOj => puzzle.words.includes(wordOj.word));
+    const gameBoardAndWords = {rows,  words:filteredBoardWords}
+    if (!rows) {
+      return "no words found";
+    } else {
+      return gameBoardAndWords;
+    }      
+  }
+  catch(err) {
+    throw err;
+  }
+};
+/* const getGame = () => {
   return new Promise((resolve, reject) => {
     try {
       const gameWords = getGameWords(3, 12);
@@ -45,10 +68,10 @@ const getGame = () => {
       reject(err);
     }
   });
-};
+}; */
 module.exports = () => {
   router.get('/newgame', (req, res) => {
-    getGame().then((data) => res.json(data))
+    getGameAsync().then((data) => res.json(data))
     .catch((err) => res.json({ err }));  
   });
 
