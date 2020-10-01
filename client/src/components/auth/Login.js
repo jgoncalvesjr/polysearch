@@ -8,7 +8,8 @@ export default class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      loginErrors: ""
+      loginErrors: "",
+      username:""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,6 +31,8 @@ export default class Login extends Component {
       }
       ).then(response => {
         console.log("login response: ", response)
+        this.setState({username:response.data.result.username})
+        //localStorage.setItem('username', response.data.username)
       })
       .catch(error => {
         console.log("login error", error);
@@ -61,7 +64,11 @@ export default class Login extends Component {
 
           <button type="submit">Login</button>
         </form>
+        <div>
+          <p>Logged in status: {this.state.username}</p>
+        </div>
       </div>
+
     );
   }
 }

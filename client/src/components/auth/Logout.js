@@ -1,0 +1,1 @@
+// This will clear the current user data.

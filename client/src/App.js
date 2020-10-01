@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.scss';
-import useApplicationData from './hooks/useApplicationData';
+import useAppData from './hooks/useAppData';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,8 +16,30 @@ import Login from "./components/auth/Login"
 //import GameBoard from "./components/GameBoard.jsx";
 //import Game from './components/Game';
 import Application from './components/Application';
+import RegistrationFcn from './components/auth/RegistrationFcn';
+import LoginFcn from './components/auth/LoginFcn';
 
 export default function App() {
+
+  //defining state
+  // const {
+  //   state
+  // } = useAppData();
+  // const [state, setState] = useState({
+  //   email: "",
+  //   password: "",
+  //   username: "here is a test username",
+  //   avatar: "",
+  //   registrationErrors: "",
+  //   loginErrors: ""
+  // });
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [registrationErrors, setRegistrationErrors] = useState('');
+
   return (
     <Router>
       <div>
@@ -50,11 +72,24 @@ export default function App() {
             */}
         <Switch>
           <Route path="/login">
-            <Login />
+            <LoginFcn
+
+            />
           </Route>
           
           <Route path="/registration">
-            <Registration />
+            <RegistrationFcn
+             username={username}
+             setUsername={setUsername}
+             email={email}
+             setEmail={setEmail}
+             password={password}
+             setPassword={setPassword}
+             avatar={avatar}
+             setAvatar={setAvatar}
+             registrationErrors={registrationErrors}
+             setRegistrationErrors={setRegistrationErrors}
+             />
           </Route>
 
           <Route path="/multiplayer-lobby">
@@ -70,7 +105,7 @@ export default function App() {
           </Route>      
 
           <Route path="/">
-            <Home />
+            <Home username={username} />
           </Route>
 
         </Switch>
@@ -79,12 +114,14 @@ export default function App() {
   );
 }
 
-function Home() {
+function Home(props) {
+  console.log('here are the props:', props);
   return (
+
    <main className="main-page" id="main-page-id">
      <div className="transparent-box" id="main-box">
-       
-       <h2 id="main-page-title">PolySearch</h2>
+      <h1>Current User</h1>
+  <h2 id="main-page-title">PolySearch: {props.username}</h2>
         <div className="game-buttons-div">
           <button className="game-buttons" onClick={newGameButton}>New Game</button>
           <button className="game-buttons" onClick={joinGameButton}>Join Game</button>
