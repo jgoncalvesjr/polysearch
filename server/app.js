@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
 const cookieSession = require('cookie-session');
 
 const indexRouter = require('./routes/index');
@@ -15,6 +16,9 @@ const loginRouter = require('./routes/login');
 
 const app = express();
 
+// need this so you don't cors policy error
+const cors = require('cors');
+app.use(cors());
 //const apiHelpers = require('./helpers/apiHelpers');
 // const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
 
@@ -41,9 +45,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// cookies
+app.set('trust proxy', 1) // trust first proxy
+
 app.use(cookieSession({
   name: 'session',
-  keys: ['randomstring', 'anotherrandomstring'],
+  keys: ['username'],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  //keys: ['randomstring', 'anotherrandomstring'],
 }));
 
 app.use('/', indexRouter);
