@@ -1,11 +1,10 @@
 DROP TABLE IF EXISTS games CASCADE;
 CREATE TABLE "games" (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "name" varchar NOT NULL,
-  "host" int NOT NULL,
+  "host_id" int NOT NULL,
   "link" varchar,
-  "board" json NOT NULL,
-  "words" json NOT NULL,
+  "board" varchar NOT NULL,
+  "words" varchar NOT NULL,
   "mode" varchar NOT NULL,
   "multiplayer" boolean NOT NULL
 );

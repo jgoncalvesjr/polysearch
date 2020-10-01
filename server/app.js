@@ -9,7 +9,7 @@ const cookieSession = require('cookie-session');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const languagesRouter = require('./routes/languages');
-const gameRouter = require("./routes/game");
+const gamesRouter = require("./routes/games");
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 
@@ -49,7 +49,7 @@ app.use(cookieSession({
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/languages', languagesRouter(dbHelpers));
-app.use('/api/game', gameRouter());
+app.use('/api/games', gamesRouter(dbHelpers));
 app.use('/register', registerRouter(dbHelpers));
 app.use('/login', loginRouter(dbHelpers));
 
