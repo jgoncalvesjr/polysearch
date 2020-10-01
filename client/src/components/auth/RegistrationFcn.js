@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 export default function RegistrationFcn(props) {
-
+  const history = useHistory()
   // const [email, setEmail] = useState('');
   // const [password, setPassword] = useState('');
   // const [username, setUsername] = useState('');
@@ -27,8 +28,10 @@ export default function RegistrationFcn(props) {
   };
 
   // handling the submit button.
-  const registerButton = () => {
-    axios.post("http://localhost:3002/register", {
+  const registerButton = (e) => {
+    e.preventDefault()
+    console.log(`clicked`)
+    return axios.post("http://localhost:3002/register", {
       
         email: props.email,
         password: props.password,
@@ -39,6 +42,9 @@ export default function RegistrationFcn(props) {
     }
     ).then(response => {
       console.log("registration response", response);
+      localStorage.setItem('username', response.data.username)
+      props.setLoggedUser(response.data.username)
+      history.push('/')
     })
     .catch(error => {
       console.log("registration error", error);

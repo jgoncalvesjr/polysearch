@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.scss';
 import useAppData from './hooks/useAppData';
@@ -18,6 +19,7 @@ import Login from "./components/auth/Login"
 import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
+import Logout from './components/auth/Logout'
 
 export default function App() {
 
@@ -39,6 +41,23 @@ export default function App() {
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
   const [registrationErrors, setRegistrationErrors] = useState('');
+  const [loggedUser, setLoggedUser] = useState("")
+
+  const history = useHistory()
+
+  useEffect(()=>{
+    let username = localStorage.getItem('username')
+    if (username) {
+      !loggedUser ? setLoggedUser(username) : setLoggedUser('')
+      console.log(`username from app: ${username}`)
+    } 
+  }, [])
+
+  const logout = () => {
+    console.log('you pressed logout');
+    localStorage.removeItem('username')
+    setLoggedUser('')
+  };
 
   return (
     <Router>
@@ -60,9 +79,15 @@ export default function App() {
             <li>
               <Link to="/registration">Registration</Link>
             </li>
-            <li>
-              <Link to="/login">login</Link>
-            </li>            
+          { !loggedUser && <li>
+                <Link to="/login">login</Link>
+          </li> }
+            {loggedUser && <li>
+              {loggedUser}  
+            </li>}
+            {loggedUser && <li>
+                <Logout logout={logout}/> 
+            </li> }         
           </ul>
         </nav>
 
@@ -73,7 +98,15 @@ export default function App() {
         <Switch>
           <Route path="/login">
             <LoginFcn
-
+             username={username}
+             setUsername={setUsername}
+             email={email}
+             setEmail={setEmail}
+             password={password}
+             setPassword={setPassword}
+             avatar={avatar}
+             setAvatar={setAvatar}
+             setLoggedUser={setLoggedUser}
             />
           </Route>
           
@@ -89,6 +122,7 @@ export default function App() {
              setAvatar={setAvatar}
              registrationErrors={registrationErrors}
              setRegistrationErrors={setRegistrationErrors}
+             setLoggedUser={setLoggedUser}
              />
           </Route>
 
@@ -105,7 +139,7 @@ export default function App() {
           </Route>      
 
           <Route path="/">
-            <Home username={username} />
+            <Home />
           </Route>
 
         </Switch>
@@ -115,13 +149,14 @@ export default function App() {
 }
 
 function Home(props) {
-  console.log('here are the props:', props);
-  return (
+  // console.log('here are the props:', props);
 
+  return (
+    
    <main className="main-page" id="main-page-id">
      <div className="transparent-box" id="main-box">
       <h1>Current User</h1>
-  <h2 id="main-page-title">PolySearch: {props.username}</h2>
+      <h2 id="main-page-title">PolySearch</h2>
         <div className="game-buttons-div">
           <button className="game-buttons" onClick={newGameButton}>New Game</button>
           <button className="game-buttons" onClick={joinGameButton}>Join Game</button>

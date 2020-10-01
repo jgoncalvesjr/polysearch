@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
-export default function LoginFcn() {
-
+export default function LoginFcn(props) {
+  const history = useHistory()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -18,15 +19,21 @@ export default function LoginFcn() {
   };
 
   // handling the submit button.
-  const loginButton = () => {
-    axios.post("http://localhost:3002/login",{
+  const loginButton = (e) => {
+    e.preventDefault()
+    console.log(`clicked`)
+
+    return axios.post("http://localhost:3002/login",{
       email: email,
       password: password
       }
       ).then(response => {
         console.log("login response: ", response)
-        setUsername(response.data.result.username)
+        //setUsername(response.data.result.username)
         //localStorage.setItem('username', response.data.username)
+        localStorage.setItem('username', response.data.result.username)
+        props.setLoggedUser(response.data.result.username)
+        history.push('/')
       })
       .catch(error => {
         console.log("login error", error);
