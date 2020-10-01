@@ -10,7 +10,7 @@ const cookieSession = require('cookie-session');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const languagesRouter = require('./routes/languages');
-const gameRouter = require("./routes/game");
+const gamesRouter = require("./routes/games");
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 
@@ -20,13 +20,11 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 //const apiHelpers = require('./helpers/apiHelpers');
-// const {getGameWords} = require('./helpers/apiHelpers');
-
-//console.log(getGameWords(3,5));
-//console.log(apiHelpers);
-
-
 // const {getGameWords, getMockGameWords} = require('./helpers/apiHelpers');
+
+// getGameWords(2,6)
+// .then(console.log);
+//console.log(apiHelpers);
 
 // console.log(getMockGameWords(3,5));
 // const async words = await getGameWords(2,8);
@@ -61,7 +59,7 @@ app.use(cookieSession({
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter(dbHelpers));
 app.use('/api/languages', languagesRouter(dbHelpers));
-app.use('/api/game', gameRouter());
+app.use('/api/games', gamesRouter(dbHelpers));
 app.use('/register', registerRouter(dbHelpers));
 app.use('/login', loginRouter(dbHelpers));
 

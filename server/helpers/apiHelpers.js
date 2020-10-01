@@ -108,5 +108,4 @@ const getMockGameWords = (languages, words) => {
 module.exports = {
   getGameWords,
   getMockGameWords,
-  apiCall
 };
