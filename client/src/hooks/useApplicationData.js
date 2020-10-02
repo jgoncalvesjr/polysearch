@@ -3,8 +3,6 @@ import axios from 'axios';
 
 import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME } from '../reducers/dataReducer';
 
-import getGameData from '../testGameData';
-
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
     users: [],
@@ -25,24 +23,19 @@ const useApplicationData = () => {
 
   //TODO: need to change to put once we are creating game in database.
   const getNewGame = () => {
-     const gameData = getGameData();
-    dispatch({ type: SET_NEW_GAME, game:gameData });
     return new Promise((resolve, reject) => {
-      resolve(gameData);
-    }); 
-/*       return new Promise((resolve, reject) => {
       axios({
         method: 'GET',
-        url: '/api/game/newgame',
-      }).then(({ gameData }) => {
-        console.log("gameData", gameData);
-        dispatch({ type: SET_NEW_GAME, game:gameData });
-        resolve(gameData);
+        url: '/api/games/newgame',
+      }).then(({ data }) => {
+        console.log("gameData", data);
+        dispatch({ type: SET_NEW_GAME, game: data });
+        resolve(data);
       })
       .catch(error => {
         reject(error);
       });
-    });  */
+    });
   };
 
   //const setDifficulty = pdifficulty => dispatch({type: DIFFICULTY_SETTING, difficulty: pdifficulty});
