@@ -1,19 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.scss';
-import useApplicationData from './hooks/useApplicationData';
+import useAppData from './hooks/useAppData';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link, Redirect
 } from "react-router-dom";
+
+import NewGameSetup from "./components/NewGameSetup";
+import Registration from './components/auth/Registration';
+import Login from "./components/auth/Login"
 //import NewGameSetup from "./components/NewGameSetup";
 //import GameBoard from "./components/GameBoard.jsx";
 //import Game from './components/Game';
 import Application from './components/Application';
+import RegistrationFcn from './components/auth/RegistrationFcn';
+import LoginFcn from './components/auth/LoginFcn';
+import Logout from './components/auth/Logout'
 
 export default function App() {
+
+  //defining state
+  // const {
+  //   state
+  // } = useAppData();
+  // const [state, setState] = useState({
+  //   email: "",
+  //   password: "",
+  //   username: "here is a test username",
+  //   avatar: "",
+  //   registrationErrors: "",
+  //   loginErrors: ""
+  // });
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [registrationErrors, setRegistrationErrors] = useState('');
+  const [loggedUser, setLoggedUser] = useState("")
+
+  const history = useHistory()
+
+  useEffect(()=>{
+    let username = localStorage.getItem('username')
+    if (username) {
+      !loggedUser ? setLoggedUser(username) : setLoggedUser('')
+      console.log(`username from app: ${username}`)
+    } 
+  }, [])
+
+  const logout = () => {
+    console.log('you pressed logout');
+    localStorage.removeItem('username')
+    setLoggedUser('')
+  };
+
   return (
     <Router>
       <div>
@@ -30,38 +75,88 @@ export default function App() {
             </li>
             <li>
               <Link to="/newgame">New Game</Link>
-            </li>            
+            </li>
+            <li>
+              <Link to="/registration">Registration</Link>
+            </li>
+          { !loggedUser && <li>
+                <Link to="/login">login</Link>
+          </li> }
+            {loggedUser && <li>
+              {loggedUser}  
+            </li>}
+            {loggedUser && <li>
+                <Logout logout={logout}/> 
+            </li> }         
           </ul>
         </nav>
 
         {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+            renders the first one that matches the current URL.
+            NOTE THAT ORDER MATTERS HERE!             
+            */}
         <Switch>
+          <Route path="/login">
+            <LoginFcn
+             username={username}
+             setUsername={setUsername}
+             email={email}
+             setEmail={setEmail}
+             password={password}
+             setPassword={setPassword}
+             avatar={avatar}
+             setAvatar={setAvatar}
+             setLoggedUser={setLoggedUser}
+            />
+          </Route>
+          
+          <Route path="/registration">
+            <RegistrationFcn
+             username={username}
+             setUsername={setUsername}
+             email={email}
+             setEmail={setEmail}
+             password={password}
+             setPassword={setPassword}
+             avatar={avatar}
+             setAvatar={setAvatar}
+             registrationErrors={registrationErrors}
+             setRegistrationErrors={setRegistrationErrors}
+             setLoggedUser={setLoggedUser}
+             />
+          </Route>
+
           <Route path="/multiplayer-lobby">
             <MultiplayerLobby />
           </Route>
+
           <Route path="/game-over">
             <GameOver />
           </Route>
+
           <Route path="/newgame">
             <NewGame />
-          </Route>          
+          </Route>      
+
           <Route path="/">
             <Home />
           </Route>
+
         </Switch>
       </div>
     </Router>
   );
 }
 
-function Home() {
+function Home(props) {
+  // console.log('here are the props:', props);
+
   return (
+    
    <main className="main-page" id="main-page-id">
      <div className="transparent-box" id="main-box">
-       
-       <h2 id="main-page-title">PolySearch</h2>
-      
+      <h1>Current User</h1>
+      <h2 id="main-page-title">PolySearch</h2>
         <div className="game-buttons-div">
           <button className="game-buttons" onClick={newGameButton}>New Game</button>
           <button className="game-buttons" onClick={joinGameButton}>Join Game</button>

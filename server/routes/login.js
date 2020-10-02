@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-
+const cookieSession = require('cookie-session');
 // login routes
 module.exports = ({ logUser }) => {
 
@@ -17,7 +17,10 @@ module.exports = ({ logUser }) => {
     logUser(user)
       .then(result => {
         if (bcrypt.compareSync(user.password, result.password)) {
-          res.status(200).json({ email: result.email });
+      
+          //console.log('login successful')
+          res.status(200).json({ result });
+          
         } else {
           res.status(400).send('Wrong password');
         }
