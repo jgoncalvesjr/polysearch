@@ -23,7 +23,7 @@ export default function LoginFcn(props) {
     e.preventDefault()
     console.log(`clicked`)
 
-    return axios.post("http://localhost:3002/login",{
+    return axios.post("/login",{
       email: email,
       password: password
       }

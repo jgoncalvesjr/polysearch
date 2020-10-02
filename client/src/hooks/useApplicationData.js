@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
+
 import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME } from '../reducers/dataReducer';
 
 const useApplicationData = () => {
@@ -22,18 +23,14 @@ const useApplicationData = () => {
 
   //TODO: need to change to put once we are creating game in database.
   const getNewGame = () => {
-     return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       axios({
         method: 'GET',
-        url: '/api/game/newgame',
-        proxy: {
-          host: 'localhost',
-          port: 3001
-        }
-      }).then(({ gameData }) => {
-        console.log("gameData", gameData);
-        dispatch({ type: SET_NEW_GAME, game:gameData });
-        resolve(gameData);
+        url: '/api/games/newgame',
+      }).then(({ data }) => {
+        console.log("gameData", data);
+        dispatch({ type: SET_NEW_GAME, game: data });
+        resolve(data);
       })
       .catch(error => {
         reject(error);

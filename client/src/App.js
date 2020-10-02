@@ -11,8 +11,7 @@ import {
 } from "react-router-dom";
 
 import NewGameSetup from "./components/NewGameSetup";
-import Registration from './components/auth/Registration';
-import Login from "./components/auth/Login"
+
 //import NewGameSetup from "./components/NewGameSetup";
 //import GameBoard from "./components/GameBoard.jsx";
 //import Game from './components/Game';
@@ -21,6 +20,9 @@ import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
 import Logout from './components/auth/Logout'
 import Chat from './components/Chat';
+import JoinGame from './components/JoinGame';
+import Navbar from './components/Navbar';
+
 
 export default function App() {
 
@@ -61,9 +63,12 @@ export default function App() {
   };
 
   return (
+    
     <Router>
+      <Navbar loggedUser={loggedUser} logout={logout}/>
       <div>
         <nav>
+          <h3>These links below for testing</h3>
           <ul>
             <li>
               <Link to="/">Main Page</Link>
@@ -144,6 +149,10 @@ export default function App() {
 
           <Route path="/newgame">
             <NewGame />
+          </Route>
+
+          <Route path="/:gameid">
+            <JoinGame />  
           </Route>      
 
           <Route path="/">

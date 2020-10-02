@@ -1,0 +1,17 @@
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
+
+.hidden-words-board {
+  display: flex;
+  width: 100%;
+
+  border: 1px solid #000000;
+  border-radius: 5px;
+  margin-top: 20px;
+  
+  .hidden-words-board-words {
+    font-size: 0.7em;
+    font-weight: 700;
+    margin: 5px;
+  }
+}

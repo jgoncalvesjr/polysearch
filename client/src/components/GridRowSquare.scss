@@ -1,0 +1,27 @@
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
+
+.board-table-row-cell {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: space-between;
+  font-weight: 800;
+  font-size: 0.7em;
+  margin: 1px;     
+  width:23px;
+  height:18px;
+}
+.attempting {
+  background-color: #2349A9;
+  border: 1px solid #2349A9;
+  border-radius: 10%;
+  color: #FFF;
+}
+
+.solved {
+  background-color: #2371A9;
+  border: 1px solid #2349A9;
+  border-radius: 50%;
+  color: #FFF;    
+}
