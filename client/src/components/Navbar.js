@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {AppBar, Toolbar, IconButton, Typography, Button, Drawer} from '@material-ui/core';
 import { Menu, AccountCircle } from '@material-ui/icons';
 
-export default function Navbar() {
+export default function Navbar(props) {
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState('left');
   
@@ -16,6 +16,18 @@ export default function Navbar() {
     setOpen(true);
   }
 
+  const loginPageButton = () => {
+    document.location.href = "/login";
+  }
+
+  const registerPageButton = () => {
+    document.location.href = "/registration";
+  }
+
+  const logoButton = () => {
+    document.location.href = "/";
+  }
+
   return (
     <div>
       <AppBar position='static'>
@@ -23,13 +35,18 @@ export default function Navbar() {
           <IconButton onClick={handleDrawer} color='inherit' edge='start' aria-label='menu'>
             <Menu/>
           </IconButton>
+          
           <Typography variant='h6' style={{ flexGrow :1 }}>
-            PolySearch
+            <Button  color='inherit' onClick={logoButton}>
+              
+                PolySearch
+              
+            </Button>
           </Typography>
-          <Button color='inherit'>
+          <Button color='inherit' onClick={loginPageButton}>
             Login
           </Button>
-          <Button color='inherit'>
+          <Button color='inherit' onClick={registerPageButton}>
             Register
           </Button>
           <IconButton onClick={handleAccount} color='inherit'aria-label='account'>
