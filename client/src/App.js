@@ -64,7 +64,7 @@ export default function App() {
   return (
     
     <Router>
-      <Navbar loggedUser={loggedUser}/>
+      <Navbar loggedUser={loggedUser} logout={logout}/>
       <div>
         <nav>
           <ul>

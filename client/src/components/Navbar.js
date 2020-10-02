@@ -38,20 +38,41 @@ export default function Navbar(props) {
           
           <Typography variant='h6' style={{ flexGrow :1 }}>
             <Button  color='inherit' onClick={logoButton}>
-              
-                PolySearch
+               <Typography variant='h6'>
+                 PolySearch
+               </Typography>  
+                
               
             </Button>
           </Typography>
+          {! props.loggedUser &&
           <Button color='inherit' onClick={loginPageButton}>
             Login
-          </Button>
+          </Button>}
+
+          { props.loggedUser &&  
+          <Button color='inherit' onClick={props.logout}>
+            Logout
+          </Button>}
+
+          {props.loggedUser &&
+          <Typography variant='h6'>
+            {props.loggedUser}
+          </Typography>
+
+          }
+         
+          {! props.loggedUser &&
           <Button color='inherit' onClick={registerPageButton}>
             Register
-          </Button>
+          </Button>}
+         
+          { props.loggedUser &&
           <IconButton onClick={handleAccount} color='inherit'aria-label='account'>
-            <AccountCircle/>
-          </IconButton>
+            
+              <AccountCircle/>
+            
+          </IconButton>}
 
 
         </Toolbar>
