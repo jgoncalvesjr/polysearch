@@ -3,11 +3,12 @@ import io from 'socket.io-client'
 import TextField from '@material-ui/core/TextField'
 import './Chat.scss'
 
-const socket = io.connect('http://localhost:3002')
+const socket = io.connect('http://localhost:3001')
 
-export default function Chat() {
-  const [state, setState] = useState({ message: '', name: '' })
-  const [chat, setChat] = useState([])
+export default function Chat(props) {
+
+const [state, setState] = useState({ message: ''})
+const [chat, setChat] = useState([])
 
   useEffect(() => {
     socket.on('message', ({ name, message }) => {
@@ -21,9 +22,10 @@ export default function Chat() {
 
   const onMessageSubmit = e => {
     e.preventDefault()
-    const { name, message } = state
+    const name = props.loggedUser;
+    const { message } = state
     socket.emit('message', { name, message })
-    setState({ message: '', name })
+    setState({ message: ''})
   }
 
   const renderChat = () => {
@@ -41,14 +43,10 @@ return (
   <form onSubmit={onMessageSubmit}>
     <h1>Messenger</h1>
     <div className="name-field">
-      <TextField
-        name="name"
-        onChange={e => onTextChange(e)}
-        value={state.name}
-        label="Name"
-      />
+      <h2>Current User: {props.loggedUser}</h2>      
     </div>
     <div>
+
       <TextField
         name="message"
         onChange={e => onTextChange(e)}

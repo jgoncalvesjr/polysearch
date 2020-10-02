@@ -106,7 +106,7 @@ export default function App() {
             */}
         <Switch>
           <Route path="/chat">
-            <Chat />
+            <Chat loggedUser={loggedUser} />
           </Route>
 
           <Route path="/login">
