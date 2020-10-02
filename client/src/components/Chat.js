@@ -1,65 +1,70 @@
-import React from "react";
-const socket = require('socket.io');
+import React, { useState, useEffect } from 'react'
+import io from 'socket.io-client'
+import TextField from '@material-ui/core/TextField'
+import './Chat.scss'
+
+const socket = io.connect('http://localhost:3002')
 
 export default function Chat() {
-  let message = document.getElementById('message'),
-      handle = document.getElementById('handle'),
-      btn = document.getElementById('send'),
-      output = document.getElementById('output'),
-      feedback = document.getElementById('feedback');
+  const [state, setState] = useState({ message: '', name: '' })
+  const [chat, setChat] = useState([])
 
+  useEffect(() => {
+    socket.on('message', ({ name, message }) => {
+      setChat([...chat, { name, message }])
+    })
+  })
 
-//emit events
-btn.addEventListener('click', function(){
-socket.emit('chat', {
-message: message.value,
-handle: handle.value
-});
-message.value="";
-});
+  const onTextChange = e => {
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
 
-message.addEventListener('keypress', function(){
-socket.emit('typing', handle.value);
-})
+  const onMessageSubmit = e => {
+    e.preventDefault()
+    const { name, message } = state
+    socket.emit('message', { name, message })
+    setState({ message: '', name })
+  }
 
-//listen for events
-socket.on('chat', function(data){
-feedback.innerHTML = '';
-output.innerHTML += '<p><strong>' + data.handle + ':</strong>' + data.message + '</p>';
-});
-
-socket.on('typing', function(data){
-feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
-});
-
-
-//-----------------
-// Reactconversion
+  const renderChat = () => {
+    return chat.map(({ name, message }, index) => (
+      <div key={index}>
+        <h3>
+          {name}: <span>{message}</span>
+        </h3>
+      </div>
+    ))
+  }
 
 return (
-  <main>
-    <head>
-       
-        <title>Chat</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
-        <link href="/styles.css" rel="stylesheet" />
-    </head>
-    <body>
-
-        <div id="chat">
-            <h2>Chat</h2>
-            <div id="chat-window">
-                <div id="output"></div>
-                <div id="feedback"></div>
-            </div>
-            <input id="handle" type="text" placeholder="Handle" />
-            <input id="message" type="text" placeholder="Message" />
-            <button id="send">Send</button>
-        </div>
-
-
-    </body>
-    
-  </main>
+  <div className="card">
+  <form onSubmit={onMessageSubmit}>
+    <h1>Messanger</h1>
+    <div className="name-field">
+      <TextField
+        name="name"
+        onChange={e => onTextChange(e)}
+        value={state.name}
+        label="Name"
+      />
+    </div>
+    <div>
+      <TextField
+        name="message"
+        onChange={e => onTextChange(e)}
+        value={state.message}
+        id="outlined-multiline-static"
+        variant="outlined"
+        label="Message"
+      />
+    </div>
+    <button>Send Message</button>
+  </form>
+  <div className="render-chat">
+    <h1>Chat Log</h1>
+    {renderChat()}
+  </div>
+</div>
 )
+
 }
