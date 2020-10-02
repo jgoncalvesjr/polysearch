@@ -16,6 +16,8 @@ module.exports = ({ logUser }) => {
     };
     logUser(user)
       .then(result => {
+        console.log(result.password)
+        console.log(bcrypt.compareSync(user.password, result.password))
         if (bcrypt.compareSync(user.password, result.password)) {
       
           //console.log('login successful')
