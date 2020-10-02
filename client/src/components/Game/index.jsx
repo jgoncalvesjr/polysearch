@@ -8,7 +8,15 @@ const SETUP = "SETUP";
 const NEWGAME = "NEWGAME";
 export default function Game(props) {
   console.log("props", props);
-  const {mode, setMode, difficulty, setDifficulty} = useVisualMode(SETUP);
+  const {
+    mode, 
+    setMode, 
+    difficulty, 
+    setDifficulty, 
+    currentAttempts,
+    attempt, 
+    solvedAttempts,
+    solved} = useVisualMode(SETUP);
 
   const startGame = () => {
     //alert("get new game from server");
@@ -21,6 +29,10 @@ export default function Game(props) {
     })
   };
 
+  const selectGameContent = id => {
+    attempt(id);
+  };
+  
   return(
     <div>
       {mode === SETUP && <NewGameSetup 
@@ -28,7 +40,12 @@ export default function Game(props) {
         difficulty={difficulty} 
         setDifficulty={setDifficulty} 
       />}
-      {mode === NEWGAME && <GameBoard game={props.game}/>}
+      {mode === NEWGAME && <GameBoard 
+        game={props.game}
+        selectGameContent={selectGameContent}
+        currentAttempts={currentAttempts}
+        solvedAttempts={solvedAttempts}
+      />}
     </div>
   );
 }

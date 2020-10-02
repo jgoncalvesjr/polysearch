@@ -15,7 +15,7 @@ const getWords = data => {
     const obj = {};
     obj.language = result.language;
     if (Array.isArray(result.headword)) {
-      obj.word = result.headword[Math.round(Math.random() * 1)].text;
+      obj.word = result.headword[Math.floor(Math.random() * 1)].text;
     } else {
       obj.word = result.headword.text;
     }
@@ -40,7 +40,7 @@ const getAllMockWords = () => {
 
 const randomLanguage = () => {
   const languages = ['en', 'br', 'fr', 'es', 'it'];
-  return languages[Math.round(Math.random() * languages.length)];
+  return languages[Math.floor(Math.random() * languages.length)];
 };
 
 const apiCall = language => {
@@ -74,8 +74,8 @@ const getGameWords = async(languages, words) => {
   // console.log(data.length);
   // console.log(gameLanguages);
   while (block.length < words) {
-    const newWord = data[Math.round(Math.random() * data.length)];
-    if (gameLanguages.includes(newWord.language) && newWord.word.length >= 3 && newWord.word.length <= 10) {
+    const newWord = data[Math.floor(Math.random() * data.length)];
+    if (newWord && gameLanguages.includes(newWord.language) && newWord.word.length >= 3 && newWord.word.length <= 10) {
       block.push(newWord);
     }
   }
@@ -97,7 +97,7 @@ const getMockGameWords = (languages, words) => {
   }
   // console.log(gameLanguages);
   while (block.length < words) {
-    const newWord = data[Math.round(Math.random() * data.length)];
+    const newWord = data[Math.floor(Math.random() * data.length)];
     if (gameLanguages.includes(newWord.language) && newWord.word.length >= 3 && newWord.word.length <= 10) {
       block.push(newWord);
     }
