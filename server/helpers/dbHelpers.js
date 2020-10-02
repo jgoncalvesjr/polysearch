@@ -32,16 +32,29 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getDbGame = (game) => {
-    console.log(game)
+  const findGame = (url) => {
+    console.log(url)
     const query = {
-      text: `SELECT * FROM games WHERE id = $1`,
-      values: [game]
+      text: `SELECT * FROM games WHERE link = $1`,
+      values: [url]
     };
 
     return db
       .query(query)
-      .then((result) => result.rows[0])
+      .then((result) => {
+        const board = JSON.parse(result.rows[0].board);
+        const words = JSON.parse(result.rows[0].words); 
+        const game = {
+          id: result.rows[0].id,
+          host_id: result.rows[0].host_id,
+          link: result.rows[0].link,
+          mode: result.rows[0].mode,
+          multiplayer: result.rows[0].multiplayer
+        };
+        game.board = board;
+        game.words = words;
+        return game;
+      })
       .catch((err) => console.error('query error', err.stack));
   };
 
@@ -74,7 +87,7 @@ module.exports = (db) => {
   return {
     getUsers,
     getLanguages,
-    getDbGame,
+    findGame,
     getAllGames,
     addUser,
     logUser

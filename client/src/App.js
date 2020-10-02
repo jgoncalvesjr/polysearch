@@ -19,7 +19,8 @@ import Login from "./components/auth/Login"
 import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
-import Logout from './components/auth/Logout'
+import Logout from './components/auth/Logout';
+import JoinGame from './components/JoinGame';
 
 export default function App() {
 
@@ -136,6 +137,10 @@ export default function App() {
 
           <Route path="/newgame">
             <NewGame />
+          </Route>
+
+          <Route path="/:gameid">
+            <JoinGame />  
           </Route>      
 
           <Route path="/">
