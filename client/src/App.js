@@ -19,6 +19,7 @@ import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
 import Logout from './components/auth/Logout';
+import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
 
 
@@ -140,6 +141,10 @@ export default function App() {
 
           <Route path="/newgame">
             <NewGame />
+          </Route>
+
+          <Route path="/:gameid">
+            <JoinGame />  
           </Route>      
 
           <Route path="/">
