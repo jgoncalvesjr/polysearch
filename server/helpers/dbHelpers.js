@@ -41,20 +41,7 @@ module.exports = (db) => {
 
     return db
       .query(query)
-      .then((result) => {
-        const board = JSON.parse(result.rows[0].board);
-        const words = JSON.parse(result.rows[0].words); 
-        const game = {
-          id: result.rows[0].id,
-          host_id: result.rows[0].host_id,
-          link: result.rows[0].link,
-          mode: result.rows[0].mode,
-          multiplayer: result.rows[0].multiplayer
-        };
-        game.board = board;
-        game.words = words;
-        return game;
-      })
+      .then((result) => result.rows[0])
       .catch((err) => console.error('query error', err.stack));
   };
 

@@ -15,7 +15,7 @@ export default function JoinGame(props) {
       console.log(data);
     })
       .catch(err => console.log(err));
-  }, []);
+  }, [gameid]);
 
   return <></>;
   
