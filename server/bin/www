@@ -7,6 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
+const { isObject } = require('util');
 
 /**
  * Get port from environment and store in Express.
@@ -88,3 +89,47 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+/* Websocket Content */
+
+//OLD
+// for the websocket connection
+// const socket = require('socket.io');
+// //socket setup
+// const io = socket(server);
+
+// io.on('connection', function(socket){
+//   console.log('made socket connection', socket.id)
+
+//   socket.on('chat', function(data){
+//     io.sockets.emit('chat', data);
+//   });
+
+//   socket.on('typing', function(data){
+//     socket.broadcast.emit('typing', data);
+//   });
+  
+// });
+
+// NEW
+// const io = require('socket.io')(http)
+
+// io.on('connection', socket => {
+//   socket.on('message', ({ name, message }) => {
+//     io.emit('message', { name, message })
+//   })
+// });
+// NEW END
+
+//testing
+const socket = require('socket.io');
+const io = socket(server);
+
+io.on('connection', socket => {
+  socket.on('message', ({ name, message }) => {
+    io.emit('message', { name, message })
+  })
+});
+
+/* Websocket Content End*/

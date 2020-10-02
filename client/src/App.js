@@ -18,7 +18,8 @@ import NewGameSetup from "./components/NewGameSetup";
 import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
-import Logout from './components/auth/Logout';
+import Logout from './components/auth/Logout'
+import Chat from './components/Chat';
 import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
 
@@ -73,6 +74,9 @@ export default function App() {
               <Link to="/">Main Page</Link>
             </li>
             <li>
+              <Link to="chat">Chat</Link>
+            </li>
+            <li>
               <Link to="/multiplayer-lobby">Multiplayer Lobby</Link>
             </li>
             <li>
@@ -101,6 +105,10 @@ export default function App() {
             NOTE THAT ORDER MATTERS HERE!             
             */}
         <Switch>
+          <Route path="/chat">
+            <Chat loggedUser={loggedUser} />
+          </Route>
+
           <Route path="/login">
             <LoginFcn
              username={username}
