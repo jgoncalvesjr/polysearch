@@ -88,3 +88,26 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+/* Websocket Content */
+
+// for the websocket connection
+const socket = require('socket.io');
+//socket setup
+const io = socket(server);
+
+io.on('connection', function(socket){
+  console.log('made socket connection', socket.id)
+
+  socket.on('chat', function(data){
+    io.sockets.emit('chat', data);
+  });
+
+  socket.on('typing', function(data){
+    socket.broadcast.emit('typing', data);
+  });
+  
+});
+
+/* Websocket Content End*/

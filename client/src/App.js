@@ -20,6 +20,7 @@ import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
 import Logout from './components/auth/Logout'
+import Chat from './components/Chat';
 
 export default function App() {
 
@@ -68,6 +69,9 @@ export default function App() {
               <Link to="/">Main Page</Link>
             </li>
             <li>
+              <Link to="chat">Chat</Link>
+            </li>
+            <li>
               <Link to="/multiplayer-lobby">Multiplayer Lobby</Link>
             </li>
             <li>
@@ -96,6 +100,10 @@ export default function App() {
             NOTE THAT ORDER MATTERS HERE!             
             */}
         <Switch>
+          <Route path="/chat">
+            <Chat />
+          </Route>
+
           <Route path="/login">
             <LoginFcn
              username={username}
