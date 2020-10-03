@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-const {getGamesByUsers} = require('../helpers/dataHelpers');
+const {getGamesByUser} = require('../helpers/dataHelpers');
 
 /* GET users listing. */
 module.exports = ({ getUserProfile, updateUser, getUsers }) => {
@@ -17,7 +17,7 @@ module.exports = ({ getUserProfile, updateUser, getUsers }) => {
   router.get('/:id', (req, res) => {
     const id = req.body.id;
     getUserProfile(id)
-      .then((user) => res.status(200).json(getGamesByUsers(user)))
+      .then((user) => res.status(200).json(getGamesByUser(user)))
       .catch((err) => res.json({ err }));
   });
   
@@ -31,7 +31,7 @@ module.exports = ({ getUserProfile, updateUser, getUsers }) => {
     updateUser(user)
       .then(() => {
         getUserProfile(user.id)
-          .then((user) => res.status(200).json(getGamesByUsers(user)))
+          .then((user) => res.status(200).json(getGamesByUser(user)))
           .catch((err) => res.json({ err }));
       })
       .catch((err) => res.json({ err }));

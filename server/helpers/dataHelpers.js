@@ -21,12 +21,12 @@ const pickLanguages = mode => {
 }
 
 
-const getGamesByUsers = (usersGames) => {
-  const gamesByUsers = {};
+const getGamesByUser = (userGames) => {
+  const gamesByUser = {};
 
-  for (let game of usersGames) {
-    if (!gamesByUsers[game.id]) {
-      gamesByUsers[game.id] = {
+  for (let game of userGames) {
+    if (!gamesByUser[game.id]) {
+      gamesByUser[game.id] = {
         id: game.id,
         username: game.username,
         avatar: game.avatar,
@@ -34,20 +34,21 @@ const getGamesByUsers = (usersGames) => {
       };
     }
 
-    gamesByUsers[game.id].games.push({
+    gamesByUser[game.id].games.push({
       link: game.link,
       mode: game.mode,
       multiplayer: game.multiplayer
     });
   }
 
-  const result = Object.values(gamesByUsers);
-  console.log(result);
-  return result;
+  // const userProfile = gamesByUsers[0];
+  const result = Object.values(gamesByUser);
+  const userProfile = result[0];
+  return userProfile;
 };
 
 module.exports = {
   generateRandomString,
   pickLanguages,
-  getGamesByUsers
+  getGamesByUser
 };
