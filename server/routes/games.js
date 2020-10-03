@@ -22,7 +22,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
     };
     getMockGame()
       .then(data => {
-        newGame.board = JSON.stringify(data.rows);
+        newGame.rows = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
         addGame(newGame)
           .then((data) => res.status(200).json(data))
@@ -46,7 +46,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
     findGame(url)
       .then((data) => {
         if (data) {
-          const board = JSON.parse(data.board);
+          const rows = JSON.parse(data.rows);
           const words = JSON.parse(data.words); 
           const game = {
           id: data.id,
@@ -55,7 +55,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
           mode: data.mode,
           multiplayer: data.multiplayer
         };
-          game.board = board;
+          game.rows = rows;
           game.words = words;
           res.status(200).json(game);
         } else {
