@@ -55,7 +55,7 @@ const getMockGame = (mode) => {
   return new Promise((resolve, reject) => {
     try {
       const languages = pickLanguages(mode);
-      console.log(languages);
+      console.log("languages", languages);
       const gameWords = getMockGameWords(languages, NumberOfWordsOnBoard);
       const boardWords = getBoardWords(gameWords);
       const puzzle = generator.generate({

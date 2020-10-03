@@ -20,8 +20,10 @@ module.exports = ({addGame, findGame, getAllGames}) => {
       multiplayer: req.body.multiplayer,
       link: generateRandomString()
     };
+    
     getMockGame(newGame.mode)
       .then(data => {
+        console.log("data", data);
         newGame.rows = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
         addGame(newGame)

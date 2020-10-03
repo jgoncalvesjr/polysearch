@@ -43,15 +43,16 @@ const useApplicationData = () => {
       console.log(`clicked start new game`)
       let currentUserId = localStorage.getItem('userId');
       console.log('here is the currentuserid: ', currentUserId);
-      return axios.put("/api/games", {
+      return axios.put("http://localhost:3001/api/games", {
         
           host_id: currentUserId,
+          mode: difficultyLevel.toLowerCase(),
           multiplayer: multiplayer,
-          mode: difficultyLevel
+          
       }
       ).then(response => {
         console.log("start new game response", response);   
-        dispatch({ type: SET_NEW_GAME, game: response });
+        //dispatch({ type: SET_NEW_GAME, game: response });
         resolve(response);
       })
       .catch(error => {
