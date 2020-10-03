@@ -1,0 +1,16 @@
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
+
+.hidden-words-board-words {
+  font-size: 0.7em;
+  font-weight: 500;
+  margin: 5px;
+  padding: 2px 5px 2px 5px;
+  color: #FFF;
+}
+
+.found {
+  background-color:  #152b77;
+  border: 1px solid #2349A9;
+  color: #FFF;  
+}

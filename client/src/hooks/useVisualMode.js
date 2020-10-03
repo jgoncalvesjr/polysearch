@@ -5,23 +5,30 @@ function useVisualMode(initMode) {
   const [difficulty, setDifficulty] = useState("Easy");
 
   //store GridRowSquare id being attempted on the board here
-  const [currentAttempts, setCurrentAttempts] = useState([]);
+  const [attempts, setAttempts] = useState([]);
   
   //Array of arrays of solved GridRowSquare ids.
   //length of array is score.
-  const [solvedAttempts, setSolvedAttempts] = useState([]);
+  const [solved, setSolved] = useState([]);
 
-  const attempt = (id) => {
-    const attempts = [...currentAttempts, id];
-    setCurrentAttempts(attempts);
+  const addAttempt = (id, row, col, replace = false) => {
+    //console.log("adding first attempt", id);
+    if (replace) {
+      const newAtempts = [{id, row, col}];
+      setAttempts(newAtempts);
+    } else {
+      const TmpAttempts = [...attempts, {id, row, col}];
+      setAttempts(TmpAttempts);
+    }
   };
-  const solved = () => {
-    const tmpSolved = [...solvedAttempts, currentAttempts];
-    setSolvedAttempts(tmpSolved);
-    setCurrentAttempts({});
+  const SetCurrentSolved = () => {
+    const tmpSolved = [...solved, attempts];
+    setSolved(tmpSolved);
+    const tmpArray = [];
+    setAttempts(tmpArray);
   }
 
-  return {mode, setMode, difficulty, setDifficulty, currentAttempts, attempt, solvedAttempts, solved};
+  return {mode, setMode, difficulty, setDifficulty, attempts, addAttempt, solved, SetCurrentSolved};
 }
 
 export default useVisualMode;

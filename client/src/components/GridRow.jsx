@@ -6,17 +6,17 @@ import GridRowSquare from './GridRowSquare';
 export default function GridRow(props) {
 
   const getSolved = id => {
-    if (!props.solvedAttempts) {
+    if (!props.solved) {
       return false;
     }
-    return props.solvedAttempts.flat().includes(id);
+    return props.solved.flat().find(el => el.id === id)? true : false;
   };
 
   const getAttempted = id => {
-    if (!props.currentAttempts) {
+    if (!props.attempts) {
       return false;
     }
-    return props.currentAttempts.includes(id);
+    return props.attempts.find(el => el.id === id)? true : false;
   };
   const row = props.row.map((el, index) => {
     const id = `${props.rowid}-${index}`;

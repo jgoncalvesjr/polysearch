@@ -2,16 +2,18 @@
 @import "../styles/variables.scss";
 
 .hidden-words-board {
+  position: relative;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
   width: 100%;
+  height: 30%;
 
   border: 1px solid #000000;
   border-radius: 5px;
-  margin-top: 20px;
-  
-  .hidden-words-board-words {
-    font-size: 0.7em;
-    font-weight: 700;
-    margin: 5px;
-  }
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #2349A9;
+  border: 1px solid #2349A9;
 }
