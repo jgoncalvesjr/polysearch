@@ -1,4 +1,4 @@
-INSERT INTO games (host_id, link, board, words, mode, multiplayer)
+INSERT INTO games (host_id, link, rows, words, mode, multiplayer)
 VALUES (
   2,
   'abcdef',
