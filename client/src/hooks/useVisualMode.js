@@ -3,6 +3,7 @@ import {useState} from 'react';
 function useVisualMode(initMode) {
   const [mode, setMode] = useState(initMode);
   const [difficulty, setDifficulty] = useState("Easy");
+  const [multiplayer, setMultiplayer] = useState(false);
 
   //store GridRowSquare id being attempted on the board here
   const [attempts, setAttempts] = useState([]);
@@ -28,7 +29,7 @@ function useVisualMode(initMode) {
     setAttempts(tmpArray);
   }
 
-  return {mode, setMode, difficulty, setDifficulty, attempts, addAttempt, solved, SetCurrentSolved};
+  return {mode, setMode, difficulty, setDifficulty, attempts, addAttempt, solved, SetCurrentSolved, multiplayer, setMultiplayer};
 }
 
 export default useVisualMode;

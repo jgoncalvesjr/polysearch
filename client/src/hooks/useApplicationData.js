@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
-import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME } from '../reducers/dataReducer';
+import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL } from '../reducers/dataReducer';
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
@@ -22,7 +22,7 @@ const useApplicationData = () => {
   }, []);
 
   //TODO: need to change to put once we are creating game in database.
-  const getNewGame = () => {
+  const getNewGame2 = () => {
     return new Promise((resolve, reject) => {
       axios({
         method: 'GET',
@@ -37,6 +37,30 @@ const useApplicationData = () => {
       });
     });
   };
+
+  const getNewGame = function(multiplayer, difficultyLevel) {
+    return new Promise((resolve, reject) => {
+      console.log(`clicked start new game`)
+      let currentUserId = localStorage.getItem('userId');
+      console.log('here is the currentuserid: ', currentUserId);
+      return axios.put("http://localhost:3001/api/games", {
+        
+          host_id: currentUserId,
+          mode: difficultyLevel.toLowerCase(),
+          multiplayer: multiplayer,
+          
+      }
+      ).then(({ data }) => {
+        console.log("start new game response", data);   
+        dispatch({ type: SET_NEW_GAME, game: data });
+        resolve(data);
+      })
+      .catch(error => {
+        console.log("start new game call error: ", error);
+        reject(error);
+      })
+    });
+  };  
 
   //const setDifficulty = pdifficulty => dispatch({type: DIFFICULTY_SETTING, difficulty: pdifficulty});
 
