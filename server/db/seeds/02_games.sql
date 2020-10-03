@@ -2036,7 +2036,7 @@ true
       "definition":"thin slices of salted pork"
    }
 ]',
-'normal',
+'medium',
 true
 ),
 (
@@ -2546,7 +2546,7 @@ true
       "definition":"escolha ao acaso"
    }
 ]',
-'normal',
+'medium',
 true
 ),
 (
