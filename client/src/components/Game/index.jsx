@@ -28,10 +28,12 @@ export default function Game(props) {
       addAttempt, 
       clearAttempts, 
       solved, 
-      SetCurrentSolved
+      SetCurrentSolved,
+      multiplayer,
+      setMultiplayer
     } = useVisualMode(SETUP);
 
-  const checkSolved = () => {
+    const checkSolved = () => {
     if (attempts.length === 0) {
       return;
     }
@@ -55,7 +57,7 @@ export default function Game(props) {
     // this function is passed down to the NewGameSetup functional component Start Game button.
   const startGame = () => {
     //alert("get new game from server");
-    props.getNewGame()
+    props.getNewGame(multiplayer, difficulty)
     .then(() => {
       setMode(NEWGAME)
     })
@@ -160,12 +162,15 @@ export default function Game(props) {
     connectMoves(id);
   };
   checkSolved();
+  //{/*currentUserId*/}
   return(
     <div>
       {mode === SETUP && <NewGameSetup 
         startGame={startGame} 
         difficulty={difficulty} 
         setDifficulty={setDifficulty} 
+        multiplayer={multiplayer}
+        setMultiplayer={setMultiplayer}
       />}
       {mode === NEWGAME && <GameBoard 
         game={props.game}
