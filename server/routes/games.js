@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getGame, getMockGame} = require('../helpers/gameHelpers');
-const {generateRandomString} = require('../helpers/dataHelpers');
+// const {generateRandomString} = require('../helpers/dataHelpers');
 
 module.exports = ({addGame, findGame, getAllGames}) => {
   
@@ -13,21 +13,22 @@ module.exports = ({addGame, findGame, getAllGames}) => {
 
   // Create a new game and store into database
   router.post('/', (req, res) => {
+    console.log(req.body);
     const newGame = {
-      host_id : req.params.user_id,
-      mode: req.params.mode,
-      multiplayer: req.params.multiplayer,
-      link: generateRandomString()
+      host_id: req.body.host_id,
+      mode: req.body.mode,
+      multiplayer: req.body.multiplayer,
+      link: Math.random().toString(36).substring(2,8)
     };
-    getMockGame()
+    getGame()
       .then(data => {
         newGame.board = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
+        addGame(newGame)
+          .then((data) => res.status(200).json(data))
+          .catch((err) => res.status(400).json({ err })); 
       })
-      .catch((err) => res.json({ err }));
-      addGame(newGame)
-        .then((data) => res.status(200).json(data))
-        .catch((err) => res.status(400).json({ err })); 
+      .catch((err) => res.json({ err }));  
   });
 
   // Generate a new game board
