@@ -37,6 +37,22 @@ export default function JoinGame(props) {
   }, [gameid]);
 
   console.log('here is the actual data', dataNew)
+
+  // will need to know the host to show/hide the start game button.
+  const hostOfGame = dataNew.host_id;
+  console.log('host of the game is: ', hostOfGame);
+
+  // will need to get the current user to see if the id matches the hostid
+  const currentUserId = parseInt(localStorage.getItem('userId'));
+  console.log('current user id is: ', currentUserId);
+
+  // game id from the axios call.
+  const gameId = dataNew.id;
+
+
+  
+
+
   return (
   <main id="multiplayer-lobby">
   <div id="multiplayer-lobby-box">
@@ -48,7 +64,8 @@ export default function JoinGame(props) {
       <h3>Game Mode: </h3>
     </div>
     <div id='multiplayer-lobby-button-group'>
-      <button className="multiplayer-lobby-buttons" onClick={startGameButton}>Start Game</button>
+{ currentUserId === hostOfGame &&
+      <button className="multiplayer-lobby-buttons" onClick={startGameButton}>Start Game</button>}
       <button className="multiplayer-lobby-buttons" onClick={mainMenuButton}>Cancel</button>
     </div>
   </div>
@@ -64,4 +81,6 @@ Need to get it to display:
   -the players that are currently in the game.
   - chat
 
+
+  need to only show the start game button on this page if the currentUser is equal to the host.
 */
