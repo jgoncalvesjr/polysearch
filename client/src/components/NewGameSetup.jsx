@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { Children, useState } from "react";
 import DifficultyButton from "./DifficultyButton";
 //import useApplicationData from '../hooks/useApplicationData';
 import axios from "axios";
@@ -32,6 +32,19 @@ export default function NewGameSetup(props) {
     setDifficulty,
   } = useApplicationData();
  */
+
+  const [multiplayer, setMultiplayer] = useState(false);
+  const [difficultyLevel, setDifficultyLevel] = useState('');
+
+  // handler for multiplayer radio button
+  const handleMultiplayerToggle = (e) => {
+    setMultiplayer(e.target.value);
+  };
+
+  // handler for mode/difficultyLevel
+  const handleDifficultyLevel = (e) => {
+    setDifficultyLevel(e.target.value);
+  }
   /*
     For sending a post request to "/api/games"
     Must Send:
@@ -53,11 +66,12 @@ export default function NewGameSetup(props) {
   //e.preventDefault()
   console.log(`clicked start new game`)
   let currentUserId = localStorage.getItem('userId');
-  return axios.post("http://localhost:3001/api/games", {
+  console.log('here is the currentuserid: ', currentUserId);
+  return axios.put("http://localhost:3001/api/games", {
     
       host_id: currentUserId,
-      multiplayer: false,
-      mode: 'easy/test'
+      multiplayer: multiplayer,
+      mode: difficultyLevel
 
     
   }
@@ -65,7 +79,7 @@ export default function NewGameSetup(props) {
     console.log("start new game response", response);   
   })
   .catch(error => {
-    console.log("registration error", error);
+    console.log("start new game call error: ", error);
   })
 };
 
@@ -74,8 +88,11 @@ export default function NewGameSetup(props) {
 */
 
 let startGameButtonCombo = function() {
-  props.startGame();
-  startGameButtonPost();
+  
+    props.startGame();
+    startGameButtonPost();
+  
+
 };
 
   const dificultyButtonsArray = difficultySettings.map(el => {
@@ -97,9 +114,27 @@ let startGameButtonCombo = function() {
           <label for="single-player">Single Player</label>
         </div>
         <div>
-          <input type="radio" id="multi-player" name="gameType" value="multi-player" />
+          <input type="radio" id="multi-player" name="gameType" value={true} onChange={handleMultiplayerToggle} />
           <label for="multi-player">Multi Player</label>
         </div>       
+      </div>
+      <div style={{display:'flex', flexDirection: 'row', color:'#2371A9'}}>
+        <div>
+          <input type="radio" id="single-player" name="difficultyType" value="easy" onChange={handleDifficultyLevel} />
+          <label for="single-player">Easy</label>
+        </div>
+        <div>
+          <input type="radio" id="multi-player" name="difficultyType" value="medium" onChange={handleDifficultyLevel} />
+          <label for="multi-player">Medium</label>
+        </div>
+        <div>
+          <input type="radio" id="multi-player" name="difficultyType" value="hard" onChange={handleDifficultyLevel} />
+          <label for="multi-player">Hard</label>
+        </div>  
+        <div>
+          <input type="radio" id="multi-player" name="difficultyType" value="expert" onChange={handleDifficultyLevel} />
+          <label for="multi-player">Expert</label>
+        </div>         
       </div>
       <div>
         {dificultyButtonsArray}
