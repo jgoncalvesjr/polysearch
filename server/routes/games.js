@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getGame, getMockGame} = require('../helpers/gameHelpers');
-// const {generateRandomString} = require('../helpers/dataHelpers');
+const {generateRandomString} = require('../helpers/dataHelpers');
 
 module.exports = ({addGame, findGame, getAllGames}) => {
   
@@ -18,9 +18,9 @@ module.exports = ({addGame, findGame, getAllGames}) => {
       host_id: req.body.host_id,
       mode: req.body.mode,
       multiplayer: req.body.multiplayer,
-      link: Math.random().toString(36).substring(2,8)
+      link: generateRandomString()
     };
-    getMockGame()
+    getMockGame(newGame.mode)
       .then(data => {
         newGame.rows = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
@@ -33,7 +33,8 @@ module.exports = ({addGame, findGame, getAllGames}) => {
 
   // Generate a new game board
   router.get('/newgame', (req, res) => {
-    getMockGame().then((data) => res.json(data))
+    mockMode = 'hard';
+    getMockGame(mockMode).then((data) => res.json(data))
     .catch((err) => res.json({ err }));  
   });
 
