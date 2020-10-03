@@ -36,23 +36,17 @@ export default function Game(props) {
       return;
     }
     //go through current attempts and see if it match any words on the board
-    //console.log("attempts", attempts);
     const WordArray = attempts.map(el => {
       return props.game.rows[el.row][el.col];
     })
-    console.log("WordArray", WordArray);
     let word = WordArray.join('');
-    console.log("word", word);
     let found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
-    console.log("found", found);
     if (found) {
       SetCurrentSolved();
       return;
     }
     word = WordArray.reverse().join('');
-    console.log("reverse word", word);
     found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
-    console.log("reverse found", found);
     if (found) {
       SetCurrentSolved();
       return;
@@ -162,7 +156,6 @@ export default function Game(props) {
   const selectGameContent = id => {
     connectMoves(id);
   };
-  console.log("attempts", attempts);
   checkSolved();
   return(
     <div>
