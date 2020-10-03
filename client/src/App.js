@@ -11,8 +11,7 @@ import {
 } from "react-router-dom";
 
 import NewGameSetup from "./components/NewGameSetup";
-import Registration from './components/auth/Registration';
-import Login from "./components/auth/Login"
+
 //import NewGameSetup from "./components/NewGameSetup";
 //import GameBoard from "./components/GameBoard.jsx";
 //import Game from './components/Game';
@@ -20,6 +19,10 @@ import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
 import Logout from './components/auth/Logout'
+import Chat from './components/Chat';
+import JoinGame from './components/JoinGame';
+import Navbar from './components/Navbar';
+
 
 export default function App() {
 
@@ -60,12 +63,18 @@ export default function App() {
   };
 
   return (
+    
     <Router>
+      <Navbar loggedUser={loggedUser} logout={logout}/>
       <div>
         <nav>
+          <h3>These links below for testing</h3>
           <ul>
             <li>
               <Link to="/">Main Page</Link>
+            </li>
+            <li>
+              <Link to="chat">Chat</Link>
             </li>
             <li>
               <Link to="/multiplayer-lobby">Multiplayer Lobby</Link>
@@ -96,6 +105,10 @@ export default function App() {
             NOTE THAT ORDER MATTERS HERE!             
             */}
         <Switch>
+          <Route path="/chat">
+            <Chat loggedUser={loggedUser} />
+          </Route>
+
           <Route path="/login">
             <LoginFcn
              username={username}
@@ -136,6 +149,10 @@ export default function App() {
 
           <Route path="/newgame">
             <NewGame />
+          </Route>
+
+          <Route path="/:gameid">
+            <JoinGame />  
           </Route>      
 
           <Route path="/">

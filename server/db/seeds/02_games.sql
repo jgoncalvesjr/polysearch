@@ -445,66 +445,66 @@ VALUES (
 ]
 ]',
 '[
-{
-language: "fr",
-word: "cor",
-definition: "instrument de musique dans lequel on souffle"
-},
-{
-language: "es",
-word: "jaqueca",
-definition: "dolor fuerte de cabeza que puede ir acompañado de náuseas"
-},
-{
-language: "it",
-word: "cigolio",
-definition: "suono stridentente prolungato"
-},
-{
-language: "it",
-word: "municipio",
-definition: "l amministrazione comunale e la sua sede"
-},
-{
-language: "es",
-word: "barrote",
-definition: "barra gruesa para asegurar algo o impedir el paso"
-},
-{
-language: "es",
-word: "radón",
-definition: "gas noble radiactivo que se origina en la desintegración del radio"
-},
-{
-language: "it",
-word: "notula",
-definition: "conteggio dell onorario dovuto a un professionista"
-},
-{
-language: "es",
-word: "dock",
-definition: "muelle de un puerto que está rodeado de depósitos y almacenes donde se guarda la mercadería"
-},
-{
-language: "it",
-word: "antennista",
-definition: "tecnico che ripara e installa le antenne della televisione"
-},
-{
-language: "it",
-word: "turacciolo",
-definition: "tappo per chiudere le bottiglie"
-},
-{
-language: "es",
-word: "sobreático",
-definition: "piso situado encima del ático"
-},
-{
-language: "fr",
-word: "sauté",
-definition: "aliment cuit à feu vif"
-}
+   {
+      "language":"fr",
+      "word":"cor",
+      "definition":"instrument de musique dans lequel on souffle"
+   },
+   {
+      "language":"es",
+      "word":"jaqueca",
+      "definition":"dolor fuerte de cabeza que puede ir acompañado de náuseas"
+   },
+   {
+      "language":"it",
+      "word":"cigolio",
+      "definition":"suono stridentente prolungato"
+   },
+   {
+      "language":"it",
+      "word":"municipio",
+      "definition":"l amministrazione comunale e la sua sede"
+   },
+   {
+      "language":"es",
+      "word":"barrote",
+      "definition":"barra gruesa para asegurar algo o impedir el paso"
+   },
+   {
+      "language":"es",
+      "word":"radón",
+      "definition":"gas noble radiactivo que se origina en la desintegración del radio"
+   },
+   {
+      "language":"it",
+      "word":"notula",
+      "definition":"conteggio dell onorario dovuto a un professionista"
+   },
+   {
+      "language":"es",
+      "word":"dock",
+      "definition":"muelle de un puerto que está rodeado de depósitos y almacenes donde se guarda la mercadería"
+   },
+   {
+      "language":"it",
+      "word":"antennista",
+      "definition":"tecnico che ripara e installa le antenne della televisione"
+   },
+   {
+      "language":"it",
+      "word":"turacciolo",
+      "definition":"tappo per chiudere le bottiglie"
+   },
+   {
+      "language":"es",
+      "word":"sobreático",
+      "definition":"piso situado encima del ático"
+   },
+   {
+      "language":"fr",
+      "word":"sauté",
+      "definition":"aliment cuit à feu vif"
+   }
 ]',
 'hard',
 true
@@ -955,66 +955,66 @@ true
 ]
 ]',
 '[
-{
-language: "es",
-word: "randa",
-definition: "ladrón que roba cosas de poco valor"
-},
-{
-language: "br",
-word: "violoncelo",
-definition: "instrumento de cordas maior do que o violino"
-},
-{
-language: "en",
-word: "hesitation",
-definition: "the act of hesitating"
-},
-{
-language: "es",
-word: "bongó",
-definition: "instrumento musical caribeño de percusión"
-},
-{
-language: "en",
-word: "dent",
-definition: "a damaged area where the surface of sth has been pushed in"
-},
-{
-language: "es",
-word: "vikinga",
-definition: "persona que pertenecía a este pueblo"
-},
-{
-language: "br",
-word: "palito",
-definition: "pequena haste de madeira para limpar os dentes"
-},
-{
-language: "br",
-word: "estribo",
-definition: "peça onde se apoia o pé para subir"
-},
-{
-language: "br",
-word: "palito",
-definition: "pequena haste de madeira para limpar os dentes"
-},
-{
-language: "en",
-word: "ranking",
-definition: "a position or level in relation to others"
-},
-{
-language: "es",
-word: "huasteco",
-definition: "persona que es de la región mexicana de las Huastecas"
-},
-{
-language: "es",
-word: "retozo",
-definition: "acción de saltar y brincar de alegría"
-}
+   {
+      "language":"es",
+      "word":"randa",
+      "definition":"ladrón que roba cosas de poco valor"
+   },
+   {
+      "language":"br",
+      "word":"violoncelo",
+      "definition":"instrumento de cordas maior do que o violino"
+   },
+   {
+      "language":"en",
+      "word":"hesitation",
+      "definition":"the act of hesitating"
+   },
+   {
+      "language":"es",
+      "word":"bongó",
+      "definition":"instrumento musical caribeño de percusión"
+   },
+   {
+      "language":"en",
+      "word":"dent",
+      "definition":"a damaged area where the surface of sth has been pushed in"
+   },
+   {
+      "language":"es",
+      "word":"vikinga",
+      "definition":"persona que pertenecía a este pueblo"
+   },
+   {
+      "language":"br",
+      "word":"palito",
+      "definition":"pequena haste de madeira para limpar os dentes"
+   },
+   {
+      "language":"br",
+      "word":"estribo",
+      "definition":"peça onde se apoia o pé para subir"
+   },
+   {
+      "language":"br",
+      "word":"palito",
+      "definition":"pequena haste de madeira para limpar os dentes"
+   },
+   {
+      "language":"en",
+      "word":"ranking",
+      "definition":"a position or level in relation to others"
+   },
+   {
+      "language":"es",
+      "word":"huasteco",
+      "definition":"persona que es de la región mexicana de las Huastecas"
+   },
+   {
+      "language":"es",
+      "word":"retozo",
+      "definition":"acción de saltar y brincar de alegría"
+   }
 ]',
 'hard',
 false
@@ -1465,66 +1465,66 @@ false
 ]
 ]',
 '[
-{
-language: "it",
-word: "sgabuzzino",
-definition: "piccola stanza in cui si ripongono oggetti vari"
-},
-{
-language: "br",
-word: "fiasco",
-definition: "fracasso"
-},
-{
-language: "br",
-word: "espionagem",
-definition: "atividade de observação secreta"
-},
-{
-language: "fr",
-word: "charivari",
-definition: "bruit très fort"
-},
-{
-language: "es",
-word: "loft",
-definition: "vivienda adaptada a partir de una nave industrial"
-},
-{
-language: "es",
-word: "ubicación",
-definition: "situación o lugar donde se encuentra una cosa"
-},
-{
-language: "en",
-word: "May",
-definition: "the 5th month of the year"
-},
-{
-language: "en",
-word: "instinct",
-definition: "natural reactions and abilities that are done without thinking"
-},
-{
-language: "br",
-word: "agrônomo",
-definition: "pessoa que exerce a profissão da Agronomia"
-},
-{
-language: "br",
-word: "balanço",
-definition: "movimento oscilatório"
-},
-{
-language: "br",
-word: "feminismo",
-definition: "atitude de defesa dos direitos da mulher"
-},
-{
-language: "es",
-word: "vikingo",
-definition: "persona que pertenecía a este pueblo"
-}
+   {
+      "language":"it",
+      "word":"sgabuzzino",
+      "definition":"piccola stanza in cui si ripongono oggetti vari"
+   },
+   {
+      "language":"br",
+      "word":"fiasco",
+      "definition":"fracasso"
+   },
+   {
+      "language":"br",
+      "word":"espionagem",
+      "definition":"atividade de observação secreta"
+   },
+   {
+      "language":"fr",
+      "word":"charivari",
+      "definition":"bruit très fort"
+   },
+   {
+      "language":"es",
+      "word":"loft",
+      "definition":"vivienda adaptada a partir de una nave industrial"
+   },
+   {
+      "language":"es",
+      "word":"ubicación",
+      "definition":"situación o lugar donde se encuentra una cosa"
+   },
+   {
+      "language":"en",
+      "word":"May",
+      "definition":"the 5th month of the year"
+   },
+   {
+      "language":"en",
+      "word":"instinct",
+      "definition":"natural reactions and abilities that are done without thinking"
+   },
+   {
+      "language":"br",
+      "word":"agrônomo",
+      "definition":"pessoa que exerce a profissão da Agronomia"
+   },
+   {
+      "language":"br",
+      "word":"balanço",
+      "definition":"movimento oscilatório"
+   },
+   {
+      "language":"br",
+      "word":"feminismo",
+      "definition":"atitude de defesa dos direitos da mulher"
+   },
+   {
+      "language":"es",
+      "word":"vikingo",
+      "definition":"persona que pertenecía a este pueblo"
+   }
 ]',
 'expert',
 true
@@ -1975,66 +1975,66 @@ true
 ]
 ]',
 '[
-{
-language: "en",
-word: "cage",
-definition: "a container with bars for an animal to live in"
-},
-{
-language: "it",
-word: "bonsai",
-definition: "tecnica per coltivare piante nane e la pianta così coltivata"
-},
-{
-language: "en",
-word: "U-turn",
-definition: "a turn when you are driving that takes you in the opposite direction"
-},
-{
-language: "en",
-word: "sailboat",
-definition: "a boat that uses the wind to move"
-},
-{
-language: "en",
-word: "eyelashes",
-definition: "the hairs on your eyelids"
-},
-{
-language: "en",
-word: "preference",
-definition: "the fact of preferring sth, or the thing you prefer"
-},
-{
-language: "en",
-word: "fish",
-definition: "an animal with gills and fins that lives in water, or the meat of this animal"
-},
-{
-language: "en",
-word: "whim",
-definition: "a sudden desire"
-},
-{
-language: "en",
-word: "racecourse",
-definition: "an oval course where races happen"
-},
-{
-language: "en",
-word: "general",
-definition: "the highest-rank of officer in the army, air force, or marine corps"
-},
-{
-language: "it",
-word: "SIM",
-definition: "scheda di telefono cellulare"
-},
-{
-language: "en",
-word: "bacon",
-definition: "thin slices of salted pork"
-}
+   {
+      "language":"en",
+      "word":"cage",
+      "definition":"a container with bars for an animal to live in"
+   },
+   {
+      "language":"it",
+      "word":"bonsai",
+      "definition":"tecnica per coltivare piante nane e la pianta così coltivata"
+   },
+   {
+      "language":"en",
+      "word":"U-turn",
+      "definition":"a turn when you are driving that takes you in the opposite direction"
+   },
+   {
+      "language":"en",
+      "word":"sailboat",
+      "definition":"a boat that uses the wind to move"
+   },
+   {
+      "language":"en",
+      "word":"eyelashes",
+      "definition":"the hairs on your eyelids"
+   },
+   {
+      "language":"en",
+      "word":"preference",
+      "definition":"the fact of preferring sth, or the thing you prefer"
+   },
+   {
+      "language":"en",
+      "word":"fish",
+      "definition":"an animal with gills and fins that lives in water, or the meat of this animal"
+   },
+   {
+      "language":"en",
+      "word":"whim",
+      "definition":"a sudden desire"
+   },
+   {
+      "language":"en",
+      "word":"racecourse",
+      "definition":"an oval course where races happen"
+   },
+   {
+      "language":"en",
+      "word":"general",
+      "definition":"the highest-rank of officer in the army, air force, or marine corps"
+   },
+   {
+      "language":"it",
+      "word":"SIM",
+      "definition":"scheda di telefono cellulare"
+   },
+   {
+      "language":"en",
+      "word":"bacon",
+      "definition":"thin slices of salted pork"
+   }
 ]',
 'normal',
 true
@@ -2485,66 +2485,66 @@ true
 ]
 ]',
 '[
-{
-language: "br",
-word: "biombo",
-definition: "móvel que divide e isola um espaço"
-},
-{
-language: "br",
-word: "portaria",
-definition: "recepção de um edifício"
-},
-{
-language: "br",
-word: "utilitário",
-definition: "veículo de grande potência que transporta cargas pequenas ou passageiros"
-},
-{
-language: "br",
-word: "desafio",
-definition: "estímulo, provocação"
-},
-{
-language: "en",
-word: "hen",
-definition: "a female chicken"
-},
-{
-language: "br",
-word: "democrata",
-definition: "pessoa favorável à democracia"
-},
-{
-language: "br",
-word: "calçada",
-definition: "trecho pavimentado destinado à circulação de pedestres"
-},
-{
-language: "br",
-word: "anormal",
-definition: "pessoa com um comportamento que sai da norma"
-},
-{
-language: "br",
-word: "egoísmo",
-definition: "ato de pensar apenas em si próprio"
-},
-{
-language: "en",
-word: "grant",
-definition: "money supplied by the government to support a particular activity"
-},
-{
-language: "br",
-word: "prólogo",
-definition: "o que introduz um texto"
-},
-{
-language: "br",
-word: "sorteio",
-definition: "escolha ao acaso"
-}
+   {
+      "language":"br",
+      "word":"biombo",
+      "definition":"móvel que divide e isola um espaço"
+   },
+   {
+      "language":"br",
+      "word":"portaria",
+      "definition":"recepção de um edifício"
+   },
+   {
+      "language":"br",
+      "word":"utilitário",
+      "definition":"veículo de grande potência que transporta cargas pequenas ou passageiros"
+   },
+   {
+      "language":"br",
+      "word":"desafio",
+      "definition":"estímulo, provocação"
+   },
+   {
+      "language":"en",
+      "word":"hen",
+      "definition":"a female chicken"
+   },
+   {
+      "language":"br",
+      "word":"democrata",
+      "definition":"pessoa favorável à democracia"
+   },
+   {
+      "language":"br",
+      "word":"calçada",
+      "definition":"trecho pavimentado destinado à circulação de pedestres"
+   },
+   {
+      "language":"br",
+      "word":"anormal",
+      "definition":"pessoa com um comportamento que sai da norma"
+   },
+   {
+      "language":"br",
+      "word":"egoísmo",
+      "definition":"ato de pensar apenas em si próprio"
+   },
+   {
+      "language":"en",
+      "word":"grant",
+      "definition":"money supplied by the government to support a particular activity"
+   },
+   {
+      "language":"br",
+      "word":"prólogo",
+      "definition":"o que introduz um texto"
+   },
+   {
+      "language":"br",
+      "word":"sorteio",
+      "definition":"escolha ao acaso"
+   }
 ]',
 'normal',
 true
@@ -2995,66 +2995,66 @@ true
 ]
 ]',
 '[
-{
-language: "fr",
-word: "indicatif",
-definition: "chiffre placé devant un numéro de téléphone et correspondant à un pays"
-},
-{
-language: "br",
-word: "máquina",
-definition: "aparelho que efetua um trabalho"
-},
-{
-language: "fr",
-word: "agenda",
-definition: "carnet de rendez-vous"
-},
-{
-language: "it",
-word: "lucerna",
-definition: "lume portatile a combustibile liquido"
-},
-{
-language: "br",
-word: "indígena",
-definition: "aquele que é natural de um país"
-},
-{
-language: "br",
-word: "democrata",
-definition: "pessoa favorável à democracia"
-},
-{
-language: "it",
-word: "zoom",
-definition: "obiettivo complesso in grado di variare la lunghezza focale"
-},
-{
-language: "fr",
-word: "mirabelle",
-definition: "petit fruit jaune qu on récolte dans le nord-est de la France"
-},
-{
-language: "br",
-word: "agrônomo",
-definition: "pessoa que exerce a profissão da Agronomia"
-},
-{
-language: "fr",
-word: "fascicule",
-definition: "livre de très peu de pages"
-},
-{
-language: "fr",
-word: "balafre",
-definition: "longue cicatrice due à une coupure"
-},
-{
-language: "fr",
-word: "vaguelette",
-definition: "petite vague"
-}
+   {
+      "language":"fr",
+      "word":"indicatif",
+      "definition":"chiffre placé devant un numéro de téléphone et correspondant à un pays"
+   },
+   {
+      "language":"br",
+      "word":"máquina",
+      "definition":"aparelho que efetua um trabalho"
+   },
+   {
+      "language":"fr",
+      "word":"agenda",
+      "definition":"carnet de rendez-vous"
+   },
+   {
+      "language":"it",
+      "word":"lucerna",
+      "definition":"lume portatile a combustibile liquido"
+   },
+   {
+      "language":"br",
+      "word":"indígena",
+      "definition":"aquele que é natural de um país"
+   },
+   {
+      "language":"br",
+      "word":"democrata",
+      "definition":"pessoa favorável à democracia"
+   },
+   {
+      "language":"it",
+      "word":"zoom",
+      "definition":"obiettivo complesso in grado di variare la lunghezza focale"
+   },
+   {
+      "language":"fr",
+      "word":"mirabelle",
+      "definition":"petit fruit jaune qu on récolte dans le nord-est de la France"
+   },
+   {
+      "language":"br",
+      "word":"agrônomo",
+      "definition":"pessoa que exerce a profissão da Agronomia"
+   },
+   {
+      "language":"fr",
+      "word":"fascicule",
+      "definition":"livre de très peu de pages"
+   },
+   {
+      "language":"fr",
+      "word":"balafre",
+      "definition":"longue cicatrice due à une coupure"
+   },
+   {
+      "language":"fr",
+      "word":"vaguelette",
+      "definition":"petite vague"
+   }
 ]',
 'hard',
 false

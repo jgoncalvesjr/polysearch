@@ -31,7 +31,7 @@ export default function RegistrationFcn(props) {
   const registerButton = (e) => {
     e.preventDefault()
     console.log(`clicked`)
-    return axios.post("http://localhost:3002/register", {
+    return axios.post("/register", {
       
         email: props.email,
         password: props.password,
