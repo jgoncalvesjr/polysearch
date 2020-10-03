@@ -58,7 +58,8 @@ export default function App() {
 
   const logout = () => {
     console.log('you pressed logout');
-    localStorage.removeItem('username')
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
     setLoggedUser('')
   };
 

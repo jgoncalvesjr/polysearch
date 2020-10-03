@@ -52,6 +52,7 @@ export default function Game(props) {
       return;
     }    
   };
+    // this function is passed down to the NewGameSetup functional component Start Game button.
   const startGame = () => {
     //alert("get new game from server");
     props.getNewGame()
@@ -152,6 +153,8 @@ export default function Game(props) {
         addAttempt(id, row, col, true);
       } 
   }
+
+
 
   const selectGameContent = id => {
     connectMoves(id);
