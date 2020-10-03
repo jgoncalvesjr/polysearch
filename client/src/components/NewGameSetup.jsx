@@ -1,6 +1,7 @@
-import React, { Children } from "react";
+import React, { Children, useState } from "react";
 import DifficultyButton from "./DifficultyButton";
 //import useApplicationData from '../hooks/useApplicationData';
+import axios from "axios";
 
 const difficultySettings = [
   {
@@ -31,6 +32,69 @@ export default function NewGameSetup(props) {
     setDifficulty,
   } = useApplicationData();
  */
+
+  const [multiplayer, setMultiplayer] = useState(false);
+  const [difficultyLevel, setDifficultyLevel] = useState('');
+
+  // handler for multiplayer radio button
+  const handleMultiplayerToggle = (e) => {
+    setMultiplayer(e.target.value);
+  };
+
+  // handler for mode/difficultyLevel
+  const handleDifficultyLevel = (e) => {
+    setDifficultyLevel(e.target.value);
+  }
+  /*
+    For sending a post request to "/api/games"
+    Must Send:
+      -difficulty: string
+      -hostId: current playerID
+      -multiplayer: boolean
+
+    Plan: 
+    Current userId: On the register and login functions where the username is stored into the local storage, also store the user id.
+    Save it to the local storage.
+
+    multiplayer: pass down as prop
+
+    difficulty: pass down as prop
+
+
+  */
+ const startGameButtonPost = function() {
+  //e.preventDefault()
+  console.log(`clicked start new game`)
+  let currentUserId = localStorage.getItem('userId');
+  console.log('here is the currentuserid: ', currentUserId);
+  return axios.put("http://localhost:3001/api/games", {
+    
+      host_id: currentUserId,
+      multiplayer: multiplayer,
+      mode: difficultyLevel
+
+    
+  }
+  ).then(response => {
+    console.log("start new game response", response);   
+  })
+  .catch(error => {
+    console.log("start new game call error: ", error);
+  })
+};
+
+/*
+  End of post request to api/games
+*/
+
+let startGameButtonCombo = function() {
+  
+    props.startGame();
+    startGameButtonPost();
+  
+
+};
+
   const dificultyButtonsArray = difficultySettings.map(el => {
   return <DifficultyButton 
           key={el.id} 
@@ -50,9 +114,27 @@ export default function NewGameSetup(props) {
           <label for="single-player">Single Player</label>
         </div>
         <div>
-          <input type="radio" id="multi-player" name="gameType" value="multi-player" />
+          <input type="radio" id="multi-player" name="gameType" value={true} onChange={handleMultiplayerToggle} />
           <label for="multi-player">Multi Player</label>
         </div>       
+      </div>
+      <div style={{display:'flex', flexDirection: 'row', color:'#2371A9'}}>
+        <div>
+          <input type="radio" id="single-player" name="difficultyType" value="easy" onChange={handleDifficultyLevel} />
+          <label for="single-player">Easy</label>
+        </div>
+        <div>
+          <input type="radio" id="multi-player" name="difficultyType" value="medium" onChange={handleDifficultyLevel} />
+          <label for="multi-player">Medium</label>
+        </div>
+        <div>
+          <input type="radio" id="multi-player" name="difficultyType" value="hard" onChange={handleDifficultyLevel} />
+          <label for="multi-player">Hard</label>
+        </div>  
+        <div>
+          <input type="radio" id="multi-player" name="difficultyType" value="expert" onChange={handleDifficultyLevel} />
+          <label for="multi-player">Expert</label>
+        </div>         
       </div>
       <div>
         {dificultyButtonsArray}
@@ -77,7 +159,7 @@ export default function NewGameSetup(props) {
         <div><input value="06:00" /></div>
       </div>
       <div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-        <div><button onClick={props.startGame}>Start Game</button></div>
+        <div><button onClick={startGameButtonCombo}>Start Game</button></div>
         <div><button>Cancel</button></div>
       </div>
     </div>
