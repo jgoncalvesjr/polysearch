@@ -3,7 +3,7 @@ CREATE TABLE "games" (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "host_id" int NOT NULL,
   "link" varchar,
-  "board" varchar NOT NULL,
+  "rows" varchar NOT NULL,
   "words" varchar NOT NULL,
   "mode" varchar NOT NULL,
   "multiplayer" boolean NOT NULL

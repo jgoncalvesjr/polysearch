@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {getGame, getMockGame} = require('../helpers/gameHelpers');
-// const {generateRandomString} = require('../helpers/dataHelpers');
+const {generateRandomString} = require('../helpers/dataHelpers');
 
 module.exports = ({addGame, findGame, getAllGames}) => {
   
@@ -18,11 +18,11 @@ module.exports = ({addGame, findGame, getAllGames}) => {
       host_id: req.body.host_id,
       mode: req.body.mode,
       multiplayer: req.body.multiplayer,
-      link: Math.random().toString(36).substring(2,8)
+      link: generateRandomString()
     };
-    getMockGame()
+    getMockGame(newGame.mode)
       .then(data => {
-        newGame.board = JSON.stringify(data.rows);
+        newGame.rows = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
         addGame(newGame)
           .then((data) => res.status(200).json(data))
@@ -33,7 +33,8 @@ module.exports = ({addGame, findGame, getAllGames}) => {
 
   // Generate a new game board
   router.get('/newgame', (req, res) => {
-    getMockGame().then((data) => res.json(data))
+    mockMode = 'hard';
+    getMockGame(mockMode).then((data) => res.json(data))
     .catch((err) => res.json({ err }));  
   });
 
@@ -46,7 +47,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
     findGame(url)
       .then((data) => {
         if (data) {
-          const board = JSON.parse(data.board);
+          const rows = JSON.parse(data.rows);
           const words = JSON.parse(data.words); 
           const game = {
           id: data.id,
@@ -55,7 +56,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
           mode: data.mode,
           multiplayer: data.multiplayer
         };
-          game.board = board;
+          game.rows = rows;
           game.words = words;
           res.status(200).json(game);
         } else {
