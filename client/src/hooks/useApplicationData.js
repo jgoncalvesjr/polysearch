@@ -50,10 +50,10 @@ const useApplicationData = () => {
           multiplayer: multiplayer,
           
       }
-      ).then(response => {
-        console.log("start new game response", response);   
-        //dispatch({ type: SET_NEW_GAME, game: response });
-        resolve(response);
+      ).then(({ data }) => {
+        console.log("start new game response", data);   
+        dispatch({ type: SET_NEW_GAME, game: data });
+        resolve(data);
       })
       .catch(error => {
         console.log("start new game call error: ", error);

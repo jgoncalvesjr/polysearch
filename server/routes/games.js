@@ -27,7 +27,20 @@ module.exports = ({addGame, findGame, getAllGames}) => {
         newGame.rows = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
         addGame(newGame)
-          .then((data) => res.status(200).json(data))
+          .then((data) => {
+            const rows = JSON.parse(data.rows);
+            const words = JSON.parse(data.words); 
+            const game = {
+            id: data.id,
+            host_id: data.host_id,
+            link: data.link,
+            mode: data.mode,
+            multiplayer: data.multiplayer
+            };
+            game.rows = rows;
+            game.words = words;
+            res.status(200).json(game);
+          })  
           .catch((err) => res.status(400).json({ err })); 
       })
       .catch((err) => res.json({ err }));  
