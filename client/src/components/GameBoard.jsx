@@ -21,8 +21,8 @@ export default function GameBoard(props) {
         rowid={index} 
         row={row} 
         selectGameContent={props.selectGameContent}
-        currentAttempts={props.currentAttempts}
-        solvedAttempts={props.solvedAttempts}        
+        attempts={props.attempts}
+        solved={props.solved}        
       />
   });
   return (
