@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 import DifficultyButton from "./DifficultyButton";
 //import useApplicationData from '../hooks/useApplicationData';
+import axios from "axios";
 
 const difficultySettings = [
   {
@@ -31,6 +32,52 @@ export default function NewGameSetup(props) {
     setDifficulty,
   } = useApplicationData();
  */
+  /*
+    For sending a post request to "/api/games"
+    Must Send:
+      -difficulty: string
+      -hostId: current playerID
+      -multiplayer: boolean
+
+    Plan: 
+    Current userId: On the register and login functions where the username is stored into the local storage, also store the user id.
+    Save it to the local storage.
+
+    multiplayer: pass down as prop
+
+    difficulty: pass down as prop
+
+
+  */
+ const startGameButtonPost = function() {
+  //e.preventDefault()
+  console.log(`clicked start new game`)
+  let currentUserId = localStorage.getItem('userId');
+  return axios.post("http://localhost:3001/api/games", {
+    
+      host_id: currentUserId,
+      multiplayer: false,
+      mode: 'easy/test'
+
+    
+  }
+  ).then(response => {
+    console.log("start new game response", response);   
+  })
+  .catch(error => {
+    console.log("registration error", error);
+  })
+};
+
+/*
+  End of post request to api/games
+*/
+
+let startGameButtonCombo = function() {
+  props.startGame();
+  startGameButtonPost();
+};
+
   const dificultyButtonsArray = difficultySettings.map(el => {
   return <DifficultyButton 
           key={el.id} 
@@ -77,7 +124,7 @@ export default function NewGameSetup(props) {
         <div><input value="06:00" /></div>
       </div>
       <div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-        <div><button onClick={props.startGame}>Start Game</button></div>
+        <div><button onClick={startGameButtonCombo}>Start Game</button></div>
         <div><button>Cancel</button></div>
       </div>
     </div>

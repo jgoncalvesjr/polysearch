@@ -3,6 +3,8 @@ import DifficultyButton from "../DifficultyButton";
 import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
 import useVisualMode from "../../hooks/useVisualMode";
+import axios from "axios";
+
 
 const SETUP = "SETUP";
 const NEWGAME = "NEWGAME";
@@ -18,6 +20,7 @@ export default function Game(props) {
     solvedAttempts,
     solved} = useVisualMode(SETUP);
 
+    // this function is passed down to the NewGameSetup functional component Start Game button.
   const startGame = () => {
     //alert("get new game from server");
     props.getNewGame()
@@ -28,6 +31,9 @@ export default function Game(props) {
       //should print error on label on screen
     })
   };
+
+
+
 
   const selectGameContent = id => {
     attempt(id);
