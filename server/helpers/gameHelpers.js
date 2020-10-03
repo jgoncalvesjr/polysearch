@@ -1,10 +1,11 @@
 const generator = require('@sbj42/word-search-generator');
 const {getGameWords, getMockGameWords} = require('./apiHelpers');
+const {pickLanguages} = require('./dataHelpers');
 
 const boardWidth = 15;
 const boardHeight = 15;
 const NumberOfWordsOnBoard = 15;
-const minCharOfWordsOnBoard = 3;
+// const minCharOfWordsOnBoard = 3;
 
 const getBoardWords = wordArray => {
   return wordArray.map(wordObj => {
@@ -22,10 +23,12 @@ const getGridRows = puzzle => {
   return gridWords;
 };
 
-const getGame = () => {
+const getGame = (mode) => {
   return new Promise(async(resolve, reject) => {
     try {
-      const gameWords = await getGameWords(minCharOfWordsOnBoard, NumberOfWordsOnBoard);
+      const languages = pickLanguages(mode);
+      console.log(languages);
+      const gameWords = await getGameWords(languages, NumberOfWordsOnBoard);
       const boardWords = getBoardWords(gameWords);
       const puzzle = generator.generate({
         words: boardWords,
@@ -48,10 +51,12 @@ const getGame = () => {
   });
 };
 
-const getMockGame = () => {
+const getMockGame = (mode) => {
   return new Promise((resolve, reject) => {
     try {
-      const gameWords = getMockGameWords(minCharOfWordsOnBoard, NumberOfWordsOnBoard);
+      const languages = pickLanguages(mode);
+      console.log(languages);
+      const gameWords = getMockGameWords(languages, NumberOfWordsOnBoard);
       const boardWords = getBoardWords(gameWords);
       const puzzle = generator.generate({
         words: boardWords,
