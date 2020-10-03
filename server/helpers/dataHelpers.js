@@ -11,7 +11,7 @@ const pickLanguages = mode => {
   switch (mode) {
     case 'easy':
       return 1;
-    case 'normal':
+    case 'medium':
       return 2;
     case 'hard':
       return 3;
