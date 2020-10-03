@@ -28,6 +28,7 @@ export default function GameBoard(props) {
   console.log("found words", foundWords);
   return (
     <div>
+      <div>Game Header</div>
       <div className='board-table'>
         {gameGrid}
       </div>
