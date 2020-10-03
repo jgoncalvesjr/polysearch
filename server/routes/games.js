@@ -12,7 +12,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
   });
 
   // Create a new game and store into database
-  router.post('/', (req, res) => {
+  router.put('/', (req, res) => {
     console.log(req.body);
     const newGame = {
       host_id: req.body.host_id,
