@@ -20,7 +20,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
       multiplayer: req.body.multiplayer,
       link: Math.random().toString(36).substring(2,8)
     };
-    getGame()
+    getMockGame()
       .then(data => {
         newGame.board = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
