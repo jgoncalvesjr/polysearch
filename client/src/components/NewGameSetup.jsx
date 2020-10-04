@@ -92,6 +92,7 @@ export default function NewGameSetup(props) {
 let startGameButtonCombo = function() {
     props.startGame();
     //startGameButtonPost();
+   // document.location.href = `/${link}`;
 };
 
   const dificultyButtonsArray = difficultySettings.map(el => {

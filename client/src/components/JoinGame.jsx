@@ -56,12 +56,12 @@ export default function JoinGame(props) {
   return (
   <main id="multiplayer-lobby">
   <div id="multiplayer-lobby-box">
-    <h2 id="multiplayer-lobby-title">Multiplayer Game Lobby</h2>
+    <h2 id="multiplayer-lobby-title">Multiplayer Pre-Game Lobby</h2>
     <div id="">List of Players Go Here</div>
     <h3 id="lobby-url">Use this link to invite people to play: {dataNew.link}</h3>
     <div>
       <h3>Difficulty: {dataNew.mode} </h3>
-      <h3>Game Mode: </h3>
+      
     </div>
     <div id='multiplayer-lobby-button-group'>
 { currentUserId === hostOfGame &&
