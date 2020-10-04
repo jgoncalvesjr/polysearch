@@ -5,9 +5,13 @@ import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
 import useVisualMode from "../../hooks/useVisualMode";
 import HiddenWordsList from "../HiddenWordsList";
+import GameLobby from "../GameLobby";
+import GameHome from "../GameHome";
 
+const HOME = "HOME";
 const SETUP = "SETUP";
 const NEWGAME = "NEWGAME";
+const GAMELOBBY = "GAMELOBBY";
 
 const LEFT = "LEFT";
 const RIGHT = "RIGHT";
@@ -20,18 +24,10 @@ const DIAGANOL_RIGHT_DOWN = "DIAGANOL_RIGHT_DOWN";
 
 export default function Game(props) {
     const {
-      mode, 
-      setMode, 
-      difficulty, 
-      setDifficulty, 
-      attempts, 
-      addAttempt, 
-      clearAttempts, 
-      solved, 
-      SetCurrentSolved,
-      multiplayer,
-      setMultiplayer
-    } = useVisualMode(SETUP);
+      mode, transition, back, difficulty, setDifficulty, attempts, 
+      addAttempt, solved, SetCurrentSolved, 
+      multiplayer, setMultiplayer, gameId, setGameId, hostId, setHostId
+    } = useVisualMode(HOME);
 
     const checkSolved = () => {
     if (attempts.length === 0) {
@@ -54,18 +50,51 @@ export default function Game(props) {
       return;
     }    
   };
+
+  const cancelScreen = () => {
+    back();
+  };
+  const newGame = () => {
+    transition(SETUP);
+  };
+
+  const joinGame = () => {
+    alert("join game");
+  };
+
+  const resumeGame = () => {
+    alert("resume game");
+  };  
     // this function is passed down to the NewGameSetup functional component Start Game button.
   const startGame = () => {
     //alert("get new game from server");
-    props.getNewGame(multiplayer, difficulty)
-    .then(() => {
-      setMode(NEWGAME)
+    props.getNewGame(multiplayer, difficulty) //if multiplayer, need to send game id.
+    .then(({hostId, link, difficultyLevel, bolMultiplayer}) => {
+      setHostId(hostId);
+      setGameId(link);
+      if(multiplayer) {
+        transition(GAMELOBBY);
+      } else {
+        transition(NEWGAME)
+      }
     })
     .catch(error => {
       //should print error on label on screen
     })
   };
-
+  const startMultiPlayerGame = () => {
+    props.startMultiplayerGame(gameId) 
+    .then(({hostId, link, difficultyLevel, bolMultiplayer}) => {
+      setHostId(hostId);
+      setGameId(link);  
+      setDifficulty(difficultyLevel); 
+      setMultiplayer(bolMultiplayer);   
+      transition(NEWGAME)
+    })
+    .catch(error => {
+      //should print error on label on screen
+    })
+  };
   // =====================================================
   const validateMove = (row, col, direction) => {
     if (direction === LEFT) {
@@ -165,12 +194,26 @@ export default function Game(props) {
   //{/*currentUserId*/}
   return(
     <div>
+      {mode === HOME && <GameHome 
+        newGame={newGame}
+        joinGame={joinGame}
+        resumeGame={resumeGame}
+      />}
       {mode === SETUP && <NewGameSetup 
         startGame={startGame} 
+        cancelScreen={cancelScreen}
         difficulty={difficulty} 
         setDifficulty={setDifficulty} 
         multiplayer={multiplayer}
         setMultiplayer={setMultiplayer}
+      />}
+      {mode === GAMELOBBY && <GameLobby
+        startMultiPlayerGame={startMultiPlayerGame}
+        cancelScreen={cancelScreen}
+        difficulty={difficulty}
+        gameMode={'Chill'}
+        hostOfGame={hostId}
+        link={gameId}
       />}
       {mode === NEWGAME && <GameBoard 
         game={props.game}
