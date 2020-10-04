@@ -4,6 +4,7 @@ import NewGameSetup from './NewGameSetup';
 //import useApplicationData from '../hooks/useApplicationData';
 import GridRow from "./GridRow";
 import HiddenWordsList from './HiddenWordsList';
+import GameScoreBroadcast from './GameScoreBroadcast';
 
 import './GameBoard.scss';
 

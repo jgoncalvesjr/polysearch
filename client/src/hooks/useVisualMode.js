@@ -1,8 +1,5 @@
 import {useState} from 'react';
 
-import io from 'socket.io-client'
-const socket = io.connect('http://localhost:3001')
-
 function useVisualMode(initMode) {
   const [mode, setMode] = useState(initMode);
   const [history, setHistory] = useState([initMode]);
@@ -17,8 +14,9 @@ function useVisualMode(initMode) {
   //Array of arrays of solved GridRowSquare ids.
   //length of array is score.
   const [solved, setSolved] = useState([]);
+  const [broadcastScore, setBroadcastScore] = useState(false);
+  const [score, setScore] = useState(0);
 
-  let updateScoreStatus = false;
   const transition = (newMode, replace = false) => {
     if (replace) {
       //cannot use back() here I think for the same reason mentioned below about mode.
@@ -55,15 +53,17 @@ function useVisualMode(initMode) {
     setSolved(tmpSolved);
     const tmpArray = [];
     setAttempts(tmpArray);
-    updateScoreStatus = true;
+    const tmpScore = score + 1;
+    setScore(tmpScore);
+    //setBroadcastScore(true);
   }
   
-  const broadcastScore = (wordCount) => {
+/*   const broadcastScore = (wordCount) => {
     if(updateScoreStatus) {
       socket.emit('gameData', {name:localStorage.getItem('username'), score: `${solved.length} / ${wordCount}`});
       updateScoreStatus = false;
     }
-  }  
+  } */  
   return {
     mode, 
     transition, 
@@ -79,8 +79,7 @@ function useVisualMode(initMode) {
     gameId, 
     setGameId, 
     hostId, 
-    setHostId,
-    broadcastScore
+    setHostId, broadcastScore, setBroadcastScore, score
   };
 }
 
