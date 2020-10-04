@@ -8,6 +8,7 @@ import HiddenWordsList from "../HiddenWordsList";
 
 const SETUP = "SETUP";
 const NEWGAME = "NEWGAME";
+const ENDGAME = "ENDGAME";
 
 const LEFT = "LEFT";
 const RIGHT = "RIGHT";
@@ -30,7 +31,9 @@ export default function Game(props) {
       solved, 
       SetCurrentSolved,
       multiplayer,
-      setMultiplayer
+      setMultiplayer,
+      duration,
+      setDuration
     } = useVisualMode(SETUP);
 
     const checkSolved = () => {
@@ -59,7 +62,7 @@ export default function Game(props) {
     //alert("get new game from server");
     props.getNewGame(multiplayer, difficulty)
     .then(() => {
-      setMode(NEWGAME)
+      setMode(NEWGAME);
     })
     .catch(error => {
       //should print error on label on screen
@@ -155,14 +158,20 @@ export default function Game(props) {
         addAttempt(id, row, col, true);
       } 
   }
-
-
-
   const selectGameContent = id => {
     connectMoves(id);
   };
+
+  const endGame = () => {
+    setMode(ENDGAME);
+  };
+  
+  const setGameDuration = time => {
+    setDuration(time);
+  };
+
   checkSolved();
-  //{/*currentUserId*/}
+  //<GameTimer gametime={gametime} endGame={endGame} multiplayer={props.multiplayer} />
   return(
     <div>
       {mode === SETUP && <NewGameSetup 
@@ -171,12 +180,17 @@ export default function Game(props) {
         setDifficulty={setDifficulty} 
         multiplayer={multiplayer}
         setMultiplayer={setMultiplayer}
+        duration={duration}
+        setGameDuration={setGameDuration}
       />}
       {mode === NEWGAME && <GameBoard 
         game={props.game}
         selectGameContent={selectGameContent}
         attempts={attempts}
         solved={solved}
+        endGame={endGame}
+        multiplayer={multiplayer}
+        duration={duration}
       />}
     </div>
   );

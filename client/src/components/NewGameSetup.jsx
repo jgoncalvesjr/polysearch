@@ -61,8 +61,8 @@ export default function NewGameSetup(props) {
   */
   // handler for multiplayer radio button
   const handleMultiplayerToggle = (e) => {
-    
-    props.setMultiplayer(e.target.value);
+
+    props.setMultiplayer(e.target.value === 'true');
   }; 
 /*  const startGameButtonPost = function() {
   //e.preventDefault()
@@ -94,6 +94,10 @@ let startGameButtonCombo = function() {
     //startGameButtonPost();
 };
 
+const onChangeGameTime = (evt) => {
+  props.setGameDuration(evt.target.value);
+};
+
   const dificultyButtonsArray = difficultySettings.map(el => {
   return <DifficultyButton 
           key={el.id} 
@@ -102,52 +106,24 @@ let startGameButtonCombo = function() {
           onClick={props.setDifficulty}
         />
   });  
-  /*
-        multiplayer={multiplayer}
-        setMultiPlayer={setMultiPlayer}  
-  */    
-  console.log("multiplayer", props.multiplayer);  
+
   return (
     <div style={{width: '90%'}}>
       <div style={{textAlign: 'center'}}><h2 style={{color: '#2371A9', width: '100%', margin: '10px 0px 0px 0px'}}>New Game</h2></div>
       <div style={{width: '100%', textAlign: 'right', color:'#2371A9'}}><span>Profile</span></div>
       <div style={{display:'flex', flexDirection: 'row', color:'#2371A9'}}>
-            
-        
-        <div>
-        {props.multiplayer 
-          ? <input type="radio" id="single-player" name="gameType" value={false} onClick={handleMultiplayerToggle} />
-          : <input type="radio" id="single-player" name="gameType"  checked value={false} onClick={handleMultiplayerToggle} />
-        }
-          <label for="single-player">Single Player</label>
-        </div>         
-        <div>
-        {props.multiplayer 
-          ? <input type="radio" id="multi-player" name="gameType" value={true} checked onClick={handleMultiplayerToggle} />
-          :  <input type="radio" id="multi-player" name="gameType" value={true} onClick={handleMultiplayerToggle} />
-        }
-          <label for="multi-player">Multi Player</label>
-        </div>   
-                
-      </div>
-      {/* <div style={{display:'flex', flexDirection: 'row', color:'#2371A9'}}>
-        <div>
-          <input type="radio" id="single-player" name="difficultyType" value="easy" onChange={handleDifficultyLevel} />
-          <label for="single-player">Easy</label>
-        </div>
-        <div>
-          <input type="radio" id="multi-player" name="difficultyType" value="medium" onChange={handleDifficultyLevel} />
-          <label for="multi-player">Medium</label>
-        </div>
-        <div>
-          <input type="radio" id="multi-player" name="difficultyType" value="hard" onChange={handleDifficultyLevel} />
-          <label for="multi-player">Hard</label>
+          
+        <div style={{display:'flex', flexDirection: 'row', color:'#2371A9'}}>
+          <div>
+            <input type="radio" id="single-player" name="gameType" value={false} checked={!props.multiplayer} onChange={handleMultiplayerToggle} />
+            <label for="single-player">Single Player</label>
+          </div>         
+          <div>
+            <input type="radio" id="multi-player" name="gameType" value={true} checked={props.multiplayer} onChange={handleMultiplayerToggle} />
+            <label for="multi-player">Multi Player</label>
+          </div>                 
         </div>  
-        <div>
-          <input type="radio" id="multi-player" name="difficultyType" value="expert" onChange={handleDifficultyLevel} />
-          <label for="multi-player">Expert</label>
-        </div>         
-      </div> */}
+      </div>      
       <div>
         {dificultyButtonsArray}
       </div>
@@ -168,7 +144,7 @@ let startGameButtonCombo = function() {
           <div>Game Mode</div>
           <div><button>Chill</button></div>
         </div>
-        <div><input value="06:00" /></div>
+        <div><input value={props.duration} onChange={onChangeGameTime}/></div>
       </div>
       <div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
         <div><button onClick={startGameButtonCombo}>Start Game</button></div>

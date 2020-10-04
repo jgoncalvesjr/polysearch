@@ -22,7 +22,7 @@ const useApplicationData = () => {
   }, []);
 
   //TODO: need to change to put once we are creating game in database.
-  const getNewGame2 = () => {
+/*   const getNewGame2 = () => {
     return new Promise((resolve, reject) => {
       axios({
         method: 'GET',
@@ -36,14 +36,14 @@ const useApplicationData = () => {
         reject(error);
       });
     });
-  };
+  }; */
 
   const getNewGame = function(multiplayer, difficultyLevel) {
     return new Promise((resolve, reject) => {
       console.log(`clicked start new game`)
       let currentUserId = localStorage.getItem('userId');
       console.log('here is the currentuserid: ', currentUserId);
-      return axios.put("http://localhost:3001/api/games", {
+      return axios.put("/api/games", {
         
           host_id: currentUserId,
           mode: difficultyLevel.toLowerCase(),

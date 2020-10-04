@@ -12,6 +12,9 @@ function useVisualMode(initMode) {
   //length of array is score.
   const [solved, setSolved] = useState([]);
 
+  //set the duration of the current game.
+  const [duration, setDuration] = useState('7:00');
+
   const addAttempt = (id, row, col, replace = false) => {
     //console.log("adding first attempt", id);
     if (replace) {
@@ -29,7 +32,9 @@ function useVisualMode(initMode) {
     setAttempts(tmpArray);
   }
 
-  return {mode, setMode, difficulty, setDifficulty, attempts, addAttempt, solved, SetCurrentSolved, multiplayer, setMultiplayer};
+  return {mode, setMode, difficulty, setDifficulty, attempts, addAttempt, 
+    solved, SetCurrentSolved, multiplayer, setMultiplayer, duration, setDuration
+  };
 }
 
 export default useVisualMode;
