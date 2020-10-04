@@ -28,7 +28,8 @@ export default function Navbar(props) {
     document.location.href = "/";
   }
 
-  const profileButton = () => {
+  const profileButton = (e) => {
+    e.preventDefault();
     console.log(localStorage.userId)
     document.location.href = "/profile";
   }
