@@ -22,30 +22,13 @@ export default function GameBoard(props) {
         solved={props.solved}        
       />
   });
-  //generate found words list
+  //generate foundwords list
   const foundWords = props.solved.map(cord => {
     return cord.map(el => {
       return props.game.rows[el.row][el.col];
     }).join('');
   })
   console.log("found words", foundWords);
-
-  socket.on('gameData', ({ gameData }) => {
-    const gameDataTest= function () {
-      console.log('hello test')
-      console.log("found words", foundWords);
-    }
-    console.log('hello test')
-    socket.send('hello test');
-    console.log("found words", foundWords);
-    socket.emit('gameData', { gameData })
-    
-  })
-
-
-
-
-
   return (
     <div>
       <div className='board-table'>

@@ -127,15 +127,19 @@ const socket = require('socket.io');
 const io = socket(server);
 
 io.on('connection', socket => {
-  socket.on('message', ({ name, message }) => {
-    io.emit('message', { name, message })
+  socket.on('message', ({name, message }) => {
+    io.emit('message', {name, message })
     console.log('chat socket')
   })
-  socket.on('gameData', ({gameData}) => {
-    io.emit('gameData', {gameData})
-    console.log('game socket')
+
+  socket.on('gameData', ({ name, score }) => {
+    io.emit('gameData', { name, score })
+    console.log('game socket used')
   })
   
+  
+
+
 });
 
 /* Websocket Content End*/

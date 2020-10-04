@@ -14,16 +14,19 @@ export default function Application(props) {
 
   const loggedUser = localStorage.getItem('username')
 
-  socket.on('gameData', ({ gameData }) => {
-    const gameDataTest= function () {
-      console.log('hello test')
-    }
-    console.log('hello test')
-    socket.send('hello test');
-    socket.emit('gameData', { gameData })
-  })
+  // socket.on('gameData', ({ gameData }) => {
+  //   const gameDataTest= function () {
+  //     console.log('hello test')
+  //   }
+  //   console.log('hello test')
+  //   socket.send('hello test');
+  //   socket.emit('gameData', { gameData })
+  // })
 
-
+//   socket.on('gameData', testWebSocket)
+// const testWebSocket = () => {
+//   socket.emit('gameData', 'hello')
+// }
 
 
 return (
