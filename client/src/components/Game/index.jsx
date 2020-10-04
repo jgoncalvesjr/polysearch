@@ -5,6 +5,9 @@ import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
 import useVisualMode from "../../hooks/useVisualMode";
 import HiddenWordsList from "../HiddenWordsList";
+import io from 'socket.io-client'
+
+const socket = io.connect('http://localhost:3001')
 
 const SETUP = "SETUP";
 const NEWGAME = "NEWGAME";

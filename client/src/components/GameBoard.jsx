@@ -7,6 +7,9 @@ import HiddenWordsList from './HiddenWordsList';
 
 import './GameBoard.scss';
 
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:3001')
+
 export default function GameBoard(props) {
 
   const gameGrid = props.game.rows.map((row, index) => {
@@ -26,6 +29,23 @@ export default function GameBoard(props) {
     }).join('');
   })
   console.log("found words", foundWords);
+
+  socket.on('gameData', ({ gameData }) => {
+    const gameDataTest= function () {
+      console.log('hello test')
+      console.log("found words", foundWords);
+    }
+    console.log('hello test')
+    socket.send('hello test');
+    console.log("found words", foundWords);
+    socket.emit('gameData', { gameData })
+    
+  })
+
+
+
+
+
   return (
     <div>
       <div className='board-table'>
