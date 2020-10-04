@@ -5,7 +5,7 @@ import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
 import useVisualMode from "../../hooks/useVisualMode";
 import HiddenWordsList from "../HiddenWordsList";
-import io from 'socket.io-client'
+
 import GameLobby from "../GameLobby";
 import GameHome from "../GameHome";
 
@@ -23,13 +23,12 @@ const DIAGANOL_LEFT_DOWN = "DIAGANOL_LEFT_DOWN";
 const DIAGANOL_RIGHT_UP = "DIAGANOL_RIGHT_UP";
 const DIAGANOL_RIGHT_DOWN = "DIAGANOL_RIGHT_DOWN";
 
-const socket = io.connect('http://localhost:3001')
 
 export default function Game(props) {
     const {
       mode, transition, back, difficulty, setDifficulty, attempts, 
       addAttempt, solved, SetCurrentSolved, 
-      multiplayer, setMultiplayer, gameId, setGameId, hostId, setHostId
+      multiplayer, setMultiplayer, gameId, setGameId, hostId, setHostId, broadcastScore
     } = useVisualMode(HOME);
 
     const checkSolved = () => {
@@ -44,12 +43,14 @@ export default function Game(props) {
     let found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
     if (found) {
       SetCurrentSolved();
+      //socket.emit('gameData', {name:localStorage.getItem('username'), score: solved.length + 1 / props.game.words.length})
       return;
     }
     word = WordArray.reverse().join('');
     found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
     if (found) {
       SetCurrentSolved();
+      //socket.emit('gameData', {name:localStorage.getItem('username'), score: solved.length + 1 / props.game.words.length})
       return;
     }    
   };
@@ -194,7 +195,9 @@ export default function Game(props) {
     connectMoves(id);
   };
   checkSolved();
-
+  if(props.game) {
+    broadcastScore(props.game.words.length);
+  }
   return(
     <div>
       {mode === HOME && <GameHome 

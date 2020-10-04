@@ -134,7 +134,7 @@ io.on('connection', socket => {
 
   socket.on('gameData', ({ name, score }) => {
     io.emit('gameData', { name, score })
-    console.log('game socket used')
+    console.log('game socket used', name, score);
   })
   
   
