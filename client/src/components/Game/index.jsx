@@ -45,14 +45,16 @@ export default function Game(props) {
     let found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
     if (found) {
       SetCurrentSolved();
-      setBroadcastScore(true);
+      console.log("emit score");
+      socket.emit('gameData', {name:localStorage.getItem('username'), score: `${localStorage.getItem('score')} / ${props.game.words.length}`});
       return;
     }
     word = WordArray.reverse().join('');
     found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
     if (found) {
       SetCurrentSolved();
-      setBroadcastScore(true);
+      console.log("Reverse emit score");
+      socket.emit('gameData', {name:localStorage.getItem('username'), score: `${localStorage.getItem('score')} / ${props.game.words.length}`});
       return;
     }    
   };
@@ -195,10 +197,10 @@ export default function Game(props) {
     connectMoves(id);
   };
   checkSolved();
-  if(broadcastScore) {
+/*   if(broadcastScore) {
     socket.emit('gameData', {name:localStorage.getItem('username'), score: `${score} / ${props.game.words.length}`});
     setBroadcastScore(false);
-  }
+  } */
   return(
     <div>
       {mode === HOME && <GameHome 

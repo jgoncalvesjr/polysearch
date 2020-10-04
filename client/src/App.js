@@ -22,6 +22,7 @@ import Logout from './components/auth/Logout'
 import Chat from './components/Chat';
 import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
+import GameData from './components/GameData';
 
 
 export default function App() {
@@ -71,6 +72,9 @@ export default function App() {
         <nav>
           <h3>These links below for testing</h3>
           <ul>
+          <li>
+              <Link to="/gamedata">GameData component</Link>
+            </li>
             <li>
               <Link to="/">Main Page</Link>
             </li>
@@ -106,6 +110,10 @@ export default function App() {
             NOTE THAT ORDER MATTERS HERE!             
             */}
         <Switch>
+          <Route path="/gamedata">
+            <GameData />
+          </Route>
+
           <Route path="/chat">
             <Chat loggedUser={loggedUser} />
           </Route>

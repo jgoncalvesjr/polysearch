@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import TextField from '@material-ui/core/TextField'
+import GameScoreBroadcast from './GameScoreBroadcast';
 import './Chat.scss'
 
 const socket = io.connect('http://localhost:3001')
 
 export default function GameData(props) {
 
-const [state, setState] = useState({ socore: ''})
+//const [state, setState] = useState({ score: ''})
 const [gameData, setGameData] = useState([])
 
 /* message types we are receiving
@@ -18,12 +19,14 @@ score = solved.length / game.words.length
 */
   useEffect(() => {
     socket.on('gameData', ({ name, score }) => {
-      setGameData([...gameData, { name, gameData }])
+      setGameData([...gameData, { name, score }])
     })
   })
 
-
-  const renderChat = () => {
+  const arrayGameData = gameData.map((el, index) => {
+    return <GameScoreBroadcast key={index} message={el.score} user={localStorage.getItem('username')} />
+  });
+/*   const renderChat = () => {
     return chat.map(({ name, gameData }, index) => (
       <div key={index}>
         <h3>
@@ -31,33 +34,14 @@ score = solved.length / game.words.length
         </h3>
       </div>
     ))
-  }
+  } */
 
 return (
-  <div className="card">
-  <form onSubmit={onMessageSubmit}>
-    <h1>Messenger</h1>
-    <div className="name-field">
-      <h2>Current User: {props.loggedUser}</h2>      
-    </div>
-    <div>
-
-      <TextField
-        name="message"
-        onChange={e => onTextChange(e)}
-        value={state.message}
-        id="outlined-multiline-static"
-        variant="outlined"
-        label="Message"
-      />
-    </div>
-    <button>Send Message</button>
-  </form>
-  <div className="render-chat">
-    <h1>Chat Log</h1>
-    {renderChat()}
+  <div style={{display:'flex', flexDirection: 'column', color:'#2371A9'}}>
+    <div><h3>Game Data</h3></div>
+    {arrayGameData}
   </div>
-</div>
+
 )
 
 }

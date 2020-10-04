@@ -4,5 +4,10 @@ const socket = io.connect('http://localhost:3001')
 
 export default function GameScoreBroadcast(props) {
 
-  return(<div>{props.score} </div>);
+  return(
+  <div>
+    <div>{props.user}</div>
+    <div>{props.message} </div>
+  </div>
+  );
 }

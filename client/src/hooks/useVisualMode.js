@@ -55,7 +55,7 @@ function useVisualMode(initMode) {
     setAttempts(tmpArray);
     const tmpScore = score + 1;
     setScore(tmpScore);
-    //setBroadcastScore(true);
+    localStorage.setItem('score', tmpScore);
   }
   
 /*   const broadcastScore = (wordCount) => {
