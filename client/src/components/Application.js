@@ -9,7 +9,8 @@ export default function Application(props) {
   const {
     state,
     setDifficulty,
-    getNewGame
+    getNewGame,
+    startMultiplayerGame
   } = useApplicationData();
 
   const loggedUser = localStorage.getItem('username')
@@ -31,7 +32,7 @@ export default function Application(props) {
 
 return (
     <div>
-    <Game getNewGame={getNewGame} game={state.game} />
+    <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} />
     <Chat loggedUser={loggedUser} />
 
     </div>

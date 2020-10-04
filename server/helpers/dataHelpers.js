@@ -20,7 +20,35 @@ const pickLanguages = mode => {
   }
 }
 
+
+const getGamesByUser = (userGames) => {
+  const gamesByUser = {};
+
+  for (let game of userGames) {
+    if (!gamesByUser[game.id]) {
+      gamesByUser[game.id] = {
+        id: game.id,
+        username: game.username,
+        avatar: game.avatar,
+        games: [],
+      };
+    }
+
+    gamesByUser[game.id].games.push({
+      link: game.link,
+      mode: game.mode,
+      multiplayer: game.multiplayer
+    });
+  }
+
+  // const userProfile = gamesByUsers[0];
+  const result = Object.values(gamesByUser);
+  const userProfile = result[0];
+  return userProfile;
+};
+
 module.exports = {
   generateRandomString,
   pickLanguages,
+  getGamesByUser
 };
