@@ -194,7 +194,7 @@ export default function Game(props) {
     connectMoves(id);
   };
   checkSolved();
-  //{/*currentUserId*/}
+
   return(
     <div>
       {mode === HOME && <GameHome 

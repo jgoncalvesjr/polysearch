@@ -28,6 +28,7 @@ function useVisualMode(initMode) {
     }
   };
 
+  
   const back = () => {
     if(history.length > 1) {
       const newHistory = [...history.slice(0, history.length-1)];
@@ -52,6 +53,8 @@ function useVisualMode(initMode) {
     setAttempts(tmpArray);
   }
 
+
+  
   return {
     mode, 
     transition, 
