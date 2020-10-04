@@ -28,6 +28,11 @@ export default function Navbar(props) {
     document.location.href = "/";
   }
 
+  const profileButton = () => {
+    console.log(localStorage.userId)
+    document.location.href = "/profile";
+  }
+
   return (
     <div>
       <AppBar position='static'>
@@ -50,17 +55,23 @@ export default function Navbar(props) {
             Login
           </Button>}
 
+          {props.loggedUser &&
+          <Typography variant='h6'>
+            Welcome, {props.loggedUser}!
+          </Typography>
+
+          }
+
+          { props.loggedUser &&  
+          <Button color='inherit' onClick={profileButton}>
+            Profile
+          </Button>}
+         
+
           { props.loggedUser &&  
           <Button color='inherit' onClick={props.logout}>
             Logout
           </Button>}
-
-          {props.loggedUser &&
-          <Typography variant='h6'>
-            {props.loggedUser}
-          </Typography>
-
-          }
          
           {! props.loggedUser &&
           <Button color='inherit' onClick={registerPageButton}>

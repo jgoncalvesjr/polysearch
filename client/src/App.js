@@ -22,6 +22,7 @@ import Logout from './components/auth/Logout'
 import Chat from './components/Chat';
 import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
+import UserProfile from './components/UserProfile';
 
 
 export default function App() {
@@ -96,8 +97,11 @@ export default function App() {
               {loggedUser}  
             </li>}
             {loggedUser && <li>
+              <Link to="/profile">Profile</Link> 
+            </li> }
+            {loggedUser && <li>
                 <Logout logout={logout}/> 
-            </li> }         
+            </li> }
           </ul>
         </nav>
 
@@ -152,9 +156,13 @@ export default function App() {
             <NewGame />
           </Route>
 
+          <Route path="/profile">
+            <UserProfile />  
+          </Route>   
+
           <Route path="/:gameid">
             <JoinGame />  
-          </Route>      
+          </Route>       
 
           <Route path="/">
             <Home />

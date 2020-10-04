@@ -15,7 +15,10 @@ module.exports = ({ getUserProfile, updateUser, getUsers }) => {
 
   // Get an user profile
   router.get('/:id', (req, res) => {
-    const id = req.body.id;
+    const pageURL = req.url;
+    const splitPageURL = pageURL.split('/');
+    const id = splitPageURL[splitPageURL.length - 1];
+    // const id = req.body.id;
     getUserProfile(id)
       .then((user) => res.status(200).json(getGamesByUser(user)))
       .catch((err) => res.json({ err }));
