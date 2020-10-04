@@ -9,22 +9,34 @@ const socket = io.connect('http://localhost:3001')
 export default function GameData(props) {
 
 //const [state, setState] = useState({ score: ''})
-const [gameData, setGameData] = useState([])
+const [gameData, setGameData] = useState({});
 
 /* message types we are receiving
-message {name, message}
-gameData {name, score}
-
-score = solved.length / game.words.length
+const dta = {
+  'john' : {name:'john', score: 20},
+  'dave': {name:'dave', score: 5}
+}
+dta['jane'] = {name:'jane', score: 20};
+dta['jane'] = {name:'jane', score: 25};
+const objArray = Object.keys(dta).map(key => {
+  return dta[key];
+});
+console.log(objArray);
 */
+
   useEffect(() => {
     socket.on('gameData', ({ name, score }) => {
-      setGameData([...gameData, { name, score }])
+      const tmpData = {...gameData};
+      tmpData[name] = { name, score };
+      console.log("tmpData before", tmpData, typeof tmpData);
+      //setGameData(...gameData, {name, score});
+      setGameData(tmpData);
     })
   })
 
-  const arrayGameData = gameData.map((el, index) => {
-    return <GameScoreBroadcast key={index} message={el.score} user={localStorage.getItem('username')} />
+  console.log("gameData", gameData);
+  const arrayGameData = Object.keys(gameData).map((obj_key, index) => {
+    return <GameScoreBroadcast key={index} message={gameData[obj_key].score} user={gameData[obj_key].name} />
   });
 /*   const renderChat = () => {
     return chat.map(({ name, gameData }, index) => (
@@ -45,3 +57,4 @@ return (
 )
 
 }
+
