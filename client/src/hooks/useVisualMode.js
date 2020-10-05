@@ -1,11 +1,11 @@
 import {useState} from 'react';
 
-function useVisualMode(initMode) {
+function useVisualMode(initMode, Gid) {
   const [mode, setMode] = useState(initMode);
   const [history, setHistory] = useState([initMode]);
   const [difficulty, setDifficulty] = useState("Easy");
   const [multiplayer, setMultiplayer] = useState(false);
-  const [gameId, setGameId] = useState('');
+  const [gameId, setGameId] = useState(Gid);
   const [hostId, setHostId] = useState('');
 
   //store GridRowSquare id being attempted on the board here
@@ -14,6 +14,8 @@ function useVisualMode(initMode) {
   //Array of arrays of solved GridRowSquare ids.
   //length of array is score.
   const [solved, setSolved] = useState([]);
+  const [broadcastScore, setBroadcastScore] = useState(false);
+  const [score, setScore] = useState(0);
 
   //set the duration of the current game.
   const [duration, setDuration] = useState('6:00');
@@ -57,8 +59,17 @@ function useVisualMode(initMode) {
     setSolved(tmpSolved);
     const tmpArray = [];
     setAttempts(tmpArray);
+    const tmpScore = score + 1;
+    setScore(tmpScore);
+    localStorage.setItem('score', tmpScore);
   }
-
+  
+/*   const broadcastScore = (wordCount) => {
+    if(updateScoreStatus) {
+      socket.emit('gameData', {name:localStorage.getItem('username'), score: `${solved.length} / ${wordCount}`});
+      updateScoreStatus = false;
+    }
+  } */  
   return {
     mode, 
     transition, 
@@ -77,7 +88,7 @@ function useVisualMode(initMode) {
     gameId, 
     setGameId, 
     hostId, 
-    setHostId
+    setHostId, broadcastScore, setBroadcastScore, score
   };
 }
 

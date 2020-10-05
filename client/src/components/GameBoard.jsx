@@ -6,8 +6,12 @@ import GridRow from "./GridRow";
 import GameScore from './GameScore';
 import GameTimer from './GameTimer';
 import HiddenWordsList from './HiddenWordsList';
+import GameScoreBroadcast from './GameScoreBroadcast';
 
 import './GameBoard.scss';
+
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:3001')
 
 export default function GameBoard(props) {
 
@@ -21,7 +25,7 @@ export default function GameBoard(props) {
         solved={props.solved}        
       />
   });
-  //generate found words list
+  //generate foundwords list
   const foundWords = props.solved.map(cord => {
     return cord.map(el => {
       return props.game.rows[el.row][el.col];
