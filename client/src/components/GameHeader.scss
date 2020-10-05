@@ -1,0 +1,9 @@
+@import "../styles/mixins.scss";
+@import "../styles/variables.scss";
+
+.game-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #4c64a0;
+}

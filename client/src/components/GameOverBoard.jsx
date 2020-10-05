@@ -9,14 +9,14 @@ import HiddenWordsList from './HiddenWordsList';
 
 import './GameBoard.scss';
 
-export default function GameBoard(props) {
+export default function GameOverBoard(props) {
 
   const gameGrid = props.game.rows.map((row, index) => {
     return <GridRow 
         key={index} 
         rowid={index} 
         row={row} 
-        selectGameContent={props.selectGameContent}
+        selectGameContent={() => {}}
         attempts={props.attempts}
         solved={props.solved}        
       />
@@ -32,10 +32,16 @@ export default function GameBoard(props) {
     <div>
       <div style={{display:'flex', flexDirection: 'row'}}>
         <GameScore score={props.solved.length} wordCount={props.game.words.length} />
-        <GameTimer  duration={props.duration} endGame={props.endGame} multiplayer={props.multiplayer} />
+        {/*<GameTimer  duration={props.duration} endGame={props.endGame} multiplayer={props.multiplayer} />*/}
       </div>
       <div className='board-table'>
-        {gameGrid}
+        {/*{gameGrid}*/}
+        <div><h3>Game Over</h3></div>
+        <div  style={{display: 'flex', flexDirection: 'column'}}>
+        <div><button onClick={props.playAgain}>Play again</button></div>
+        <div><button onClick={props.joinPolySearch}>Join Polysearch</button></div>
+        <div><button onClick={props.showMain}>Back to Main</button></div>
+      </div>        
       </div>
       <div>
         <HiddenWordsList 
