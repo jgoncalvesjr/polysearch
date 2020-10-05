@@ -153,9 +153,9 @@ export default function App() {
             <GameOver />
           </Route>
 
-          <Route path="/newgame">
+          {/* <Route path="/newgame">
             <NewGame />
-          </Route>
+          </Route> */}
 
           <Route path="/profile">
             <UserProfile />  
@@ -175,7 +175,7 @@ export default function App() {
   );
 }
 
-function Home(props) {
+/* function Home(props) {
   // console.log('here are the props:', props);
 
   return (
@@ -195,7 +195,7 @@ function Home(props) {
 
   </main> 
   );
-}
+} */
 
 function GameOver() {
   return (
@@ -232,10 +232,18 @@ function MultiplayerLobby() {
    </main> 
   )
 }
-
-function NewGame() {
-  return (
+/*
   <div className="gameMainContainer">
+    <div className="dvGameBoardContainer">
+      <div className="dvGameBoardContents">
+      <Application />
+      </div>
+    </div>
+  </div>
+*/
+function Home() {
+  return (
+    <div className="gameMainContainer">
     <div className="dvGameBoardContainer">
       <div className="dvGameBoardContents">
       <Application />
