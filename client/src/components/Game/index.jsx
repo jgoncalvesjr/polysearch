@@ -1,5 +1,5 @@
 //import React, { Children } from "react";
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import DifficultyButton from "../DifficultyButton";
 import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
@@ -99,8 +99,8 @@ export default function Game(props) {
   const startGame = () => {
     //alert("get new game from server");
     props.getNewGame(multiplayer, difficulty) //if multiplayer, need to send game id.
-    .then(({hostId, link, difficultyLevel, bolMultiplayer}) => {
-      setHostId(hostId);
+    .then(({data_hostId, link, difficultyLevel, bolMultiplayer}) => {
+      setHostId(data_hostId);
       setGameId(link);
       if(multiplayer) {
         transition(GAMELOBBY);
@@ -112,16 +112,33 @@ export default function Game(props) {
       //should print error on label on screen
     })
   };
+  //useEffect(() => {
+    //console.log("socket started");
+    socket.on('start', ({ HostedGameId}) => {
+      console.log("socket got data", HostedGameId);
+      if (HostedGameId === gameId) {
+        startMultiPlayerGame();
+      }
+    });
+  //})
+
   const startMultiPlayerGame = () => {
+    console.log("startMultiplayerGame", gameId);
     props.startMultiplayerGame(gameId) 
-    .then(({hostId, link, difficultyLevel, bolMultiplayer}) => {
-      setHostId(hostId);
+    .then(({data_hostId, link, difficultyLevel, bolMultiplayer}) => {
+      setHostId(data_hostId);
       setGameId(link);  
       setDifficulty(difficultyLevel); 
-      setMultiplayer(bolMultiplayer);   
+      setMultiplayer(bolMultiplayer); 
+      const currentUserId = parseInt(localStorage.getItem('userId'));
+      console.log("currentUserId", currentUserId, "data_hostId", data_hostId);
+      if(currentUserId === data_hostId) {
+        socket.emit("start", {'HostedGameId': gameId});
+      }
       transition(NEWGAME)
     })
     .catch(error => {
+      console.log("startMultiPlayerGame", error);
       //should print error on label on screen
     })
   };
