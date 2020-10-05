@@ -3,6 +3,7 @@ import React from "react";
 import DifficultyButton from "../DifficultyButton";
 import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
+import GameOverBoard from '../GameOverBoard';
 import useVisualMode from "../../hooks/useVisualMode";
 import HiddenWordsList from "../HiddenWordsList";
 
@@ -68,7 +69,15 @@ export default function Game(props) {
       //should print error on label on screen
     })
   };
+  const playAgain = () => {
 
+  };
+  joinPolySearch = () => {
+
+  };
+  const showMain = () => {
+    
+  };
   // =====================================================
   const validateMove = (row, col, direction) => {
     if (direction === LEFT) {
@@ -191,6 +200,17 @@ export default function Game(props) {
         endGame={endGame}
         multiplayer={multiplayer}
         duration={duration}
+      />}
+      {mode === ENDGAME && <GameOverBoard 
+        game={props.game}
+        playAgain={playAgain}
+        joinPolySearch={joinPolySearch}
+        showMain={showMain}
+        attempts={attempts}
+        solved={solved}
+        endGame={endGame}
+        multiplayer={multiplayer}
+        duration={duration}      
       />}
     </div>
   );
