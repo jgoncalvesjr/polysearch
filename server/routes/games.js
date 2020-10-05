@@ -23,7 +23,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
     
     getMockGame(newGame.mode)
       .then(data => {
-        console.log("data", data);
+        //console.log("data", data);
         newGame.rows = JSON.stringify(data.rows);
         newGame.words = JSON.stringify(data.words);
         addGame(newGame)

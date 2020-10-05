@@ -45,6 +45,10 @@ export default function GameLobby(props) {
   const hostOfGame = dataNew.host_id;
   console.log('host of the game is: ', hostOfGame);
 */
+  // will need to know the host to show/hide the start game button.
+  //const hostOfGame = dataNew.host_id;
+  console.log('host of the game is: ', props.hostOfGame);
+
   // will need to get the current user to see if the id matches the hostid
   const currentUserId = parseInt(localStorage.getItem('userId'));
   console.log('current user id is: ', currentUserId);

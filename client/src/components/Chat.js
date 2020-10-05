@@ -10,6 +10,12 @@ export default function Chat(props) {
 const [state, setState] = useState({ message: ''})
 const [chat, setChat] = useState([])
 
+/* message types we are receiving
+message {name, message}
+gameData {name, score}
+
+score = solved.length / game.words.length
+*/
   useEffect(() => {
     socket.on('message', ({ name, message }) => {
       setChat([...chat, { name, message }])
