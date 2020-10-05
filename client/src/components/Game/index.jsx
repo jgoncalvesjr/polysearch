@@ -121,7 +121,11 @@ export default function Game(props) {
       }
     });
   //})
-
+/*
+          'GameMode': duration ? duration : 'Chill',
+          'GameDifficulty': difficultyLevel,
+          'GameLanguages': 'English'
+*/
   const startMultiPlayerGame = () => {
     console.log("startMultiplayerGame", gameId);
     props.startMultiplayerGame(gameId) 
@@ -133,7 +137,7 @@ export default function Game(props) {
       const currentUserId = parseInt(localStorage.getItem('userId'));
       console.log("currentUserId", currentUserId, "data_hostId", data_hostId);
       if(currentUserId === data_hostId) {
-        socket.emit("start", {'HostedGameId': gameId});
+        socket.emit("start", {'HostedGameId': gameId });
       }
       transition(NEWGAME)
     })
