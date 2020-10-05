@@ -17,6 +17,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
     const newGame = {
       host_id: req.body.host_id,
       mode: req.body.mode,
+      duration: req.body.duration,
       multiplayer: req.body.multiplayer,
       link: generateRandomString()
     };
@@ -35,6 +36,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
             host_id: data.host_id,
             link: data.link,
             mode: data.mode,
+            duration: data.duration,
             multiplayer: data.multiplayer
             };
             game.rows = rows;
@@ -69,6 +71,7 @@ module.exports = ({addGame, findGame, getAllGames}) => {
           host_id: data.host_id,
           link: data.link,
           mode: data.mode,
+          duration: data.duration,
           multiplayer: data.multiplayer
         };
           game.rows = rows;

@@ -1,11 +1,11 @@
 import {useState} from 'react';
 
-function useVisualMode(initMode, Gid) {
+function useVisualMode(initMode, initGameId) {
   const [mode, setMode] = useState(initMode);
   const [history, setHistory] = useState([initMode]);
   const [difficulty, setDifficulty] = useState("Easy");
   const [multiplayer, setMultiplayer] = useState(false);
-  const [gameId, setGameId] = useState(Gid);
+  const [gameId, setGameId] = useState(initGameId);
   const [hostId, setHostId] = useState('');
 
   //store GridRowSquare id being attempted on the board here

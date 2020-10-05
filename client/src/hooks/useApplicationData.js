@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL } from '../reducers/dataReducer';
+//import { duration } from '@material-ui/core';
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
@@ -38,7 +39,7 @@ const useApplicationData = () => {
     });
   }; */
 
-  const getNewGame = function(multiplayer, difficultyLevel) {
+  const getNewGame = function(multiplayer, difficultyLevel, duration) {
     return new Promise((resolve, reject) => {
       console.log(`clicked start new game`)
       let currentUserId = localStorage.getItem('userId');
@@ -48,12 +49,13 @@ const useApplicationData = () => {
           host_id: currentUserId,
           mode: difficultyLevel.toLowerCase(),
           multiplayer: multiplayer,
+          duration: duration
           
       }
       ).then(({ data }) => {
         console.log("start new game response", data);   
         dispatch({ type: SET_NEW_GAME, game: data });
-        resolve({data_hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer});
+        resolve({data_hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer, gameDuration: data.duration});
       })
       .catch(error => {
         console.log("start new game call error: ", error);
@@ -72,7 +74,7 @@ const useApplicationData = () => {
         console.log('Here is the data being retrieved: ',data);	
         dispatch({ type: SET_NEW_GAME, game: data });	
         // trying to make the data from the axios get request retrievable by all everything.	
-        resolve({data_hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer});	
+        resolve({data_hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer, gameDuration: data.duration});	
       })	
       .catch(err => {	
         reject(err);	

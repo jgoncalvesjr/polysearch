@@ -55,7 +55,12 @@ export default function GameLobby(props) {
 /*
   // game id from the axios call.
   const gameId = dataNew.id; */
-
+  let languages;
+  if (props.languages) {
+    languages = props.languages.map(el => {
+      return <div>{el}</div>;
+    });
+  }
   return (
   <div id="multiplayer-lobby">
   <div id="multiplayer-lobby-box">
@@ -65,7 +70,11 @@ export default function GameLobby(props) {
     <div>
       <h3>Difficulty: {props.difficulty} </h3>
       <h3>Game Mode: {props.gameMode} </h3>
+      <h3>Duration: {props.duration}</h3>
+      <h3>Languages:</h3>
+      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>{languages}</div>
     </div>
+    {/* <h3>{props.languages}</h3> */}
     <div id='multiplayer-lobby-button-group'>
       { currentUserId === props.hostOfGame &&
       <button className="multiplayer-lobby-buttons" onClick={startGameButton}>Start Game</button>}

@@ -55,6 +55,35 @@ export default function Game(props) {
       score      
     } = useVisualMode(props.mode ? props.mode : HOME, props.gameid ? props.gameid : '');
 
+    const getLanguageDescription = (languageCode) => {
+      switch(languageCode)
+      {
+        case 'br': 
+          return 'Português';
+        case 'en': 
+          return 'English';
+        case 'fr': 
+          return 'Français';
+        case 'es':
+          return 'Español';
+        case 'it':
+          return 'Italiano';
+      }
+    };
+    
+    function removeDuplicates(array) {
+      return array.filter((a, b) => array.indexOf(a) === b)
+    };
+    
+    const getGameLanguages = () => {
+      if(props.game != null) {
+        return removeDuplicates(props.game.words.map(word => {
+          return getLanguageDescription(word.language);
+        }));
+      }
+      return null;
+    }
+    
     const checkSolved = () => {
     if (attempts.length === 0) {
       return;
@@ -98,10 +127,12 @@ export default function Game(props) {
     // this function is passed down to the NewGameSetup functional component Start Game button.
   const startGame = () => {
     //alert("get new game from server");
-    props.getNewGame(multiplayer, difficulty) //if multiplayer, need to send game id.
-    .then(({data_hostId, link, difficultyLevel, bolMultiplayer}) => {
+    props.getNewGame(multiplayer, difficulty, duration) //if multiplayer, need to send game id.
+    .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
       setGameId(link);
+      setDifficulty(difficultyLevel);
+      setDuration(gameDuration)
       if(multiplayer) {
         transition(GAMELOBBY);
       } else {
@@ -129,10 +160,11 @@ export default function Game(props) {
   const startMultiPlayerGame = () => {
     console.log("startMultiplayerGame", gameId);
     props.startMultiplayerGame(gameId) 
-    .then(({data_hostId, link, difficultyLevel, bolMultiplayer}) => {
+    .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
       setGameId(link);  
       setDifficulty(difficultyLevel); 
+      setDuration(gameDuration)
       setMultiplayer(bolMultiplayer); 
       const currentUserId = parseInt(localStorage.getItem('userId'));
       console.log("currentUserId", currentUserId, "data_hostId", data_hostId);
@@ -256,13 +288,12 @@ export default function Game(props) {
   const setGameDuration = time => {
     setDuration(time);
   };
-
+  if(gameId && props.game === null) {
+    startGame();
+  }
+  
   checkSolved();
-/*   if(broadcastScore) {
-    socket.emit('gameData', {name:localStorage.getItem('username'), score: `${score} / ${props.game.words.length}`});
-    setBroadcastScore(false);
-  } */
-  //<GameTimer gametime={gametime} endGame={endGame} multiplayer={props.multiplayer} />
+
   return(
     <div>
       {mode === HOME && <GameHome 
@@ -283,10 +314,12 @@ export default function Game(props) {
       {mode === GAMELOBBY && <GameLobby
         startMultiPlayerGame={startMultiPlayerGame}
         cancelScreen={cancelScreen}
+        duration={duration}
         difficulty={difficulty}
-        gameMode={'Chill'}
+        gameMode={duration ? 'Time Attack' : 'Chill'}
         hostOfGame={hostId}
         link={gameId}
+        languages={getGameLanguages()}
       />}
       {mode === NEWGAME && <GameBoard 
         game={props.game}
