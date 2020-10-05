@@ -366,6 +366,7 @@ export default function Game(props) {
         endGame={endGame}
         multiplayer={multiplayer}
         duration={duration}
+        score={score}
       />}
       {mode === ENDGAME && <GameOverBoard 
         game={props.game}
