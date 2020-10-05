@@ -62,6 +62,7 @@ export default function App() {
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
     setLoggedUser('')
+    document.location.href = "/login";
   };
 
   return (
