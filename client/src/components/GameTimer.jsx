@@ -12,7 +12,7 @@ export default function GameTimer(props){
     duration += parseInt(arr[1]) * 1000;
     return duration;
   }
-  const durationTimer = props.multiplayer 
+  const durationTimer = props.duration 
     ?
     <Timer
       initialTime={getDurationMilis()}

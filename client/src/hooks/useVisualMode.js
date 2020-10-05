@@ -1,11 +1,11 @@
 import {useState} from 'react';
 
-function useVisualMode(initMode, Gid) {
+function useVisualMode(initMode, initGameId) {
   const [mode, setMode] = useState(initMode);
   const [history, setHistory] = useState([initMode]);
   const [difficulty, setDifficulty] = useState("Easy");
   const [multiplayer, setMultiplayer] = useState(false);
-  const [gameId, setGameId] = useState(Gid);
+  const [gameId, setGameId] = useState(initGameId);
   const [hostId, setHostId] = useState('');
 
   //store GridRowSquare id being attempted on the board here
@@ -14,6 +14,7 @@ function useVisualMode(initMode, Gid) {
   //Array of arrays of solved GridRowSquare ids.
   //length of array is score.
   const [solved, setSolved] = useState([]);
+
   const [broadcastScore, setBroadcastScore] = useState(false);
   const [score, setScore] = useState(0);
 
@@ -45,7 +46,6 @@ function useVisualMode(initMode, Gid) {
     }
   };
   const addAttempt = (id, row, col, replace = false) => {
-    //console.log("adding first attempt", id);
     if (replace) {
       const newAtempts = [{id, row, col}];
       setAttempts(newAtempts);
@@ -57,19 +57,18 @@ function useVisualMode(initMode, Gid) {
   const SetCurrentSolved = () => {
     const tmpSolved = [...solved, attempts];
     setSolved(tmpSolved);
+    localStorage.setItem('solved', JSON.stringify(attempts));
     const tmpArray = [];
     setAttempts(tmpArray);
     const tmpScore = score + 1;
     setScore(tmpScore);
     localStorage.setItem('score', tmpScore);
   }
+  const updateLatestSolved = (HostedGameSolved) => {
+    const tmpSolved = [...solved, HostedGameSolved];
+    setSolved(tmpSolved);
+  };
   
-/*   const broadcastScore = (wordCount) => {
-    if(updateScoreStatus) {
-      socket.emit('gameData', {name:localStorage.getItem('username'), score: `${solved.length} / ${wordCount}`});
-      updateScoreStatus = false;
-    }
-  } */  
   return {
     mode, 
     transition, 
@@ -81,6 +80,7 @@ function useVisualMode(initMode, Gid) {
     addAttempt, 
     solved, 
     SetCurrentSolved, 
+    updateLatestSolved,
     multiplayer, 
     setMultiplayer, 
     duration, 
@@ -88,7 +88,10 @@ function useVisualMode(initMode, Gid) {
     gameId, 
     setGameId, 
     hostId, 
-    setHostId, broadcastScore, setBroadcastScore, score
+    setHostId,
+    broadcastScore,
+    setBroadcastScore,
+    score
   };
 }
 

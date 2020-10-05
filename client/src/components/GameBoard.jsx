@@ -35,7 +35,7 @@ export default function GameBoard(props) {
   return (
     <div>
       <div style={{display:'flex', flexDirection: 'row'}}>
-        <GameScore score={props.solved.length} wordCount={props.game.words.length} />
+        <GameScore score={props.score} wordCount={props.game.words.length} />
         <GameTimer  duration={props.duration} endGame={props.endGame} multiplayer={props.multiplayer} />
       </div>
       <div className='board-table'>

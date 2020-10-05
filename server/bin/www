@@ -133,9 +133,9 @@ io.on('connection', socket => {
     console.log('chat socket')
   })
 
-  socket.on('gameData', ({ name, score }) => {
-    socket.broadcast.emit('gameData', { name, score })
-    console.log('game socket used', name, score);
+  socket.on('gameData', ({HostedGameId, name, score }) => {
+    socket.broadcast.emit('gameData', {HostedGameId, name, score })
+    console.log('game socket used',HostedGameId, name, score);
     
   })
 
@@ -145,6 +145,10 @@ io.on('connection', socket => {
     
   })
   
+  socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
+    socket.broadcast.emit('solved', {HostedGameId, HostedGameSolved});
+    console.log('using solved socket',HostedGameId, HostedGameSolved);
+  })
 
     
   })
