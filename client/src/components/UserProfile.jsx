@@ -29,7 +29,7 @@ export default function UserProfile(props) {
   }, [userId]);
 
   const gameList = games.map(game => (
-    <tr className="game-list-item" key={game.link}>
+    <tr key={game.link}>
       <td>{game.link}</td>
       <td>{game.mode}</td> 
       {game.multiplayer ? <td>multiplayer</td> : <td>single player</td>}
@@ -69,12 +69,16 @@ export default function UserProfile(props) {
        <h1>{username}'s Profile</h1> <img className="avatar-image" src={avatar} alt="profile-avatar"></img>
        <h1>Your Games</h1>
        <h3>Share your multiplayer game link to play it again with other players!</h3>
-       <thead className="game-list-header">
-         <th>Link</th>
-         <th>Difficulty</th>
-         <th>Mode</th>
-       </thead><br/>
-       {gameList}
+       <table className="game-list-header">
+       <thead>
+         <tr>         
+          <th>Link</th>
+          <th>Difficulty</th>
+          <th>Mode</th>
+         </tr>
+       </thead>
+       <tbody>{gameList}</tbody>       
+       </table>
        <form className="update-profile-form" onSubmit={updateProfile}>
         <h3>Update your profile</h3>
         <p>New password:</p>
