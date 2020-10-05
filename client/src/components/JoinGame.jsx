@@ -40,7 +40,7 @@ export default function JoinGame(props) {
 
   // will need to know the host to show/hide the start game button.
   const hostOfGame = dataNew.host_id;
-  console.log('host of the game is: ', hostOfGame);
+  console.log('host of the game is(fromJoinGame): ', hostOfGame);
 
   // will need to get the current user to see if the id matches the hostid
   const currentUserId = parseInt(localStorage.getItem('userId'));

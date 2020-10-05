@@ -170,7 +170,7 @@ export default function App() {
           </Route>   
 
           <Route path="/:gameid">
-            <JoinGame />  
+            <Home />  
           </Route>       
 
           <Route path="/">
@@ -240,10 +240,21 @@ function MultiplayerLobby() {
    </main> 
   )
 }
+/*
 
 function Home() {
   return (
   <div className="gameMainContainer">
+    <div className="dvGameBoardContainer">
+      <div className="dvGameBoardContents">
+      <Application />
+      </div>
+    </div>
+  </div>
+*/
+function Home() {
+  return (
+    <div className="gameMainContainer">
     <div className="dvGameBoardContainer">
       <div className="dvGameBoardContents">
       <Application />
