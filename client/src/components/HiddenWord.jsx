@@ -1,5 +1,4 @@
 import React from "react";
-import HiddenWordsList from "./HiddenWordsList";
 
 import './HiddenWord.scss';
 const classNames = require('classnames');

@@ -33,7 +33,7 @@ export default function Application(props) {
 return (
     <div>
     <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} />
-    <Chat loggedUser={loggedUser} />
+    {/* <Chat loggedUser={loggedUser} /> */}
 
     </div>
 

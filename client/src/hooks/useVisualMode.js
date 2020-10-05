@@ -17,6 +17,9 @@ function useVisualMode(initMode) {
   const [broadcastScore, setBroadcastScore] = useState(false);
   const [score, setScore] = useState(0);
 
+  //set the duration of the current game.
+  const [duration, setDuration] = useState('6:00');
+
   const transition = (newMode, replace = false) => {
     if (replace) {
       //cannot use back() here I think for the same reason mentioned below about mode.
@@ -29,8 +32,11 @@ function useVisualMode(initMode) {
       setHistory(newHistory);
     }
   };
-
-  
+  const reset = newMode => {
+    const newHistory = [newMode];
+    setMode(newHistory[newHistory.length - 1]);
+    setHistory(newHistory);    
+  };
   const back = () => {
     if(history.length > 1) {
       const newHistory = [...history.slice(0, history.length-1)];
@@ -68,6 +74,7 @@ function useVisualMode(initMode) {
     mode, 
     transition, 
     back, 
+    reset,
     difficulty, 
     setDifficulty, 
     attempts, 
@@ -76,6 +83,8 @@ function useVisualMode(initMode) {
     SetCurrentSolved, 
     multiplayer, 
     setMultiplayer, 
+    duration, 
+    setDuration,
     gameId, 
     setGameId, 
     hostId, 

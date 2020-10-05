@@ -3,17 +3,20 @@ import React from "react";
 import DifficultyButton from "../DifficultyButton";
 import NewGameSetup from '../NewGameSetup';
 import GameBoard  from '../GameBoard';
+import GameOverBoard from '../GameOverBoard';
 import useVisualMode from "../../hooks/useVisualMode";
 import HiddenWordsList from "../HiddenWordsList";
 
 import GameLobby from "../GameLobby";
 import GameHome from "../GameHome";
+import Chat from "../Chat";
 import io from 'socket.io-client'
 const socket = io.connect('http://localhost:3001')
 
 const HOME = "HOME";
 const SETUP = "SETUP";
 const NEWGAME = "NEWGAME";
+const ENDGAME = "ENDGAME";
 const GAMELOBBY = "GAMELOBBY";
 
 const LEFT = "LEFT";
@@ -28,9 +31,27 @@ const DIAGANOL_RIGHT_DOWN = "DIAGANOL_RIGHT_DOWN";
 
 export default function Game(props) {
     const {
-      mode, transition, back, difficulty, setDifficulty, attempts, 
-      addAttempt, solved, SetCurrentSolved, 
-      multiplayer, setMultiplayer, gameId, setGameId, hostId, setHostId, broadcastScore, setBroadcastScore, score
+      mode, 
+      transition, 
+      back, 
+      reset,
+      difficulty, 
+      setDifficulty, 
+      attempts, 
+      addAttempt, 
+      solved, 
+      SetCurrentSolved, 
+      multiplayer, 
+      setMultiplayer, 
+      gameId, 
+      setGameId, 
+      hostId, 
+      setHostId,
+      duration,
+      setDuration,
+      broadcastScore,
+      setBroadcastScore,
+      score      
     } = useVisualMode(HOME);
 
     const checkSolved = () => {
@@ -102,6 +123,15 @@ export default function Game(props) {
     .catch(error => {
       //should print error on label on screen
     })
+  };
+  const playAgain = () => {
+
+  };
+  const joinPolySearch = () => {
+
+  };
+  const showMain = () => {
+    reset(HOME);
   };
   // =====================================================
   const validateMove = (row, col, direction) => {
@@ -196,11 +226,21 @@ export default function Game(props) {
   const selectGameContent = id => {
     connectMoves(id);
   };
+
+  const endGame = () => {
+    transition(ENDGAME);
+  };
+  
+  const setGameDuration = time => {
+    setDuration(time);
+  };
+
   checkSolved();
 /*   if(broadcastScore) {
     socket.emit('gameData', {name:localStorage.getItem('username'), score: `${score} / ${props.game.words.length}`});
     setBroadcastScore(false);
   } */
+  //<GameTimer gametime={gametime} endGame={endGame} multiplayer={props.multiplayer} />
   return(
     <div>
       {mode === HOME && <GameHome 
@@ -215,6 +255,8 @@ export default function Game(props) {
         setDifficulty={setDifficulty} 
         multiplayer={multiplayer}
         setMultiplayer={setMultiplayer}
+        duration={duration}
+        setGameDuration={setGameDuration}
       />}
       {mode === GAMELOBBY && <GameLobby
         startMultiPlayerGame={startMultiPlayerGame}
@@ -229,7 +271,25 @@ export default function Game(props) {
         selectGameContent={selectGameContent}
         attempts={attempts}
         solved={solved}
+        endGame={endGame}
+        multiplayer={multiplayer}
+        duration={duration}
       />}
+      {mode === ENDGAME && <GameOverBoard 
+        game={props.game}
+        playAgain={playAgain}
+        joinPolySearch={joinPolySearch}
+        showMain={showMain}
+        attempts={attempts}
+        solved={solved}
+        endGame={endGame}
+        multiplayer={multiplayer}
+        duration={duration}      
+      />}
+      {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) &&
+      <Chat loggedUser={localStorage.getItem('username')}/>
+
+      }
     </div>
   );
 }

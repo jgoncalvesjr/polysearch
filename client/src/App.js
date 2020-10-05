@@ -23,6 +23,7 @@ import Chat from './components/Chat';
 import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
 import GameData from './components/GameData';
+import UserProfile from './components/UserProfile';
 
 
 export default function App() {
@@ -62,6 +63,7 @@ export default function App() {
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
     setLoggedUser('')
+    document.location.href = "/login";
   };
 
   return (
@@ -100,8 +102,11 @@ export default function App() {
               {loggedUser}  
             </li>}
             {loggedUser && <li>
+              <Link to="/profile">Profile</Link> 
+            </li> }
+            {loggedUser && <li>
                 <Logout logout={logout}/> 
-            </li> }         
+            </li> }
           </ul>
         </nav>
 
@@ -156,13 +161,17 @@ export default function App() {
             <GameOver />
           </Route>
 
-          <Route path="/newgame">
+{/*           <Route path="/newgame">
             <NewGame />
-          </Route>
+          </Route> */}
+
+          <Route path="/profile">
+            <UserProfile />  
+          </Route>   
 
           <Route path="/:gameid">
             <JoinGame />  
-          </Route>      
+          </Route>       
 
           <Route path="/">
             <Home />
@@ -174,7 +183,7 @@ export default function App() {
   );
 }
 
-function Home(props) {
+/* function Home(props) {
   // console.log('here are the props:', props);
 
   return (
@@ -194,7 +203,7 @@ function Home(props) {
 
   </main> 
   );
-}
+} */
 
 function GameOver() {
   return (
@@ -232,7 +241,7 @@ function MultiplayerLobby() {
   )
 }
 
-function NewGame() {
+function Home() {
   return (
   <div className="gameMainContainer">
     <div className="dvGameBoardContainer">
