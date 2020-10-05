@@ -30,7 +30,7 @@ const useApplicationData = () => {
       }).then(({ data }) => {
         console.log("gameData", data);
         dispatch({ type: SET_NEW_GAME, game: data });
-        resolve(data);
+        resolve({hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer});
       })
       .catch(error => {
         reject(error);
@@ -53,7 +53,7 @@ const useApplicationData = () => {
       ).then(({ data }) => {
         console.log("start new game response", data);   
         dispatch({ type: SET_NEW_GAME, game: data });
-        resolve(data);
+        resolve({hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer});
       })
       .catch(error => {
         console.log("start new game call error: ", error);
@@ -62,12 +62,29 @@ const useApplicationData = () => {
     });
   };  
 
+  const startMultiplayerGame = (gameId) => {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'GET',
+        url: `/api/games/${gameId}`
+      }).then(({ data }) => {
+        console.log('Here is the data being retrieved: ',data);
+        dispatch({ type: SET_NEW_GAME, game: data });
+        // trying to make the data from the axios get request retrievable by all everything.
+        resolve({hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer});
+      })
+      .catch(err => {
+        reject(err);
+      });
+    });
+  };
   //const setDifficulty = pdifficulty => dispatch({type: DIFFICULTY_SETTING, difficulty: pdifficulty});
 
   return {
     state,
     dispatch,
-    getNewGame
+    getNewGame,
+    startMultiplayerGame
   };
 };
 
