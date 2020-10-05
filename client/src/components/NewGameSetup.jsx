@@ -1,6 +1,6 @@
 import React, { Children, useState } from "react";
 import DifficultyButton from "./DifficultyButton";
-//import useApplicationData from '../hooks/useApplicationData';
+import './NewGameSetup.scss';
 import axios from "axios";
 
 const difficultySettings = [
@@ -19,11 +19,11 @@ const difficultySettings = [
   {
     id: 4,
     name: "Expert"
-  }, 
-  {
-    id: 5,
-    name: "Custom"
-  }
+  } 
+  // {
+  //   id: 5,
+  //   name: "Custom"
+  // }
 ];
 export default function NewGameSetup(props) {
   
@@ -115,53 +115,56 @@ const onChangeGameTime = (evt) => {
   const multiPlayerChecked = props.multiplayer ? "checked" : '';
   const singlePlayerChecked = props.multiplayer ? '' : 'checked';
   return (
-    <div style={{width: '90%'}}>
-      <div style={{textAlign: 'center'}}><h2 style={{color: '#2371A9', width: '100%', margin: '10px 0px 0px 0px'}}>New Game</h2></div>
-      <div style={{width: '100%', textAlign: 'right', color:'#2371A9'}}><span>Profile</span></div>
-      <div style={{display:'flex', flexDirection: 'row', color:'#2371A9'}}>
-            
-        
+    <div className="game-setup-container">
+      <div className="game-setup-title-container"><h2 className='game-setup-title'>New Game</h2></div>
+      {/* <div style={{width: '100%', textAlign: 'right', color:'#2371A9'}}><span>Profile</span></div> */}
+      <div className='game-setup-options'>
+        <div className='game-setup-radio-buttons'>
+              
+          <div>
+          {props.multiplayer 
+            ? <input type="radio" id="single-player" name="gameType" value={false} onChange={handleMultiplayerToggle} />
+            : <input type="radio" id="single-player" name="gameType"  checked={singlePlayerChecked} value={false} onChange={handleMultiplayerToggle} />
+          }
+            <label className="player-mode-select" for="single-player">Single Player</label>
+          </div>
+          <div>
+          {props.multiplayer 
+            ? <input type="radio" id="multi-player" name="gameType" value={true} checked={multiPlayerChecked} onChange={handleMultiplayerToggle} />
+            :  <input type="radio" id="multi-player" name="gameType" value={true} onChange={handleMultiplayerToggle} />
+          }
+            <label className="player-mode-select" for="multi-player">Multi Player</label>
+          </div>                  
+        </div>    
         <div>
-        {props.multiplayer 
-          ? <input type="radio" id="single-player" name="gameType" value={false} onChange={handleMultiplayerToggle} />
-          : <input type="radio" id="single-player" name="gameType"  checked={singlePlayerChecked} value={false} onChange={handleMultiplayerToggle} />
-        }
-          <label for="single-player">Single Player</label>
-        </div>         
-        <div>
-        {props.multiplayer 
-          ? <input type="radio" id="multi-player" name="gameType" value={true} checked={multiPlayerChecked} onChange={handleMultiplayerToggle} />
-          :  <input type="radio" id="multi-player" name="gameType" value={true} onChange={handleMultiplayerToggle} />
-        }
-          <label for="multi-player">Multi Player</label>
-        </div>   
-                
-      </div>    
-      <div>
-        {dificultyButtonsArray}
-      </div>
-      <div style={{display: 'flex', flexDirection: 'row', color: '#2371A9'}}>
-        <div>Select Language</div>
-        <div>
-          <select>
-            <option>English</option>
-            <option>French</option>
-            <option>Spanish</option>
-            <option>Italian</option>
-            <option>Portuguese</option>
-          </select>
+          {dificultyButtonsArray}
+        </div>
+        {/* <div style={{display: 'flex', flexDirection: 'row', color: '#2371A9'}}>
+          <div>Select Language</div>
+          <div>
+            <select>
+              <option>English</option>
+              <option>French</option>
+              <option>Spanish</option>
+              <option>Italian</option>
+              <option>Portuguese</option>
+            </select>
+          </div>
+        </div> */}
+        <div className="durationContent">
+          
+            <div>Duration</div>
+            {/* <div><button>Chill</button></div> */}
+          
+          <div><input className="timer-input" value={props.duration} onChange={onChangeGameTime}/></div>
         </div>
       </div>
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-        <div style={{display: 'flex', flexDirection: 'row'}}>
-          <div>Game Mode</div>
-          <div><button>Chill</button></div>
-        </div>
-        <div><input value={props.duration} onChange={onChangeGameTime}/></div>
-      </div>
-      <div  style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-        <div><button onClick={props.startGame}>Start Game</button></div>
-        <div><button onClick={props.cancelScreen}>Cancel</button></div>
+      <div className='setupButtons'>
+      { props.multiplayer 
+      ?  <div><button className="game-buttons" onClick={props.startGame}>Create Game</button></div>
+      :  <div><button className="game-buttons" onClick={props.startGame}>Start Game</button></div>
+      }
+        <div><button className="game-buttons" onClick={props.cancelScreen}>Cancel</button></div>
       </div>
     </div>
   );

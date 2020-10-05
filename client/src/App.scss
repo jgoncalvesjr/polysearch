@@ -89,20 +89,23 @@
 
 
 .gameMainContainer {
-  display:flex;
-  justify-content:center;
+  /*display:flex;*/
+  /*justify-content:center;*/
   width:100%;
+
  }
+
+ /*
  .dvGameBoardContainer {
-   position: relative;
-   display: inline-block;
-   width: 80%;
-   height: 400px;
-   background-color: #FFF;
-   border:1px solid #000;
-   border-radius: 10px;
-   opacity: 0.64;
- }
+  position: relative;
+  display: inline-block;
+  width: 80%;
+  height: 400px;
+  background-color: #FFF;
+  border:1px solid #000;
+  border-radius: 10px;
+  opacity: 0.64;
+}
  
  .dvGameBoardContents {
    position: absolute;
@@ -115,14 +118,17 @@
    height: 100%;
    opacity: 1;
   }
+*/
 
 #main-box {
   position: absolute;
   top: 50%;
   left: 50%;
+
+  margin: -15% 0 0 -25%;
   height: 35%;
   width: 50%;
-  margin: -15% 0 0 -25%;
+  /*margin: auto;*/
   border-radius: 25px;
   background-color: #ffffff;
   border: 1px solid black;

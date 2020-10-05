@@ -71,7 +71,7 @@ export default function App() {
     <Router>
       <Navbar loggedUser={loggedUser} logout={logout}/>
       <div>
-        <nav>
+        {/* <nav>
           <h3>These links below for testing</h3>
           <ul>
           <li>
@@ -108,7 +108,7 @@ export default function App() {
                 <Logout logout={logout}/> 
             </li> }
           </ul>
-        </nav>
+        </nav> */}
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL.
@@ -254,13 +254,8 @@ function Home() {
 */
 function Home() {
   return (
-    <div className="gameMainContainer">
-    <div className="dvGameBoardContainer">
-      <div className="dvGameBoardContents">
-      <Application />
-      </div>
-    </div>
-  </div>
+    <div id="main-box"><Application /></div>
+    
   );
 }
 /* function WordGame() {

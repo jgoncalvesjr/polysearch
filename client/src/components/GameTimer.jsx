@@ -7,12 +7,16 @@ export default function GameTimer(props){
 
   const getDurationMilis = () => {
     //expects mm:ss format
-    const arr = props.duration.split(':');
-    let duration = parseInt(arr[0]) * 60000;
-    duration += parseInt(arr[1]) * 1000;
-    return duration;
+    try{
+      const arr = props.duration.split(':');
+      let duration = parseInt(arr[0]) * 60000;
+      duration += parseInt(arr[1]) * 1000;
+      return duration;
+    } catch(e){
+      return 0;
+    }
   }
-  const durationTimer = props.duration 
+  const durationTimer = getDurationMilis() > 0
     ?
     <Timer
       initialTime={getDurationMilis()}
