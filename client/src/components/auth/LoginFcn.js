@@ -93,6 +93,7 @@ export default function LoginFcn(props) {
       })
       .catch(error => {
         console.log("login error", error);
+        alert("You entered the wrong email/password combination!")
       });
   };
   
