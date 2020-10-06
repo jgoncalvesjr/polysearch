@@ -367,6 +367,7 @@ export default function Game(props) {
         multiplayer={multiplayer}
         duration={duration}
         score={score}
+        cancelScreen={cancelScreen}
       />}
       {mode === ENDGAME && <GameOverBoard 
         game={props.game}
@@ -380,7 +381,7 @@ export default function Game(props) {
         duration={duration} 
         score={score}     
       />}
-      {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) &&
+      {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) && multiplayer &&
       <Chat loggedUser={localStorage.getItem('username')}/>
 
       }

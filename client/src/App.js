@@ -69,7 +69,9 @@ export default function App() {
   return (
     
     <Router>
+      <div className="navbar">
       <Navbar loggedUser={loggedUser} logout={logout}/>
+      </div>
       <div>
         {/* <nav>
           <h3>These links below for testing</h3>

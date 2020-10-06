@@ -20,7 +20,10 @@ module.exports = ({ getUserProfile, updateUser, getUsers }) => {
     const id = splitPageURL[splitPageURL.length - 1];
     // const id = req.body.id;
     getUserProfile(id)
-      .then((user) => res.status(200).json(getGamesByUser(user)))
+      .then((user) => {
+        console.log(getGamesByUser(user));
+        res.status(200).json(getGamesByUser(user));
+      }) 
       .catch((err) => res.json({ err }));
   });
   

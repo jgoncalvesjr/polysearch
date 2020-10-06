@@ -20,11 +20,12 @@ export default function UserProfile(props) {
       method: 'GET',
       url: `/api/users/${userId}`
     }).then(({ data }) => {
-      console.log(data);
+      // console.log(data);
       setUsername(data.username);
       setAvatar(data.avatar);
       setAvatarUpdate(data.avatar);
-      setGames(data.games);
+      // console.log(data.games);
+      data.games && setGames(data.games);
     })
       .catch(err => console.log(err));
   }, [userId]);
@@ -67,19 +68,27 @@ export default function UserProfile(props) {
     
     <main className="main-page" id="main-page-id">
       <div className="transparent-box" id="profile-box">
-       <h1>{username}'s Profile</h1> <img className="avatar-image" src={avatar} alt="profile-avatar"></img>
-       <h1>Your Games</h1>
-       <h3>Share your multiplayer game link to play it again with other players!</h3>
-       <table className="game-list-header">
-       <thead>
-         <tr>         
-          <th>Link</th>
-          <th>Difficulty</th>
-          <th>Mode</th>
-         </tr>
-       </thead>
-       <tbody>{gameList}</tbody>       
-       </table>
+       <h1>{username}'s Profile</h1> 
+        {avatar &&
+        <img className="avatar-image" src={avatar} alt="profile-avatar"></img>
+        }
+        {gameList &&
+        <div>
+        <h1>Your Games</h1>
+        <h3>Share your multiplayer game link to play it again with other players!</h3>
+        <table className="game-list-header">
+        <thead>
+          <tr>         
+           <th>Link</th>
+           <th>Difficulty</th>
+           <th>Mode</th>
+          </tr>
+        </thead>
+        <tbody>{gameList}</tbody>       
+        </table> 
+        </div>
+        }
+       
        <form className="update-profile-form" onSubmit={updateProfile}>
         <h3>Update your profile</h3>
         <p>New password:</p>
