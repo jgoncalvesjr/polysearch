@@ -22,7 +22,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        PolySearch
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -148,13 +148,13 @@ export default function LoginFcn(props) {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
+            {/* <Grid item xs>
               <Link href="#" variant="body2">
                 Forgot password?
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/registration"  variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -166,33 +166,6 @@ export default function LoginFcn(props) {
       </Box>
     </Container>
   )
-
-
-
-  // old stuff is below
-  // return (
-  //   <div>
-  //   <form onSubmit={loginButton}>
-  //     <input 
-  //     type="email"
-  //     name="email" 
-  //     placeholder="Email" 
-  //     value={email} 
-  //     onChange={handleEmailInput} 
-  //     required />
-
-  //     <input 
-  //     type="password"
-  //     name="password" 
-  //     placeholder="Password" 
-  //     value={password} 
-  //     onChange={handlePasswordInput} 
-  //     required />
-
-  //     <button type="submit" >Login</button>
-  //   </form>
-  // </div>
-  // );
 
 };
 
