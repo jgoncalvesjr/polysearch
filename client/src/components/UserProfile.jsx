@@ -6,8 +6,10 @@ import './GameLobby.scss';
 
 export default function UserProfile(props) {
 
-  // const history = useHistory();
   const userId = localStorage.userId;
+  if (!userId) {
+    document.location.href = "/";
+  }
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState('');
   const [games, setGames] = useState([]);
@@ -15,17 +17,14 @@ export default function UserProfile(props) {
   const [avatarUpdate, setAvatarUpdate] = useState('');
 
   useEffect(() => {
-    console.log(userId);
     axios({
       method: 'GET',
       url: `/api/users/${userId}`
     }).then(({ data }) => {
-      // console.log(data);
       setUsername(data.username);
       setAvatar(data.avatar);
       setAvatarUpdate(data.avatar);
-      // console.log(data.games);
-      data.games && setGames(data.games);
+      data.games[0].mode && setGames(data.games);
     })
       .catch(err => console.log(err));
   }, [userId]);
@@ -37,8 +36,6 @@ export default function UserProfile(props) {
       {game.multiplayer ? <td>multiplayer</td> : <td>single player</td>}
     </tr>
   ));
-  
-
   const handlePasswordInput = e => {
     setPassword(e.target.value);
   };
@@ -71,26 +68,32 @@ export default function UserProfile(props) {
       <div className="transparent-box" id="profile-box">
        <h1>{username}'s Profile</h1> 
         {avatar &&
-        <img className="avatar-image" src={avatar} alt="profile-avatar"></img>
+          <img className="avatar-image" src={avatar} alt="profile-avatar"></img>
         }
-        {gameList &&
-        <div>
-        <h1>Your Games</h1>
-        <h3>Share your multiplayer game link to play it again with other players!</h3>
-        <table className="game-list-header">
-        <thead>
-          <tr>         
-           <th>Link</th>
-           <th>Difficulty</th>
-           <th>Mode</th>
-          </tr>
-        </thead>
-        <tbody>{gameList}</tbody>       
-        </table> 
-        </div>
+        {gameList[0] &&
+          <div>
+          <h1>Your Games</h1>
+          <h3>Share your multiplayer game link to play it again with other players!</h3>
+          <table className="game-list-header">
+          <thead>
+            <tr>         
+            <th>Link</th>
+            <th>Difficulty</th>
+            <th>Mode</th>
+            </tr>
+          </thead>
+          <tbody>{gameList}</tbody>       
+          </table> 
+          </div>
+        }
+        {!gameList.length &&
+          <div>
+            <h2>Your game history will be listed here!</h2>
+            <h3>All you need to do is start some new games!</h3>
+          </div>
         }
        
-       <form className="update-profile-form" onSubmit={updateProfile}>
+      <form className="update-profile-form" onSubmit={updateProfile}>
         <h3>Update your profile</h3>
         <p>New password:</p>
         <input
