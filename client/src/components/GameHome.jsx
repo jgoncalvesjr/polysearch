@@ -21,8 +21,11 @@ export default function GameHome(props) {
       <h3 className="main-page-title">Your Polyglot Word Search Game!</h3>
         <div className="game-buttons-div">
           <button className="game-buttons" onClick={props.newGame}>New Game</button>
-          <button className="game-buttons" onClick={loginButton}>Login</button>
-          <button className="game-buttons" onClick={registrationButton}>Join PolySearch</button>
+          {!localStorage.getItem('username') &&
+          <button className="game-buttons" onClick={loginButton}>Login</button>}
+          
+          {!localStorage.getItem('username') &&
+          <button className="game-buttons" onClick={registrationButton}>Join PolySearch</button>}
         </div>
 
       </div>
