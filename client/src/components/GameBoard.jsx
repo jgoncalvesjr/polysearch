@@ -34,19 +34,23 @@ export default function GameBoard(props) {
 
   return (
     <div>
-      <div style={{display:'flex', flexDirection: 'row'}}>
+      <div className="game-board-score-container">
         <GameScore score={props.score} wordCount={props.game.words.length} />
         <GameTimer  duration={props.duration} endGame={props.endGame} multiplayer={props.multiplayer} />
       </div>
-      <div className='board-table'>
-        {gameGrid}
+
+      <div className="game-board-grid">
+        <div className='board-table'>
+          {gameGrid}
+        </div>
+        <div className="game-board-words-list">
+          <HiddenWordsList 
+            words={props.game.words} 
+            foundWords={foundWords} 
+          />
+        </div>
       </div>
-      <div>
-        <HiddenWordsList 
-          words={props.game.words} 
-          foundWords={foundWords} 
-        />
-      </div>
+
     </div>
   );
 }
