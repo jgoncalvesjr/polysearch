@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import TextField from '@material-ui/core/TextField'
+import ChatLabel from './ChatLabel';
 import './Chat.scss'
 import './GameLobby.scss'
 
@@ -19,7 +20,9 @@ score = solved.length / game.words.length
 */
   useEffect(() => {
     socket.on('message', ({ name, message }) => {
-      setChat([...chat, { name, message }])
+      const timeOptions = {hour: 'numeric', minute: 'numeric'}
+      const chatTime = new Intl.DateTimeFormat('en-US', timeOptions).format(new Date());          
+      setChat([...chat, { name, message, chatTime }])
     })
   })
 
@@ -33,17 +36,27 @@ score = solved.length / game.words.length
     const { message } = state
     socket.emit('message', { name, message })
     setState({ message: ''})
-    setChat([...chat, { name, message }])
+    const timeOptions = {hour: 'numeric', minute: 'numeric'}
+    const chatTime = new Intl.DateTimeFormat('en-US', timeOptions).format(new Date());    
+    setChat([...chat, { name, message, chatTime }])
   }
 
-  const renderChat = chat.map(({ name, message }, index) => (
+/*   const renderChat = chat.map(({ name, message }, index) => (
       <div key={index}>
         <h3>
           {name}: <span>{message}</span>
         </h3>
       </div>
-    ))
-  
+    )) */
+
+    const renderChat = chat.map(({ name, message, chatTime }, index) => (
+      <ChatLabel 
+        key={index}
+        name={name}
+        text={message}
+        time={chatTime}
+      />
+    ))    
 
 return (
   <div className="card">
