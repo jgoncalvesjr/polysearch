@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS games CASCADE;
 CREATE TABLE "games" (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "host_id" int NOT NULL,
+  "host_id" int,
   "link" varchar,
   "duration" varchar,
   "rows" varchar NOT NULL,
