@@ -63,13 +63,15 @@ export default function App() {
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
     setLoggedUser('')
-    document.location.href = "/login";
+    document.location.href = "/";
   };
 
   return (
     
     <Router>
+      <div className="navbar">
       <Navbar loggedUser={loggedUser} logout={logout}/>
+      </div>
       <div>
         {/* <nav>
           <h3>These links below for testing</h3>
@@ -253,8 +255,8 @@ function Home() {
   </div>
 */
 function Home() {
-  localStorage.removeItem('score');
-  localStorage.removeItem('solved');
+  // localStorage.removeItem('score');
+  // localStorage.removeItem('solved');
   return (
     <div id="main-box"><Application /></div>
     

@@ -33,10 +33,11 @@
  padding-top: 10px;
  padding-left: 50px;
 }
-.setupButtons {
+.setup-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-around;  
+  margin-bottom: 1.5rem;
 }
 
 .player-mode-select {
@@ -47,5 +48,5 @@
   flex-direction: row;
   justify-content: space-evenly;
   color: #2371A9;
-  width: 66%;
+  // width: 66%;
 }

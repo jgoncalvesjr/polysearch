@@ -12,15 +12,15 @@ const useApplicationData = () => {
     game: null
   });
 
-   useEffect(() => {
-    axios({
-      method: 'GET',
-      url: '/api/users',
-    }).then(({ data }) => {
-      // update the state with the result
-      dispatch({ type: SET_USERS, users: data });
-    });
-  }, []);
+  //  useEffect(() => {
+  //   axios({
+  //     method: 'GET',
+  //     url: '/api/users',
+  //   }).then(({ data }) => {
+  //     // update the state with the result
+  //     dispatch({ type: SET_USERS, users: data });
+  //   });
+  // }, []);
 
   //TODO: need to change to put once we are creating game in database.
 /*   const getNewGame2 = () => {

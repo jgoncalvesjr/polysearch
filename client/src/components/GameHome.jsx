@@ -20,7 +20,7 @@ export default function GameHome(props) {
       localStorage.removeItem('username');
       localStorage.removeItem('userId');
       //setLoggedUser('')
-      document.location.href = "/login";
+      document.location.href = "/";
     }
 
     function profileButton() {

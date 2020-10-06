@@ -77,7 +77,7 @@ module.exports = (db) => {
     const query = {
       text: 
         `SELECT users.id, username, avatar, multiplayer_wins, link, mode, multiplayer FROM users
-         JOIN games ON games.host_id = users.id
+         LEFT JOIN games ON games.host_id = users.id
          WHERE users.id = $1`,
       values: [id]
     };

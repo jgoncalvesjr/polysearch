@@ -139,11 +139,13 @@ export default function RegistrationFcn(props) {
             <Grid item xs={12}>
               <TextField
                 onChange={handleEmailInput}
+                
                 variant="outlined"
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
+                type="email"
                 name="email"
                 autoComplete="email"
               />

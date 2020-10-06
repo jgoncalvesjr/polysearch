@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
+        
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
@@ -92,6 +93,7 @@ export default function LoginFcn(props) {
       })
       .catch(error => {
         console.log("login error", error);
+        alert("You entered the wrong email/password combination!")
       });
   };
   
