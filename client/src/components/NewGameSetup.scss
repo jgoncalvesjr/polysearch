@@ -1,0 +1,51 @@
+
+.game-setup-container {
+  width: 100%;
+}
+.game-setup-title-container {
+  text-align: center;
+}
+.game-setup-title {
+  color: #2371A9;
+  width: 100%;
+  margin: 1.5rem 0px 0px 0px;
+}
+.game-setup-options{
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-input {
+  margin-left: 1em;
+  height: 2em;
+  width: 25%;
+  font-size: 1em;
+  border-radius: 10px;
+}
+/* style={{paddingTop: '10px'}}*/
+.durationContent {
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ padding-top: 10px;
+ padding-left: 50px;
+}
+.setupButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;  
+}
+
+.player-mode-select {
+  font-size: 1.25rem;
+}
+.game-setup-radio-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  color: #2371A9;
+  width: 66%;
+}

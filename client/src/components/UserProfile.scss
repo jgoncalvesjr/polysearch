@@ -1,15 +1,18 @@
 #profile-box {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 35%;
-  width: 50%;
-  margin: -15% 0 0 -25%;
+  top: 10%;
+  left: 25%;
+  bottom: 10%;  
+  overflow: auto;
+  height: 70%;
+  min-height: 35%;
+  min-width: 50%;
+  margin: auto;
   border-radius: 25px;
   background-color: #ffffff;
   border: 1px solid black;
   opacity: 0.7;
-  overflow: auto;
+  
 }
 
 .avatar-image {
@@ -41,4 +44,21 @@ table {
 
 td {
   padding: 0.25em 0.5em;
+}
+
+.button-container {
+  display: flex; 
+  width: 100%; 
+  justify-content: center;
+}
+
+.profile-button {
+  display: block;
+  margin-left: 0px;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: lightblue;
+  color: black;
+  font-weight: bold;
 }

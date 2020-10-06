@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import TextField from '@material-ui/core/TextField'
 import './Chat.scss'
+import './GameLobby.scss'
 
 const socket = io.connect('http://localhost:3001')
 
@@ -47,10 +48,10 @@ score = solved.length / game.words.length
 return (
   <div className="card">
   <form onSubmit={onMessageSubmit}>
-    <h1>Messenger</h1>
-    <div className="name-field">
+    <h1>Chat</h1>
+    {/* <div className="name-field">
       <h2>Current User: {props.loggedUser}</h2>      
-    </div>
+    </div> */}
     <div>
 
       <TextField
@@ -60,12 +61,13 @@ return (
         id="outlined-multiline-static"
         variant="outlined"
         label="Message"
+        fullWidth='true'
       />
     </div>
-    <button>Send Message</button>
+    <button className="multiplayer-lobby-buttons">Send Message</button>
   </form>
   <div className="render-chat">
-    <h1>Chat Log</h1>
+    <h1>Messages</h1>
     {renderChat}
   </div>
 </div>

@@ -58,11 +58,11 @@ export default function GameLobby(props) {
   let languages;
   if (props.languages) {
     languages = props.languages.map(el => {
-      return <div>{el}</div>;
+      return <span className="game-lobby-languages" >{el}&nbsp;&nbsp;</span>
     });
   }
-  return (
-  <div id="multiplayer-lobby">
+  /*
+<div id="multiplayer-lobby">
   <div id="multiplayer-lobby-box">
     <h2 id="multiplayer-lobby-title">Multiplayer Pre-Game Lobby</h2>
     <div id="">List of Players Go Here</div>
@@ -74,6 +74,30 @@ export default function GameLobby(props) {
       <h3>Languages:</h3>
       <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>{languages}</div>
     </div>
+    {/* <h3>{props.languages}</h3> *//*}*/
+    /*<div id='multiplayer-lobby-button-group'>
+      { currentUserId === props.hostOfGame &&
+      <button className="multiplayer-lobby-buttons" onClick={startGameButton}>Start Game</button>}
+      <button className="multiplayer-lobby-buttons" onClick={mainMenuButton}>Cancel</button>
+    </div>
+  </div>
+  </div> 
+  */
+  return (
+    <div className="game-lobby-container">
+    <h2 className="multiplayer-lobby-title">Multiplayer Pre-Game Lobby</h2>
+    
+    <h3 id="lobby-url">Use this link to invite people to play: {props.link}</h3>
+    <div>
+      <h3>Difficulty: {props.difficulty} </h3>
+      <h3>Game Mode: {props.gameMode} </h3>
+      <h3>Duration: {props.duration}</h3>
+      <div>
+        <h3>Languages: {languages}</h3>
+      </div>
+
+      
+    </div>
     {/* <h3>{props.languages}</h3> */}
     <div id='multiplayer-lobby-button-group'>
       { currentUserId === props.hostOfGame &&
@@ -81,7 +105,6 @@ export default function GameLobby(props) {
       <button className="multiplayer-lobby-buttons" onClick={mainMenuButton}>Cancel</button>
     </div>
   </div>
-</div> 
   )
   
 }

@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 // import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import './UserProfile.scss';
+import './GameLobby.scss';
 
 export default function UserProfile(props) {
 
@@ -100,7 +101,10 @@ export default function UserProfile(props) {
         onChange={handleAvatarInput} 
         required />
 
-      <br/><button type="submit" >Update Profile</button>
+      <br/>
+      <div className="button-container">
+        <button className="profile-button" type="submit" >Update Profile</button>
+      </div>
       </form>
       </div>
 

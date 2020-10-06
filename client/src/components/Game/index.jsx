@@ -377,7 +377,8 @@ export default function Game(props) {
         solved={solved}
         endGame={endGame}
         multiplayer={multiplayer}
-        duration={duration}      
+        duration={duration} 
+        score={score}     
       />}
       {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) &&
       <Chat loggedUser={localStorage.getItem('username')}/>
