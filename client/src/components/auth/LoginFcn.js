@@ -97,6 +97,7 @@ export default function LoginFcn(props) {
   
 
   return (
+    <div id="main-box">
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -165,6 +166,7 @@ export default function LoginFcn(props) {
         <Copyright />
       </Box>
     </Container>
+    </div>
   )
 
 };
