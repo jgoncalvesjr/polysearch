@@ -255,6 +255,8 @@ function Home() {
   </div>
 */
 function Home() {
+  localStorage.removeItem('score');
+  localStorage.removeItem('solved');
   return (
     <div id="main-box"><Application /></div>
     

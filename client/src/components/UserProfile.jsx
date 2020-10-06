@@ -37,6 +37,7 @@ export default function UserProfile(props) {
       {game.multiplayer ? <td>multiplayer</td> : <td>single player</td>}
     </tr>
   ));
+  
 
   const handlePasswordInput = e => {
     setPassword(e.target.value);
