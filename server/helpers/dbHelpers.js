@@ -61,10 +61,10 @@ module.exports = (db) => {
 
   const addGame = (newGame) => {
     const query = {
-      text: `INSERT INTO games (host_id, link, mode, rows, words, multiplayer)
-             VALUES ($1, $2, $3, $4, $5, $6)
+      text: `INSERT INTO games (host_id, link, duration, mode, rows, words, multiplayer)
+             VALUES ($1, $2, $3, $4, $5, $6, $7)
              RETURNING *`,
-      values: [newGame.host_id, newGame.link, newGame.mode, newGame.rows, newGame.words, newGame.multiplayer]
+      values: [newGame.host_id, newGame.link, newGame.duration, newGame.mode, newGame.rows, newGame.words, newGame.multiplayer]
     };
 
     return db

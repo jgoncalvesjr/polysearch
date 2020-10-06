@@ -127,9 +127,35 @@ const socket = require('socket.io');
 const io = socket(server);
 
 io.on('connection', socket => {
-  socket.on('message', ({ name, message }) => {
-    io.emit('message', { name, message })
+
+  socket.on('message', ({name, message }) => {
+    socket.broadcast.emit('message', {name, message })
+    console.log('chat socket')
   })
-});
+
+  socket.on('gameData', ({HostedGameId, name, score }) => {
+    socket.broadcast.emit('gameData', {HostedGameId, name, score })
+    console.log('game socket used',HostedGameId, name, score);
+    
+  })
+
+  socket.on('start', ({ HostedGameId }) => {
+    socket.broadcast.emit('start', {  HostedGameId })
+    console.log('start game socket used', HostedGameId);
+    
+  })
+  
+  socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
+    socket.broadcast.emit('solved', {HostedGameId, HostedGameSolved});
+    console.log('using solved socket',HostedGameId, HostedGameSolved);
+  })
+
+    
+  })
+  
+  
+
+
+
 
 /* Websocket Content End*/

@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL } from '../reducers/dataReducer';
+//import { duration } from '@material-ui/core';
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
@@ -22,7 +23,7 @@ const useApplicationData = () => {
   }, []);
 
   //TODO: need to change to put once we are creating game in database.
-  const getNewGame2 = () => {
+/*   const getNewGame2 = () => {
     return new Promise((resolve, reject) => {
       axios({
         method: 'GET',
@@ -36,24 +37,25 @@ const useApplicationData = () => {
         reject(error);
       });
     });
-  };
+  }; */
 
-  const getNewGame = function(multiplayer, difficultyLevel) {
+  const getNewGame = function(multiplayer, difficultyLevel, duration) {
     return new Promise((resolve, reject) => {
       console.log(`clicked start new game`)
       let currentUserId = localStorage.getItem('userId');
       console.log('here is the currentuserid: ', currentUserId);
-      return axios.put("http://localhost:3001/api/games", {
+      return axios.put("/api/games", {
         
           host_id: currentUserId,
           mode: difficultyLevel.toLowerCase(),
           multiplayer: multiplayer,
+          duration: duration
           
       }
       ).then(({ data }) => {
         console.log("start new game response", data);   
         dispatch({ type: SET_NEW_GAME, game: data });
-        resolve(data);
+        resolve({data_hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer, gameDuration: data.duration});
       })
       .catch(error => {
         console.log("start new game call error: ", error);
@@ -62,12 +64,31 @@ const useApplicationData = () => {
     });
   };  
 
+  const startMultiplayerGame = (gameId) => {	
+    return new Promise((resolve, reject) => {	
+      console.log("axios get", gameId);
+      axios({	
+        method: 'GET',	
+        url: `/api/games/${gameId}`	
+      }).then(({ data }) => {	
+        console.log('Here is the data being retrieved: ',data);	
+        dispatch({ type: SET_NEW_GAME, game: data });	
+        // trying to make the data from the axios get request retrievable by all everything.	
+        resolve({data_hostId: data.host_id, link: data.link, difficultyLevel: data.mode, bolMultiplayer: data.multiplayer, gameDuration: data.duration});	
+      })	
+      .catch(err => {	
+        reject(err);	
+      });	
+    });	
+  };
+
   //const setDifficulty = pdifficulty => dispatch({type: DIFFICULTY_SETTING, difficulty: pdifficulty});
 
   return {
     state,
     dispatch,
-    getNewGame
+    getNewGame,
+    startMultiplayerGame
   };
 };
 

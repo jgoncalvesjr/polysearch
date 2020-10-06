@@ -22,6 +22,8 @@ import Logout from './components/auth/Logout'
 import Chat from './components/Chat';
 import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
+import GameData from './components/GameData';
+import UserProfile from './components/UserProfile';
 
 
 export default function App() {
@@ -61,6 +63,7 @@ export default function App() {
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
     setLoggedUser('')
+    document.location.href = "/login";
   };
 
   return (
@@ -68,9 +71,12 @@ export default function App() {
     <Router>
       <Navbar loggedUser={loggedUser} logout={logout}/>
       <div>
-        <nav>
+        {/* <nav>
           <h3>These links below for testing</h3>
           <ul>
+          <li>
+              <Link to="/gamedata">GameData component</Link>
+            </li>
             <li>
               <Link to="/">Main Page</Link>
             </li>
@@ -96,16 +102,23 @@ export default function App() {
               {loggedUser}  
             </li>}
             {loggedUser && <li>
+              <Link to="/profile">Profile</Link> 
+            </li> }
+            {loggedUser && <li>
                 <Logout logout={logout}/> 
-            </li> }         
+            </li> }
           </ul>
-        </nav>
+        </nav> */}
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL.
             NOTE THAT ORDER MATTERS HERE!             
             */}
         <Switch>
+          <Route path="/gamedata">
+            <GameData />
+          </Route>
+
           <Route path="/chat">
             <Chat loggedUser={loggedUser} />
           </Route>
@@ -148,13 +161,17 @@ export default function App() {
             <GameOver />
           </Route>
 
-          <Route path="/newgame">
+{/*           <Route path="/newgame">
             <NewGame />
-          </Route>
+          </Route> */}
+
+          <Route path="/profile">
+            <UserProfile />  
+          </Route>   
 
           <Route path="/:gameid">
-            <JoinGame />  
-          </Route>      
+            <Home />  
+          </Route>       
 
           <Route path="/">
             <Home />
@@ -166,7 +183,7 @@ export default function App() {
   );
 }
 
-function Home(props) {
+/* function Home(props) {
   // console.log('here are the props:', props);
 
   return (
@@ -186,7 +203,7 @@ function Home(props) {
 
   </main> 
   );
-}
+} */
 
 function GameOver() {
   return (
@@ -223,8 +240,9 @@ function MultiplayerLobby() {
    </main> 
   )
 }
+/*
 
-function NewGame() {
+function Home() {
   return (
   <div className="gameMainContainer">
     <div className="dvGameBoardContainer">
@@ -233,6 +251,11 @@ function NewGame() {
       </div>
     </div>
   </div>
+*/
+function Home() {
+  return (
+    <div id="main-box"><Application /></div>
+    
   );
 }
 /* function WordGame() {

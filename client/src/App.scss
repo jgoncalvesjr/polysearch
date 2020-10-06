@@ -1,3 +1,30 @@
+::-webkit-scrollbar {
+  width: 10px;
+  opacity: 0.7; 
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: blue; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #082d9e; 
+}
+
+body {
+  background-image: url('/docs/paris-background.jpg');
+  
+  
+}
+
 .App {
   text-align: center;
 }
@@ -60,7 +87,6 @@
 #main-page-id {
   text-align: center;
   font-weight: bold;
-  background-image: url('/docs/paris-background.jpg');
   position: fixed;
   height: 100%;
   width: 100%;
@@ -68,20 +94,23 @@
 
 
 .gameMainContainer {
-  display:flex;
-  justify-content:center;
+  /*display:flex;*/
+  /*justify-content:center;*/
   width:100%;
+
  }
+
+ /*
  .dvGameBoardContainer {
-   position: relative;
-   display: inline-block;
-   width: 80%;
-   height: 400px;
-   background-color: #FFF;
-   border:1px solid #000;
-   border-radius: 10px;
-   opacity: 0.64;
- }
+  position: relative;
+  display: inline-block;
+  width: 80%;
+  height: 400px;
+  background-color: #FFF;
+  border:1px solid #000;
+  border-radius: 10px;
+  opacity: 0.64;
+}
  
  .dvGameBoardContents {
    position: absolute;
@@ -94,13 +123,17 @@
    height: 100%;
    opacity: 1;
   }
+*/
+
 #main-box {
   position: absolute;
   top: 50%;
   left: 50%;
-  height: 35%;
-  width: 50%;
+  
   margin: -15% 0 0 -25%;
+  min-height: 35%;
+  min-width: 50%;
+  /*margin: auto;*/
   border-radius: 25px;
   background-color: #ffffff;
   border: 1px solid black;
@@ -118,7 +151,6 @@
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  background-image: url('/docs/paris-background.jpg');
   position: fixed;
   height: 100%;
   width: 100%;
@@ -155,13 +187,11 @@
   align-items: center;
 }
 
-
 // game lobby styling below
 #multiplayer-lobby {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  background-image: url('/docs/paris-background.jpg');
   position: fixed;
   height: 100%;
   width: 100%;
