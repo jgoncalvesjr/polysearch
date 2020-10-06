@@ -16,6 +16,8 @@
 .game-board-score-container {
   display: flex;
   flex-direction: row;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 .game-board-grid {
@@ -25,4 +27,10 @@
   .game-board-words-list {
     padding-right: 20px;
   }
+}
+
+.game-over-title {
+  text-align: center;
+  padding-left: 20px;
+  
 }

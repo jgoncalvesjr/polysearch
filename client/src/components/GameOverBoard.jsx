@@ -8,6 +8,7 @@ import GameTimer from './GameTimer';
 import HiddenWordsList from './HiddenWordsList';
 
 import './GameBoard.scss';
+import './GameLobby.scss';
 
 export default function GameOverBoard(props) {
 
@@ -30,24 +31,27 @@ export default function GameOverBoard(props) {
 
   return (
     <div>
-      <div style={{display:'flex', flexDirection: 'row'}}>
-        <GameScore score={props.solved.length} wordCount={props.game.words.length} />
+      <div className="game-board-score-container">
+        <GameScore score={props.score} wordCount={props.game.words.length} />
         {/*<GameTimer  duration={props.duration} endGame={props.endGame} multiplayer={props.multiplayer} />*/}
       </div>
-      <div className='board-table'>
-        {/*{gameGrid}*/}
-        <div><h3>Game Over</h3></div>
-        <div  style={{display: 'flex', flexDirection: 'column'}}>
-        <div><button onClick={props.playAgain}>Play again</button></div>
-        <div><button onClick={props.joinPolySearch}>Join Polysearch</button></div>
-        <div><button onClick={props.showMain}>Back to Main</button></div>
-      </div>        
-      </div>
-      <div>
-        <HiddenWordsList 
-          words={props.game.words} 
-          foundWords={foundWords} 
-        />
+
+      <div className="game-board-grid">
+        <div className='board-table'>
+          {/*{gameGrid}*/}
+          <div className="game-over-title"><h3>Game Over</h3></div>
+          <div  style={{display: 'flex', flexDirection: 'column'}}>
+          <div><button className="multiplayer-lobby-buttons" onClick={props.playAgain}>Play again</button></div>
+          <div><button className="multiplayer-lobby-buttons" onClick={props.joinPolySearch}>Join Polysearch</button></div>
+          <div><button className="multiplayer-lobby-buttons" onClick={props.showMain}>Back to Main</button></div>
+        </div>        
+        </div>
+        <div className="game-board-words-list">
+          <HiddenWordsList 
+            words={props.game.words} 
+            foundWords={foundWords} 
+          />
+        </div>
       </div>
     </div>
   );
