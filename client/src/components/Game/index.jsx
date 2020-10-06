@@ -53,7 +53,9 @@ export default function Game(props) {
       setDuration,
       broadcastScore,
       setBroadcastScore,
-      score 
+      score,
+      remoteSolved,
+      setRemoteSolved
     } = useVisualMode(props.mode ? props.mode : HOME, props.gameid ? props.gameid : '');
 
     const getLanguageDescription = (languageCode) => {
@@ -86,6 +88,8 @@ export default function Game(props) {
     }
     
     const checkSolved = () => {
+    console.log("calling checkSolved");
+    console.log("multiplayer", multiplayer);
     if (attempts.length === 0) {
       return;
     }
@@ -173,8 +177,11 @@ export default function Game(props) {
       //should print error on label on screen
     })
   };
-  //useEffect(() => {
-    //console.log("socket started");
+
+  let testVar = localStorage.getItem('solved');
+
+  useEffect(() => {
+    console.log("socket started");
     socket.on('start', ({ HostedGameId}) => {
       console.log("socket got data", HostedGameId);
       if (HostedGameId === gameId) {
@@ -182,13 +189,19 @@ export default function Game(props) {
       }
     });
     socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
+      console.log("HostedGameId", HostedGameId)
+      console.log("gameId", gameId);
+
       if (HostedGameId === gameId) {
         const objSolved = JSON.parse(HostedGameSolved);
         console.log("objSolved", objSolved);
+        const tmpsolved = objSolved;
+        //setRemoteSolved(tmpsolved);
         updateLatestSolved(objSolved);
-      }  
-    });
-  //})
+      }
+    });  
+  }, [solved]);
+
 /*
           'GameMode': duration ? duration : 'Chill',
           'GameDifficulty': difficultyLevel,

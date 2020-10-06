@@ -14,6 +14,7 @@ function useVisualMode(initMode, initGameId) {
   //Array of arrays of solved GridRowSquare ids.
   //length of array is score.
   const [solved, setSolved] = useState([]);
+  const [remoteSolved, setRemoteSolved] = useState([]);
 
   const [broadcastScore, setBroadcastScore] = useState(false);
   const [score, setScore] = useState(0);
@@ -66,6 +67,7 @@ function useVisualMode(initMode, initGameId) {
   }
   const updateLatestSolved = (HostedGameSolved) => {
     const tmpSolved = [...solved, HostedGameSolved];
+    setRemoteSolved(HostedGameSolved);
     setSolved(tmpSolved);
   };
   
@@ -91,7 +93,9 @@ function useVisualMode(initMode, initGameId) {
     setHostId,
     broadcastScore,
     setBroadcastScore,
-    score
+    score,
+    remoteSolved,
+    setRemoteSolved
   };
 }
 
