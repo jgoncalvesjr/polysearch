@@ -128,9 +128,9 @@ const io = socket(server);
 
 io.on('connection', socket => {
 
-  socket.on('message', ({name, message }) => {
-    socket.broadcast.emit('message', {name, message })
-    console.log('chat socket')
+  socket.on('message', ({name, message, avatar,  HostedGameId }) => {
+    socket.broadcast.emit('message', {name, message, avatar,  HostedGameId })
+    console.log('chat socket', name, message, avatar,  HostedGameId)
   })
 
   socket.on('gameData', ({HostedGameId, name, score }) => {

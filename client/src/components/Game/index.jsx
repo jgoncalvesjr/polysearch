@@ -157,6 +157,7 @@ export default function Game(props) {
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
       setGameId(link);
+      localStorage.setItem('gameId', link);
       setDifficulty(difficultyLevel);
       setDuration(gameDuration)
       setMultiplayer(bolMultiplayer);
@@ -183,6 +184,7 @@ export default function Game(props) {
       setHostId(data_hostId);
       console.log("startGame => setting game id", gameId);
       setGameId(link);
+      localStorage.setItem('gameId', link);
       setDifficulty(difficultyLevel);
       setDuration(gameDuration)
       setMultiplayer(bolMultiplayer);
