@@ -102,10 +102,10 @@ return (
     </div>
     <button className="multiplayer-lobby-buttons">Send Message</button>
   </form>
-  <div className="render-chat">
-    <h1>Messages</h1>
-    {renderChat}
-  </div>
+   <div className="render-chat">
+      <h1>Messages</h1>
+        {renderChat}
+    </div>
 </div>
 )
 
