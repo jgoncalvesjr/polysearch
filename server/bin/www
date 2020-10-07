@@ -150,7 +150,7 @@ io.on('connection', socket => {
     console.log('using solved socket',HostedGameId, HostedGameSolved);
   })
 
-  socket.on('gameWinnerData', ({HostedGameId, name, score }) => {
+  socket.on('GameOverScore', ({HostedGameId, name, score }) => {
     socket.broadcast.emit('solved', {HostedGameId, name, score });
     console.log('using game winner data socket',HostedGameId, name, score);
   })
