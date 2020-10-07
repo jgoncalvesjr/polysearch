@@ -9,6 +9,10 @@ import HiddenWordsList from './HiddenWordsList';
 
 import './GameBoard.scss';
 import './GameLobby.scss';
+import { Socket } from "socket.io-client";
+
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:3001')
 
 export default function GameOverBoard(props) {
 
@@ -29,6 +33,24 @@ export default function GameOverBoard(props) {
     }).join('');
   })
 
+  // testing a way to get the score for each player and declare a winner at the end of the game.
+  let matchWinner = {}
+  socket.emit('gameData', {HostedGameId:'game-over', name:localStorage.getItem('username'), score: localStorage.getItem('score')});
+  socket.on('gameData', ({HostedGameId,  name, score}) => {
+    console.log(`Here is the socket info call at the end of the game: gameId: ${HostedGameId} name:${name} score: ${score}`);
+    if(!score){
+      score=0
+    }
+    matchWinner[name]=score
+  });  
+
+  console.log('Match Winner: ', matchWinner )// shows the other guys object with their name/score
+
+  matchWinner[localStorage.getItem('username')]=localStorage.getItem('score');// stores this users name and score data.
+
+  // create a function that checks which number is higher and returns that username.
+
+
   return (
     <div>
       <div className="game-board-score-container">
@@ -39,7 +61,7 @@ export default function GameOverBoard(props) {
       <div className="game-board-grid">
         <div className='board-table'>
           {/*{gameGrid}*/}
-          <div className="game-over-title"><h3>Game Over</h3></div>
+          <div className="game-over-title"><h3>Game Over Match Winner: {matchWinner[localStorage.getItem('username')]}</h3></div>
           <div  style={{display: 'flex', flexDirection: 'column'}}>
           <div><button className="multiplayer-lobby-buttons" onClick={props.playAgain}>Play again</button></div>
           <div><button className="multiplayer-lobby-buttons" onClick={props.joinPolySearch}>Join Polysearch</button></div>
