@@ -1,10 +1,10 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
-import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL, GAME_WINNER_DATA } from '../reducers/dataReducer';
+import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL } from '../reducers/dataReducer';
 //import { duration } from '@material-ui/core';
-import io from 'socket.io-client'
-const socket = io.connect('http://localhost:3001')
+//import io from 'socket.io-client'
+//const socket = io.connect('http://localhost:3001')
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
@@ -12,11 +12,10 @@ const useApplicationData = () => {
     loading: true,
     //difficulty: "Easy",
     game: null,
-    matchWinner: []
   });
 
   //
-  const socket = io.connect('http://localhost:3001')
+/*   //const socket = io.connect('http://localhost:3001')
 const sendSocketData = (type, obj) => {
   socket.emit(type, obj);
 }
@@ -38,7 +37,7 @@ const sendSocketData = (type, obj) => {
     const objSolved = JSON.parse(HostedGameSolved);
     console.log("useApplicationData objSolved", objSolved);
   });  
-  });
+  }); */
 
   //TODO: need to change to put once we are creating game in database.
 /*   const getNewGame2 = () => {
@@ -106,7 +105,7 @@ const sendSocketData = (type, obj) => {
     state,
     dispatch,
     getNewGame,
-    startMultiplayerGame
+    startMultiplayerGame,
   };
 };
 

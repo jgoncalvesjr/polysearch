@@ -10,8 +10,8 @@ import HiddenWordsList from "../HiddenWordsList";
 import GameLobby from "../GameLobby";
 import GameHome from "../GameHome";
 import Chat from "../Chat";
-import io from 'socket.io-client'
-const socket = io.connect('http://localhost:3001')
+import io from 'socket.io-client';
+const socket = io.connect('http://localhost:3001');
 
 const HOME = "HOME";
 const SETUP = "SETUP";
@@ -56,10 +56,21 @@ export default function Game(props) {
       score,
       remoteSolved,
       setRemoteSolved,
-      //matchWinner,
-      //setMatchWinner
-    } = useVisualMode(props.mode ? props.mode : HOME, props.gameid ? props.gameid : '');
+      matchWinner,
+      setMatchWinner
+    } = useVisualMode(
+      props.mode ? props.mode : HOME, 
+      props.game ? props.game.link : '', 
+      props.game ? props.game.host_id: '',
+      props.game ? game.mode: null,
+      props.game ? game.multiplayer : false,
+      props.game ? game.duration : null
+    );
 
+    console.log("gameId", gameId);
+    if(mode === ENDGAME) {
+      socket.emit('GameOverScore', {HostedGameId: gameId,  name: localStorage.getItem('username'), score: localStorage.getItem('score')});
+    }
     const getLanguageDescription = (languageCode) => {
       switch(languageCode)
       {
@@ -141,7 +152,7 @@ export default function Game(props) {
   const resumeGame = () => {
     alert("resume game");
   }; 
-  const getGameforLobby = () => {
+/*   const getGameforLobby = () => {
     props.startMultiplayerGame(gameId) 
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
@@ -158,17 +169,19 @@ export default function Game(props) {
     .catch(error => {
       //should print error on label on screen
     })    
-  } 
+  } */ 
     // this function is passed down to the NewGameSetup functional component Start Game button.
-  const startGame = () => {
+/*   const startGame = () => {
     //alert("get new game from server");
     if(gameId) {
+      console.log("startGame => calling game lobby", gameId);
       getGameforLobby();
       return;
     }
     props.getNewGame(multiplayer, difficulty, duration) //if multiplayer, need to send game id.
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
+      console.log("startGame => setting game id", gameId);
       setGameId(link);
       setDifficulty(difficultyLevel);
       setDuration(gameDuration)
@@ -180,43 +193,66 @@ export default function Game(props) {
       }
     })
     .catch(error => {
-      //should print error on label on screen
+      console.log("startGame Error", error);
+    })
+  }; */
+  const startGame = () => {
+    console.loggedUser("get new game from server");
+    props.getNewGame(multiplayer, difficulty, duration) //if multiplayer, need to send game id.
+    .then(({bolMultiplayer}) => {
+      if(bolMultiplayer) {
+        transition(GAMELOBBY);
+      } else {
+        transition(NEWGAME)
+      }
+    })
+    .catch(error => {
+      console.log("startGame Error", error);
     })
   };
 
-  let testVar = localStorage.getItem('solved');
 
   useEffect(() => {
     console.log("socket started");
     socket.on('start', ({ HostedGameId}) => {
       console.log("socket got data", HostedGameId);
       if (HostedGameId === gameId) {
-        // setGameId(HostedGameId);
         startMultiPlayerGame();
       }
     });
+  }, []);
+
+  useEffect(() => {  
     socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
       console.log("HostedGameId", HostedGameId)
       console.log("gameId", gameId);
 
-      // if (HostedGameId === gameId) {
+       if (HostedGameId === gameId) {
         const objSolved = JSON.parse(HostedGameSolved);
         console.log("objSolved", objSolved);
         const tmpsolved = objSolved;
-        //setRemoteSolved(tmpsolved);
         updateLatestSolved(objSolved);
-      // }
+       }
     });  
   }, [solved]);
+
+  useEffect(() => {
+    socket.on('GameOverScore', ({HostedGameId,  name, score}) => {
+      console.log(`Here is the socket info call at the end of the game: gameId: ${HostedGameId} name:${name} score: ${parseInt(score)}`);
+      const tmpGameOverScore = [...matchWinner, {name, score: score ? parseInt(score) : 0}];
+      setMatchWinner(tmpGameOverScore);
+    });
+  }, [matchWinner]);
 
 /*
           'GameMode': duration ? duration : 'Chill',
           'GameDifficulty': difficultyLevel,
           'GameLanguages': 'English'
 */
-  const startMultiPlayerGame = () => {
+/*   const startMultiPlayerGame = () => {
     console.log("startMultiplayerGame", gameId);
-    props.startMultiplayerGame(gameId) 
+    transition(NEWGAME)
+     props.startMultiplayerGame(gameId) 
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
       console.log('Link from startMPGAME:', link)
@@ -234,8 +270,14 @@ export default function Game(props) {
     .catch(error => {
       console.log("startMultiPlayerGame", error);
       //should print error on label on screen
-    })
+    }) 
+  }; */
+
+  const startMultiPlayerGame = () => {
+    console.log("startMultiplayerGame", gameId);
+    transition(NEWGAME)
   };
+
   const playAgain = () => {
 
   };
@@ -350,7 +392,7 @@ export default function Game(props) {
     startGame();
   }
   
-  console.log("props.matchWinner data", props.matchWinner);
+  console.log("props.matchWinner data", matchWinner);
   checkSolved();
 
   return(
@@ -405,8 +447,7 @@ export default function Game(props) {
            
       />}
       {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) && multiplayer &&
-      <Chat loggedUser={localStorage.getItem('username')}/>
-
+      <Chat loggedUser={localStorage.getItem('username')} />
       }
     </div>
   );

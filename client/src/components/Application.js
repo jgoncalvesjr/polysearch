@@ -11,7 +11,8 @@ export default function Application(props) {
     state,
     setDifficulty,
     getNewGame,
-    startMultiplayerGame
+    startMultiplayerGame,
+    sendSocketData
   } = useApplicationData();
 
   const loggedUser = localStorage.getItem('username')
@@ -29,19 +30,33 @@ export default function Application(props) {
 // const testWebSocket = () => {
 //   socket.emit('gameData', 'hello')
 // }
+console.log("sending props from Application");
+const { UrlParamGameId } = useParams();
+let gameStartMode = 'HOME';
+if(UrlParamGameId) {
+     startMultiplayerGame(UrlParamGameId) 
+    .then(() => {
+      gameStartMode = "GAMELOBBY";
+    })
+    .catch(error => {
+    }) 
+  };  
+}
 
-const { gameid } = useParams();
-//const gameObj = <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} />
-//gameid={gameid}
-const GAMELOBBY = "GAMELOBBY";
 return (
+  <div>
+    <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} mode={gameStartMode} sendSocketData={sendSocketData} />
+  </div>
+);
+
+/* return (
     <div>
       {gameid
-      ? <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} mode={GAMELOBBY} gameid={gameid} />
-      : <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} matchWinner={state.matchWinner} />
+      ? <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} mode={GAMELOBBY} gameid={gameid} sendSocketData={sendSocketData} />
+      : <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} matchWinner={state.matchWinner} sendSocketData={sendSocketData} />
       }    
     </div>
 
-  );
+  ); */
 
 }

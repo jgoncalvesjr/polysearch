@@ -1,12 +1,16 @@
 import {useState} from 'react';
 
-function useVisualMode(initMode, initGameId) {
+function useVisualMode(initMode, initGameId, initHostId, initDifficulty, intitMultiplayerState, initDuration) {
   const [mode, setMode] = useState(initMode);
   const [history, setHistory] = useState([initMode]);
-  const [difficulty, setDifficulty] = useState("Easy");
-  const [multiplayer, setMultiplayer] = useState(false);
+  const [difficulty, setDifficulty] = useState(initDifficulty ? initDifficulty : "Easy");
+  const [multiplayer, setMultiplayer] = useState(intitMultiplayerState);
   const [gameId, setGameId] = useState(initGameId);
-  const [hostId, setHostId] = useState('');
+  const [hostId, setHostId] = useState(initHostId);
+  //set the duration of the current game.
+  const [duration, setDuration] = useState(initDuration? initDuration : '6:00');
+
+  const [matchWinner, setMatchWinner] = useState([]);
 
   //store GridRowSquare id being attempted on the board here
   const [attempts, setAttempts] = useState([]);
@@ -19,8 +23,6 @@ function useVisualMode(initMode, initGameId) {
   const [broadcastScore, setBroadcastScore] = useState(false);
   const [score, setScore] = useState(0);
 
-  //set the duration of the current game.
-  const [duration, setDuration] = useState('6:00');
 
   const transition = (newMode, replace = false) => {
     if (replace) {
