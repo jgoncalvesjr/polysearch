@@ -53,7 +53,9 @@ export default function Game(props) {
       setDuration,
       broadcastScore,
       setBroadcastScore,
-      score 
+      score,
+      remoteSolved,
+      setRemoteSolved
     } = useVisualMode(props.mode ? props.mode : HOME, props.gameid ? props.gameid : '');
 
     const getLanguageDescription = (languageCode) => {
@@ -86,6 +88,8 @@ export default function Game(props) {
     }
     
     const checkSolved = () => {
+    console.log("calling checkSolved");
+    console.log("multiplayer", multiplayer);
     if (attempts.length === 0) {
       return;
     }
@@ -161,6 +165,7 @@ export default function Game(props) {
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
       setGameId(link);
+      localStorage.setItem('gameId', link);
       setDifficulty(difficultyLevel);
       setDuration(gameDuration)
       setMultiplayer(bolMultiplayer);
@@ -174,22 +179,32 @@ export default function Game(props) {
       //should print error on label on screen
     })
   };
+
+  let testVar = localStorage.getItem('solved');
+
   useEffect(() => {
-    //console.log("socket started");
+    console.log("socket started");
     socket.on('start', ({ HostedGameId}) => {
       console.log("socket got data", HostedGameId);
       if (HostedGameId === gameId) {
+        // setGameId(HostedGameId);
         startMultiPlayerGame();
       }
     });
     socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
-      if (HostedGameId === gameId) {
+      console.log("HostedGameId", HostedGameId)
+      console.log("gameId", gameId);
+
+      // if (HostedGameId === gameId) {
         const objSolved = JSON.parse(HostedGameSolved);
         console.log("objSolved", objSolved);
+        const tmpsolved = objSolved;
+        //setRemoteSolved(tmpsolved);
         updateLatestSolved(objSolved);
-      }  
-    });
-  //})
+      // }
+    });  
+  }, [solved]);
+
 /*
           'GameMode': duration ? duration : 'Chill',
           'GameDifficulty': difficultyLevel,
@@ -200,6 +215,7 @@ export default function Game(props) {
     props.startMultiplayerGame(gameId) 
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
+      console.log('Link from startMPGAME:', link)
       setGameId(link);  
       setDifficulty(difficultyLevel); 
       setDuration(gameDuration)
@@ -368,6 +384,7 @@ export default function Game(props) {
         multiplayer={multiplayer}
         duration={duration}
         score={score}
+        cancelScreen={cancelScreen}
       />}
       {mode === ENDGAME && <GameOverBoard 
         game={props.game}
@@ -381,7 +398,7 @@ export default function Game(props) {
         duration={duration} 
         score={score}     
       />}
-      {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) &&
+      {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) && multiplayer &&
       <Chat loggedUser={localStorage.getItem('username')}/>
 
       }

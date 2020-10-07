@@ -119,23 +119,28 @@ const onChangeGameTime = (evt) => {
       <div className="game-setup-title-container"><h2 className='game-setup-title'>New Game</h2></div>
       {/* <div style={{width: '100%', textAlign: 'right', color:'#2371A9'}}><span>Profile</span></div> */}
       <div className='game-setup-options'>
-        <div className='game-setup-radio-buttons'>
-              
-          <div>
-          {props.multiplayer 
-            ? <input type="radio" id="single-player" name="gameType" value={false} onChange={handleMultiplayerToggle} />
-            : <input type="radio" id="single-player" name="gameType"  checked={singlePlayerChecked} value={false} onChange={handleMultiplayerToggle} />
-          }
-            <label className="player-mode-select" for="single-player">Single Player</label>
-          </div>
-          <div>
-          {props.multiplayer 
-            ? <input type="radio" id="multi-player" name="gameType" value={true} checked={multiPlayerChecked} onChange={handleMultiplayerToggle} />
-            :  <input type="radio" id="multi-player" name="gameType" value={true} onChange={handleMultiplayerToggle} />
-          }
+        {!localStorage.userId &&
+          // If no user logged in, only single player available
+          <h3>Please Log in to host a multiplayer game!</h3>
+        }
+        {localStorage.userId &&
+          
+          <div className='game-setup-radio-buttons'>
+            <div>
+            {props.multiplayer 
+              ? <input type="radio" id="single-player" name="gameType" value={false} onChange={handleMultiplayerToggle} />
+              : <input type="radio" id="single-player" name="gameType"  checked={singlePlayerChecked} value={false} onChange={handleMultiplayerToggle} />
+            }
+            <label className="player-mode-select" for="single-player">Single Player&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            {props.multiplayer 
+              ? <input type="radio" id="multi-player" name="gameType" value={true} checked={multiPlayerChecked} onChange={handleMultiplayerToggle} />
+              :  <input type="radio" id="multi-player" name="gameType" value={true} onChange={handleMultiplayerToggle} />
+            }
             <label className="player-mode-select" for="multi-player">Multi Player</label>
-          </div>                  
-        </div>    
+          </div>              
+        
+        }
         <div>
           {dificultyButtonsArray}
         </div>
@@ -159,7 +164,7 @@ const onChangeGameTime = (evt) => {
           <div><input className="timer-input" value={props.duration} onChange={onChangeGameTime}/></div>
         </div>
       </div>
-      <div className='setupButtons'>
+      <div className='setup-buttons'>
       { props.multiplayer 
       ?  <div><button className="game-buttons" onClick={props.startGame}>Create Game</button></div>
       :  <div><button className="game-buttons" onClick={props.startGame}>Start Game</button></div>

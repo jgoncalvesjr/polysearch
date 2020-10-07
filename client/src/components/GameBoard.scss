@@ -23,9 +23,11 @@
 .game-board-grid {
   display: flex;
   flex-direction: row;
+  margin: 1rem;
 
   .game-board-words-list {
-    padding-right: 20px;
+    padding-right: 4px;
+    padding-left: 20px;
   }
 }
 
@@ -33,4 +35,22 @@
   text-align: center;
   padding-left: 20px;
   
+}
+
+.game-board-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;  
+  margin-bottom: 1.5rem;
+
+  .game-board-buttons {
+    display: block;
+    margin-left:20px;
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: lightblue;
+    color: black;
+    font-weight: bold;
+  }  
 }

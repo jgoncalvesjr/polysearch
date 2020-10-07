@@ -22,7 +22,9 @@ score = solved.length / game.words.length
   useEffect(() => {
     socket.on('message', ({ name, message, avatar,  HostedGameId }) => {
       //should ignore message if gameId on message is not same as this gameId
+      console.log("chat incomming", name, message, avatar,  HostedGameId);
       const localGameId = localStorage.getItem('gameId');
+      console.log("localGameId", localGameId);
       if(localGameId.length > 0 && localGameId === HostedGameId) {
         const timeOptions = {hour: 'numeric', minute: 'numeric'}
         const chatTime = new Intl.DateTimeFormat('en-US', timeOptions).format(new Date());          
@@ -41,12 +43,10 @@ score = solved.length / game.words.length
     let outgoingAvatar = localStorage.getItem('avatar');
     const outgoingGameId = localStorage.getItem('gameId');
 
-    console.log("name", name, "outgoingAvatar", outgoingAvatar);;
     if(!name || !outgoingAvatar) {
       const guestUserObj = generateRandomGuestUser();
-      console.log("guestUserObj", guestUserObj);
       if(!name) {
-        name = `Guest@ ${guestUserObj.handle}`;
+        name = `Guest${guestUserObj.handle}`;
         localStorage.setItem('guestuser', name);
       }
       if(!outgoingAvatar) {
@@ -71,7 +71,6 @@ score = solved.length / game.words.length
         </h3>
       </div>
     )) */
-
     const renderChat = chat.map(({ name, message, avatar, chatTime }, index) => (
       <ChatLabel 
         key={index}

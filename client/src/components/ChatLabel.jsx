@@ -4,7 +4,7 @@ import './ChatLabel.scss'
 
 export default function ChatLabel(props) {
 
-  const userName = localStorage.getItem('username');
+  const userName = localStorage.getItem('username') ? localStorage.getItem('username') : localStorage.getItem('guestuser');
 
   return (
     props.name === userName 

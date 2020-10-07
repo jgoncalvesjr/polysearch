@@ -50,7 +50,12 @@ export default function GameBoard(props) {
           />
         </div>
       </div>
-
+      <div className='game-board-buttons-container'>
+      { props.multiplayer 
+      ?  <div><button className="game-board-buttons" onClick={props.cancelScreen}>Leave Game</button></div>
+      :  <div><button className="game-board-buttons" onClick={props.cancelScreen}>Cancel</button></div>
+      }
+      </div>
     </div>
   );
 }
