@@ -185,6 +185,7 @@ export default function Game(props) {
     socket.on('start', ({ HostedGameId}) => {
       console.log("socket got data", HostedGameId);
       if (HostedGameId === gameId) {
+        // setGameId(HostedGameId);
         startMultiPlayerGame();
       }
     });
@@ -192,13 +193,13 @@ export default function Game(props) {
       console.log("HostedGameId", HostedGameId)
       console.log("gameId", gameId);
 
-      if (HostedGameId === gameId) {
+      // if (HostedGameId === gameId) {
         const objSolved = JSON.parse(HostedGameSolved);
         console.log("objSolved", objSolved);
         const tmpsolved = objSolved;
         //setRemoteSolved(tmpsolved);
         updateLatestSolved(objSolved);
-      }
+      // }
     });  
   }, [solved]);
 
@@ -212,6 +213,7 @@ export default function Game(props) {
     props.startMultiplayerGame(gameId) 
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
+      console.log('Link from startMPGAME:', link)
       setGameId(link);  
       setDifficulty(difficultyLevel); 
       setDuration(gameDuration)
