@@ -1,26 +1,44 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
-import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL } from '../reducers/dataReducer';
+import dataReducer, { SET_USERS,  DIFFICULTY_SETTING, SET_NEW_GAME, DIFFICULTY_LEVEL, GAME_WINNER_DATA } from '../reducers/dataReducer';
 //import { duration } from '@material-ui/core';
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:3001')
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(dataReducer, {
     users: [],
     loading: true,
     //difficulty: "Easy",
-    game: null
+    game: null,
+    matchWinner: []
   });
 
-  //  useEffect(() => {
-  //   axios({
-  //     method: 'GET',
-  //     url: '/api/users',
-  //   }).then(({ data }) => {
-  //     // update the state with the result
-  //     dispatch({ type: SET_USERS, users: data });
-  //   });
-  // }, []);
+  //
+  const socket = io.connect('http://localhost:3001')
+const sendSocketData = (type, obj) => {
+  socket.emit(type, obj);
+}
+//let matchWinner = [];
+
+   useEffect(() => {
+    socket.on('gameData', ({HostedGameId,  name, score}) => {
+      console.log(`Here is the socket info call at the end of the game: gameId: ${HostedGameId} name:${name} score: ${parseInt(score)}`);
+      if(!score){
+        score=0
+      }
+      //matchWinner.push({name, score: parseInt(score)})
+      //console.log('useApplicationData match winder array', matchWinner);
+      dispatch({type: GAME_WINNER_DATA, winnerData: {name, score: parseInt(score)}})
+  });
+  
+  socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
+    console.log("useApplicationData HostedGameId", HostedGameId)
+    const objSolved = JSON.parse(HostedGameSolved);
+    console.log("useApplicationData objSolved", objSolved);
+  });  
+  });
 
   //TODO: need to change to put once we are creating game in database.
 /*   const getNewGame2 = () => {

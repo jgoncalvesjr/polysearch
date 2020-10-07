@@ -55,7 +55,9 @@ export default function Game(props) {
       setBroadcastScore,
       score,
       remoteSolved,
-      setRemoteSolved
+      setRemoteSolved,
+      //matchWinner,
+      //setMatchWinner
     } = useVisualMode(props.mode ? props.mode : HOME, props.gameid ? props.gameid : '');
 
     const getLanguageDescription = (languageCode) => {
@@ -74,6 +76,10 @@ export default function Game(props) {
       }
     };
     
+    /*const receiveWinnerEvent = winnerData => {
+      tmpMatchwinner = [...matchWinner, winnerData];
+      setMatchWinner(tmpMatchwinner);
+    }*/
     function removeDuplicates(array) {
       return array.filter((a, b) => array.indexOf(a) === b)
     };
@@ -344,6 +350,7 @@ export default function Game(props) {
     startGame();
   }
   
+  console.log("props.matchWinner data", props.matchWinner);
   checkSolved();
 
   return(
@@ -394,7 +401,8 @@ export default function Game(props) {
         endGame={endGame}
         multiplayer={multiplayer}
         duration={duration} 
-        score={score}     
+        score={score}  
+           
       />}
       {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) && multiplayer &&
       <Chat loggedUser={localStorage.getItem('username')}/>

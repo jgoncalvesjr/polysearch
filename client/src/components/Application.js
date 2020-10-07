@@ -38,7 +38,7 @@ return (
     <div>
       {gameid
       ? <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} mode={GAMELOBBY} gameid={gameid} />
-      : <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} />
+      : <Game getNewGame={getNewGame} game={state.game} startMultiplayerGame={startMultiplayerGame} matchWinner={state.matchWinner} />
       }    
     </div>
 
