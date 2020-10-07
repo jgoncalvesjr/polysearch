@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import TextField from '@material-ui/core/TextField'
 import ChatLabel from './ChatLabel';
+import {generateRandomGuestUser} from '../lib/avatarHelper';
 import './Chat.scss'
 import './GameLobby.scss'
 
@@ -19,10 +20,14 @@ gameData {name, score}
 score = solved.length / game.words.length
 */
   useEffect(() => {
-    socket.on('message', ({ name, message }) => {
-      const timeOptions = {hour: 'numeric', minute: 'numeric'}
-      const chatTime = new Intl.DateTimeFormat('en-US', timeOptions).format(new Date());          
-      setChat([...chat, { name, message, chatTime }])
+    socket.on('message', ({ name, message, avatar,  HostedGameId }) => {
+      //should ignore message if gameId on message is not same as this gameId
+      const localGameId = localStorage.getItem('gameId');
+      if(localGameId.length > 0 && localGameId === HostedGameId) {
+        const timeOptions = {hour: 'numeric', minute: 'numeric'}
+        const chatTime = new Intl.DateTimeFormat('en-US', timeOptions).format(new Date());          
+        setChat([...chat, { name, message, avatar, chatTime }])
+      }
     })
   })
 
@@ -31,14 +36,32 @@ score = solved.length / game.words.length
   }
 
   const onMessageSubmit = e => {
-    e.preventDefault()
-    const name = props.loggedUser;
+    e.preventDefault();
+    let name = props.loggedUser? props.loggedUser : localStorage.getItem('guestuser');
+    let outgoingAvatar = localStorage.getItem('avatar');
+    const outgoingGameId = localStorage.getItem('gameId');
+
+    console.log("name", name, "outgoingAvatar", outgoingAvatar);;
+    if(!name || !outgoingAvatar) {
+      const guestUserObj = generateRandomGuestUser();
+      console.log("guestUserObj", guestUserObj);
+      if(!name) {
+        name = `Guest@ ${guestUserObj.handle}`;
+        localStorage.setItem('guestuser', name);
+      }
+      if(!outgoingAvatar) {
+        localStorage.setItem('avatar', guestUserObj.avatar);
+        outgoingAvatar = guestUserObj.avatar
+        console.log("outgoingAvatar", outgoingAvatar);
+      }
+    }
     const { message } = state
-    socket.emit('message', { name, message })
+    socket.emit('message', { name, message, avatar:outgoingAvatar, HostedGameId:outgoingGameId})
     setState({ message: ''})
     const timeOptions = {hour: 'numeric', minute: 'numeric'}
     const chatTime = new Intl.DateTimeFormat('en-US', timeOptions).format(new Date());    
-    setChat([...chat, { name, message, chatTime }])
+   
+    setChat([...chat, { name, message, avatar:outgoingAvatar, chatTime }])
   }
 
 /*   const renderChat = chat.map(({ name, message }, index) => (
@@ -49,11 +72,12 @@ score = solved.length / game.words.length
       </div>
     )) */
 
-    const renderChat = chat.map(({ name, message, chatTime }, index) => (
+    const renderChat = chat.map(({ name, message, avatar, chatTime }, index) => (
       <ChatLabel 
         key={index}
         name={name}
         text={message}
+        avatar={avatar}
         time={chatTime}
       />
     ))    

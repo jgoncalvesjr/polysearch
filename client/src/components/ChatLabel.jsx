@@ -5,11 +5,12 @@ import './ChatLabel.scss'
 export default function ChatLabel(props) {
 
   const userName = localStorage.getItem('username');
+
   return (
     props.name === userName 
     ? 
     <div className="chat-label-container">
-      <div class="chat-label-avatar"><img src={require('./images/alligator.jpg')} alt="avatar" /></div>
+      <div class="chat-label-avatar"><img src={props.avatar} alt="avatar" /></div>
       <div className="chat-label-text-container">
         <div className="chat-label-text-user">{props.name}</div>
         <div className="chat-label-text">{props.text}</div>
@@ -23,7 +24,7 @@ export default function ChatLabel(props) {
         <div className="chat-label-text">{props.text}</div>
         <div class="time-left">{props.time}</div>
       </div>
-      <div class="chat-label-avatar"><img src={require('./images/alligator.jpg')} alt="avatar" /></div>
+      <div class="chat-label-avatar"><img src={props.avatar} alt="avatar" /></div>
     </div>   
   );
 }

@@ -62,6 +62,8 @@ export default function App() {
     console.log('you pressed logout');
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
+    localStorage.removeItem('avatar');
+    localStorage.removeItem('guestuser');
     setLoggedUser('')
     document.location.href = "/login";
   };

@@ -44,6 +44,7 @@ export default function RegistrationFcn(props) {
       console.log("registration response", response);
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('userId', response.data.id); //added for the new game start button
+      localStorage.setItem('avatar', props.avatar);
       props.setLoggedUser(response.data.username)
       history.push('/')
     })
