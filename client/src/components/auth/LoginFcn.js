@@ -88,6 +88,7 @@ export default function LoginFcn(props) {
         //localStorage.setItem('username', response.data.username)
         localStorage.setItem('username', response.data.result.username)
         localStorage.setItem('userId', response.data.result.id) ////added for the new game start button
+        localStorage.removeItem('guestuser');
         props.setLoggedUser(response.data.result.username)
         history.push('/')
       })
