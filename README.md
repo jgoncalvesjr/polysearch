@@ -2,9 +2,9 @@
 
 ### Version 1.0.0
 
-Welcome to Polyserach, your polyglot word searh game!
+Welcome to Polyserach, your polyglot word search game!
 
-There are many word search games available online, but none of them feature more than one language at the same time. So, why not make it multilingual? Furthermore, why not make it multiplayer, and have its words retrieved from an online dictionary - in this case, a direct lookup from an API, such as the Lexicala Dictionaries API? 
+There are many word search games available online, but none of them feature more than one language at the same time. So, why not make it multilingual? Furthermore, why not make it multiplayer, and have its words retrieved from an online dictionary - in this case, a direct lookup from an API, such as the Lexicala API? 
 
 Having these ideas in mind, we present you PolySearch, the word search game where you can take the opportunity to flex your language learning skills, while having some casual gaming fun! 
 
@@ -44,7 +44,7 @@ Once the timer is over or all words are found, a Game Over screen will be displa
 
 ### Multiplayer
 
-You must be registered and logged in to PolySerach to host a multiplayer game. Once you set up difficulty and game time, a pre-game lobby screen with the game link and settings will open. A game link will be generated, and you may share this link with any other players, and they main join this link by placing `http://localhost:3000/<link>`.
+You must be registered and logged in to PolySerach to host a multiplayer game. Once you set up difficulty and game time, a pre-game lobby screen with the game link and settings will open. A game link will be generated, and you may share this link with any other players, and they may join this link by placing `http://localhost:3000/<link>`.
 
 The game host may start the game anytime by clicking the "Start Game" button. This will start a simultaneous multiplayer session among all players. All players may also chat among themselves during gameplay. 
 
