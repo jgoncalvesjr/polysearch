@@ -18,7 +18,7 @@ The following features demonstrate the gameplay features of PolySearch, both for
 
 From this page, a visitor may create a PolySearch account, start a new single player game, or log in to an existing account.
 
-![PolySearch main page](https://github.com/jgoncalvesjr/jungle-rails/blob/master/docs/jungle_main.png) 
+![PolySearch main page](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_title.png) 
 
 ### Single Player 
 
@@ -31,15 +31,15 @@ As a visitor, you may start a single player game, by selecting from four differe
 
 In the game setup, you may also choose the duration of your game. If you just want to chill and don't be bothered by a timer, you may set the timer to zero.
 
-![PolySearch single player setup](https://github.com/jgoncalvesjr/jungle-rails/blob/master/docs/jungle_about.png)
+![PolySearch single player setup](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_single_player_settings.png)
 
 Once you start the game, a 15x15 board will be generated, containing 15 words in the languages corresponding to the difficulty level selected. You may search the words by clicking letters horizontally, vertically or diagonally. Words can be found both forward or backwards. Once a word has been found, its display will be highlighted in the board and in the word list.
 
 Once the timer is over or all words are found, a Game Over screen will be displayed showing your score (words found out of 15) and the game's words list. If you haven't created your PolySearch account yet, you will be invited to create one.
 
-![PolySearch single player gameplay](https://github.com/jgoncalvesjr/jungle-rails/blob/master/docs/jungle_about.png)
+![PolySearch single player gameplay](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_single_player_game.png)
 
-![PolySearch game over screen](https://github.com/jgoncalvesjr/jungle-rails/blob/master/docs/jungle_about.png) 
+![PolySearch game over screen](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_game_over.png) 
 
 
 ### Multiplayer
@@ -48,8 +48,8 @@ You must be registered and logged in to PolySerach to host a multiplayer game. O
 
 The game host may start the game anytime by clicking the "Start Game" button. This will start a simultaneous multiplayer session among all players. All players may also chat among themselves during gameplay. 
 
-![Multiplayer game lobby](https://github.com/jgoncalvesjr/jungle-rails/blob/master/docs/jungle_register.png)
-![Multiplayer gameplay](https://github.com/jgoncalvesjr/jungle-rails/blob/master/docs/jungle_login.png)
+![PolySearch Multiplayer game lobby](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_multiplayer_lobby.png)
+![PolySearch Multiplayer gameplay](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_multiplayer_game.png)
 
 # Setup
 
