@@ -4,7 +4,7 @@
 
 Welcome to Polyserach, your polyglot word search game!
 
-There are many word search games available online, but none of them feature more than one language at the same time. So, why not make it multilingual? Furthermore, why not make it multiplayer, and have its words retrieved from an online dictionary - in this case, a direct lookup from an API, such as the Lexicala API? 
+There are many word search games available online, but none of them feature more than one language at the same time. So, why not make it multilingual? Furthermore, why not make it multiplayer, and have its words retrieved from an online dictionary? In this case, a direct lookup from the Lexicala API.
 
 Having these ideas in mind, we present you PolySearch, the word search game where you can take the opportunity to flex your language learning skills, while having some casual gaming fun! 
 
