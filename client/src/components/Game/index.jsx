@@ -1,4 +1,3 @@
-//import React, { Children } from "react";
 import React, { Fragment, useEffect, useState } from "react";
 import DifficultyButton from "../DifficultyButton";
 import NewGameSetup from '../NewGameSetup';
@@ -28,7 +27,6 @@ const DIAGANOL_LEFT_DOWN = "DIAGANOL_LEFT_DOWN";
 const DIAGANOL_RIGHT_UP = "DIAGANOL_RIGHT_UP";
 const DIAGANOL_RIGHT_DOWN = "DIAGANOL_RIGHT_DOWN";
 
-
 export default function Game(props) {
 
     const {
@@ -42,35 +40,48 @@ export default function Game(props) {
       addAttempt, 
       solved, 
       SetCurrentSolved, 
-      updateLatestSolved,
       multiplayer, 
       setMultiplayer, 
+      duration, 
+      setDuration,
       gameId, 
       setGameId, 
       hostId, 
       setHostId,
-      duration,
-      setDuration,
       broadcastScore,
       setBroadcastScore,
       score,
-      remoteSolved,
-      setRemoteSolved,
-      matchWinner,
-      setMatchWinner
+      opponentSolved, 
+      setOpponentSolved,
+      updatOpponentSolved,
+      rcvdOponentSolved,  
+      setRcvdOponentSolved,
+      matchWinner, 
+      setMatchWinner,    
+      gameLink,
+      rcvdGameOverScore, 
+      setRcvdGameOverScore
     } = useVisualMode(
-      props.mode ? props.mode : HOME, 
-      props.game ? props.game.link : '', 
-      props.game ? props.game.host_id: '',
-      props.game ? game.mode: null,
-      props.game ? game.multiplayer : false,
-      props.game ? game.duration : null
-    );
+      HOME,
+      props.gameLink ? props.gameLink : undefined //multiplayer link.
+      );
+    useEffect(() => {
+      if(gameLink) {
+        retrieveMultiplayerGame();
+      }
+    }, [gameLink]);
 
-    console.log("gameId", gameId);
-    if(mode === ENDGAME) {
-      socket.emit('GameOverScore', {HostedGameId: gameId,  name: localStorage.getItem('username'), score: localStorage.getItem('score')});
-    }
+    useEffect(() => {
+      if(gameId) {
+        if(multiplayer) {
+          localStorage.setItem('gameId', gameId);
+          transition(GAMELOBBY);
+        } else {
+          transition(NEWGAME)
+        }
+      }
+    }, [gameId]);  
+
     const getLanguageDescription = (languageCode) => {
       switch(languageCode)
       {
@@ -87,10 +98,6 @@ export default function Game(props) {
       }
     };
     
-    /*const receiveWinnerEvent = winnerData => {
-      tmpMatchwinner = [...matchWinner, winnerData];
-      setMatchWinner(tmpMatchwinner);
-    }*/
     function removeDuplicates(array) {
       return array.filter((a, b) => array.indexOf(a) === b)
     };
@@ -105,39 +112,42 @@ export default function Game(props) {
     }
     
     const checkSolved = () => {
-    console.log("calling checkSolved");
-    console.log("multiplayer", multiplayer);
-    if (attempts.length === 0) {
-      return;
-    }
-    //go through current attempts and see if it match any words on the board
-    const WordArray = attempts.map(el => {
-      return props.game.rows[el.row][el.col];
-    })
-    let word = WordArray.join('');
-    let found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
-    if (found) {
-      SetCurrentSolved();
-      if(multiplayer) {
-        console.log("emit score");
-        socket.emit('gameData', {HostedGameId:gameId, name:localStorage.getItem('username'), score: `${localStorage.getItem('score')} / ${props.game.words.length}`});
-        socket.emit('solved', {HostedGameId: gameId, HostedGameSolved:localStorage.getItem('solved')});
+      const localUserName = localStorage.getItem('username') ? localStorage.getItem('username') : localStorage.getItem('guestuser');
+      const localUserAvatar = localStorage.getItem('avatar');
+      if (attempts.length === 0) {
         return;
       }
-    }
-    word = WordArray.reverse().join('');
-    found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
-    if (found) {
-      SetCurrentSolved();
-      if(multiplayer) {
-        console.log("Reverse emit score");
-        socket.emit('gameData', {HostedGameId:gameId, name:localStorage.getItem('username'), score: `${localStorage.getItem('score')} / ${props.game.words.length}`});
-        socket.emit('solved', {HostedGameId: gameId, HostedGameSolved:localStorage.getItem('solved')});
-        return;
+      //go through current attempts and see if it match any words on the board
+      const WordArray = attempts.map(el => {
+        return props.game.rows[el.row][el.col];
+      })
+      let word = WordArray.join('');
+      let found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
+      if (found) {
+        SetCurrentSolved();
+        if(multiplayer) {
+          const localScore = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 0;
+          socket.emit('gameData', {HostedGameId:gameId, name:localUserName, score: localScore, avatar: localUserAvatar});
+          socket.emit('solved', {HostedGameId: gameId, HostedGameSolved:localStorage.getItem('solved')});
+          return;
+        }
       }
-    }    
+      word = WordArray.reverse().join('');
+      found = props.game.words.find(gameWord => word === gameWord.word.toUpperCase());
+      if (found) {
+        SetCurrentSolved();
+        if(multiplayer) {
+          const localScore = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 0;
+          socket.emit('gameData', {HostedGameId:gameId, name:localUserName, score: localScore, avatar: localUserAvatar});
+          socket.emit('solved', {HostedGameId: gameId, HostedGameSolved:localStorage.getItem('solved')});
+          return;
+        }
+      }    
   };
 
+  useEffect(() => {
+    checkSolved();
+  }, [attempts]);
   const cancelScreen = () => {
     back();
   };
@@ -152,133 +162,84 @@ export default function Game(props) {
   const resumeGame = () => {
     alert("resume game");
   }; 
-/*   const getGameforLobby = () => {
-    props.startMultiplayerGame(gameId) 
+  const retrieveMultiplayerGame = () => {
+    props.startMultiplayerGame(gameLink) 
     .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
       setHostId(data_hostId);
-      setGameId(link);
-      localStorage.setItem('gameId', link);
       setDifficulty(difficultyLevel);
       setDuration(gameDuration)
       setMultiplayer(bolMultiplayer);
-      if(bolMultiplayer) {
-        transition(GAMELOBBY);
-      } else {
-        transition(NEWGAME)
-      }
-    })
-    .catch(error => {
-      //should print error on label on screen
-    })    
-  } */ 
-    // this function is passed down to the NewGameSetup functional component Start Game button.
-/*   const startGame = () => {
-    //alert("get new game from server");
-    if(gameId) {
-      console.log("startGame => calling game lobby", gameId);
-      getGameforLobby();
-      return;
-    }
-    props.getNewGame(multiplayer, difficulty, duration) //if multiplayer, need to send game id.
-    .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
-      setHostId(data_hostId);
-      console.log("startGame => setting game id", gameId);
       setGameId(link);
-      localStorage.setItem('gameId', link);
-      setDifficulty(difficultyLevel);
-      setDuration(gameDuration)
-      setMultiplayer(bolMultiplayer);
-      if(bolMultiplayer) {
-        transition(GAMELOBBY);
-      } else {
-        transition(NEWGAME)
-      }
     })
     .catch(error => {
-      console.log("startGame Error", error);
     })
-  }; */
+  };
+
   const startGame = () => {
-    console.loggedUser("get new game from server");
     props.getNewGame(multiplayer, difficulty, duration) //if multiplayer, need to send game id.
-    .then(({bolMultiplayer}) => {
-      if(bolMultiplayer) {
-        transition(GAMELOBBY);
-      } else {
-        transition(NEWGAME)
-      }
+    .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
+      setHostId(data_hostId);
+      setGameId(link);
     })
     .catch(error => {
       console.log("startGame Error", error);
     })
   };
 
-
   useEffect(() => {
-    console.log("socket started");
     socket.on('start', ({ HostedGameId}) => {
-      console.log("socket got data", HostedGameId);
       if (HostedGameId === gameId) {
-        startMultiPlayerGame();
+        onHostedGameStart();
       }
     });
-  }, []);
+  }, [gameId]);
 
   useEffect(() => {  
     socket.on('solved', ({HostedGameId, HostedGameSolved}) => {
-      console.log("HostedGameId", HostedGameId)
-      console.log("gameId", gameId);
-
        if (HostedGameId === gameId) {
         const objSolved = JSON.parse(HostedGameSolved);
-        console.log("objSolved", objSolved);
-        const tmpsolved = objSolved;
-        updateLatestSolved(objSolved);
+        setRcvdOponentSolved(objSolved);
        }
     });  
-  }, [solved]);
+  }, [gameId]);
 
   useEffect(() => {
-    socket.on('GameOverScore', ({HostedGameId,  name, score}) => {
-      console.log(`Here is the socket info call at the end of the game: gameId: ${HostedGameId} name:${name} score: ${parseInt(score)}`);
-      const tmpGameOverScore = [...matchWinner, {name, score: score ? parseInt(score) : 0}];
-      setMatchWinner(tmpGameOverScore);
-    });
-  }, [matchWinner]);
+    if(rcvdOponentSolved.length > 0) {
+      const tmp = [...opponentSolved, rcvdOponentSolved];
+      setOpponentSolved(tmp);
+    }
+  }, [rcvdOponentSolved]);
 
-/*
-          'GameMode': duration ? duration : 'Chill',
-          'GameDifficulty': difficultyLevel,
-          'GameLanguages': 'English'
-*/
-/*   const startMultiPlayerGame = () => {
-    console.log("startMultiplayerGame", gameId);
-    transition(NEWGAME)
-     props.startMultiplayerGame(gameId) 
-    .then(({data_hostId, link, difficultyLevel, bolMultiplayer, gameDuration}) => {
-      setHostId(data_hostId);
-      console.log('Link from startMPGAME:', link)
-      setGameId(link);  
-      setDifficulty(difficultyLevel); 
-      setDuration(gameDuration)
-      setMultiplayer(bolMultiplayer); 
-      const currentUserId = parseInt(localStorage.getItem('userId'));
-      console.log("currentUserId", currentUserId, "data_hostId", data_hostId);
-      if(currentUserId === data_hostId) {
-        socket.emit("start", {'HostedGameId': gameId });
+  useEffect(() => {
+    if(mode === ENDGAME && multiplayer) {
+      const userName = localStorage.getItem('username') ? localStorage.getItem('username') : localStorage.getItem('guestuser');
+      socket.emit('GameOverScore', {HostedGameId: gameId,  name: userName, score: solved.length, avatar: localStorage.getItem('avatar')});
+    }
+  }, [mode]);
+
+  useEffect(() => {
+    socket.on('GameOverScore', ({HostedGameId,  name, score, avatar}) => {
+      if (HostedGameId === gameId) {
+        setRcvdGameOverScore({name, score: score ? parseInt(score) : 0, avatar});
       }
-      transition(NEWGAME)
-    })
-    .catch(error => {
-      console.log("startMultiPlayerGame", error);
-      //should print error on label on screen
-    }) 
-  }; */
+    });
+  }, [gameId]);
 
+  useEffect(() => {
+    if(Object.keys(rcvdGameOverScore).length > 0) {
+      const tmpGameOverScore = [...matchWinner, rcvdGameOverScore];
+      setMatchWinner(tmpGameOverScore);
+    }
+  }, [rcvdGameOverScore]);
+
+  const onHostedGameStart = () => {
+    transition(NEWGAME);
+  }
   const startMultiPlayerGame = () => {
-    console.log("startMultiplayerGame", gameId);
-    transition(NEWGAME)
+    socket.emit("start", {'HostedGameId': gameId });
+    onHostedGameStart();
   };
+  
 
   const playAgain = () => {
 
@@ -390,12 +351,6 @@ export default function Game(props) {
   const setGameDuration = time => {
     setDuration(time);
   };
-  if(gameId && props.game === null) {
-    startGame();
-  }
-  
-  console.log("props.matchWinner data", matchWinner);
-  checkSolved();
 
   return(
     <div>
@@ -429,6 +384,7 @@ export default function Game(props) {
         selectGameContent={selectGameContent}
         attempts={attempts}
         solved={solved}
+        opponentSolved={opponentSolved}
         endGame={endGame}
         multiplayer={multiplayer}
         duration={duration}
@@ -442,11 +398,12 @@ export default function Game(props) {
         showMain={showMain}
         attempts={attempts}
         solved={solved}
+        opponentSolved={opponentSolved}
         endGame={endGame}
         multiplayer={multiplayer}
         duration={duration} 
         score={score}  
-           
+        matchWinner={matchWinner}
       />}
       {(mode ===  NEWGAME || mode === GAMELOBBY || mode === ENDGAME) && multiplayer &&
       <Chat loggedUser={localStorage.getItem('username')} />

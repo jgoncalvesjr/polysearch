@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react';
-// import {useHistory} from 'react-router-dom';
 import axios from 'axios';
 import './UserProfile.scss';
 import './GameLobby.scss';
@@ -46,15 +45,12 @@ export default function UserProfile(props) {
 
   const updateProfile = e => {
     e.preventDefault();
-    console.log(`clicked`);
-    console.log(password, avatarUpdate);
     return axios.put(`/api/users/${userId}`,{
       id: userId,
       password: password,
       avatar: avatarUpdate
       }
       ).then(response => {
-        console.log("Update response: ", response);
         document.location.href = "/profile";
       })
       .catch(error => {

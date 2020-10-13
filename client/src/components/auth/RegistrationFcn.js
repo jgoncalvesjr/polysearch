@@ -75,7 +75,6 @@ export default function RegistrationFcn(props) {
   // handling the submit button.
   const registerButton = (e) => {
     e.preventDefault()
-    console.log(`clicked`)
     return axios.post("/register", {
       
         email: props.email,
@@ -86,10 +85,10 @@ export default function RegistrationFcn(props) {
       
     }
     ).then(response => {
-      console.log("registration response", response);
       localStorage.setItem('username', response.data.username);
       localStorage.setItem('userId', response.data.id); //added for the new game start button
       localStorage.setItem('avatar', props.avatar);
+      localStorage.removeItem('guestuser');
       props.setLoggedUser(response.data.username)
       history.push('/')
     })
@@ -164,12 +163,6 @@ export default function RegistrationFcn(props) {
                 autoComplete="current-password"
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid> */}
           </Grid>
           <Button
             type="submit"
@@ -194,49 +187,6 @@ export default function RegistrationFcn(props) {
       </Box>
     </Container>
     </div>
-
-    //old stuff
-  //   <div>
-  //   <form onSubmit={registerButton}>
-  //     <input 
-  //     type="email"
-  //     name="email" 
-  //     placeholder="Email" 
-  //     value={props.email} 
-  //     onChange={handleEmailInput} 
-  //     required />
-
-  //     <input 
-  //     type="password"
-  //     name="password" 
-  //     placeholder="Password" 
-  //     value={props.password} 
-  //     onChange={handlePasswordInput} 
-  //     required />
-
-  //     <input 
-  //     type="username"
-  //     name="username" 
-  //     placeholder="Username" 
-  //     value={props.username} 
-  //     onChange={handleUsernameInput} 
-  //     required />
-
-  //     <input 
-  //     type="avatar"
-  //     name="avatar" 
-  //     placeholder="Avatar" 
-  //     value={props.avatar} 
-  //     onChange={handleAvatarInput}
-  //     /> 
-
-  //     <button type="submit" >Register</button>
-
-  //   </form>
-  // </div>
   );
-
-
-
 };
 

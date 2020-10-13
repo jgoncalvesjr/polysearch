@@ -12,9 +12,6 @@ import {
 
 import NewGameSetup from "./components/NewGameSetup";
 
-//import NewGameSetup from "./components/NewGameSetup";
-//import GameBoard from "./components/GameBoard.jsx";
-//import Game from './components/Game';
 import Application from './components/Application';
 import RegistrationFcn from './components/auth/RegistrationFcn';
 import LoginFcn from './components/auth/LoginFcn';
@@ -24,22 +21,10 @@ import JoinGame from './components/JoinGame';
 import Navbar from './components/Navbar';
 import GameData from './components/GameData';
 import UserProfile from './components/UserProfile';
+import {generateRandomGuestUser} from './lib/avatarHelper';
 
 
 export default function App() {
-
-  //defining state
-  // const {
-  //   state
-  // } = useAppData();
-  // const [state, setState] = useState({
-  //   email: "",
-  //   password: "",
-  //   username: "here is a test username",
-  //   avatar: "",
-  //   registrationErrors: "",
-  //   loginErrors: ""
-  // });
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,12 +39,14 @@ export default function App() {
     let username = localStorage.getItem('username')
     if (username) {
       !loggedUser ? setLoggedUser(username) : setLoggedUser('')
-      console.log(`username from app: ${username}`)
-    } 
+    } else if(!loggedUser) {
+      const guestUserObj = generateRandomGuestUser();
+      localStorage.setItem('guestuser', `Guest${guestUserObj.handle}`);
+      localStorage.setItem('avatar', guestUserObj.avatar);
+    }
   }, [])
 
   const logout = () => {
-    console.log('you pressed logout');
     localStorage.removeItem('username');
     localStorage.removeItem('userId');
     localStorage.removeItem('avatar');
@@ -187,28 +174,6 @@ export default function App() {
   );
 }
 
-/* function Home(props) {
-  // console.log('here are the props:', props);
-
-  return (
-    
-   <main className="main-page" id="main-page-id">
-     <div className="transparent-box" id="main-box">
-      <h1>Current User</h1>
-      <h2 id="main-page-title">PolySearch</h2>
-        <div className="game-buttons-div">
-          <button className="game-buttons" onClick={newGameButton}>New Game</button>
-          <button className="game-buttons" onClick={joinGameButton}>Join Game</button>
-          <button className="game-buttons" onClick={resumeGameButton}>Resume Game</button>
-        </div>
-
-      </div>
-
-
-  </main> 
-  );
-} */
-
 function GameOver() {
   return (
     <main id="game-over">
@@ -244,18 +209,7 @@ function MultiplayerLobby() {
    </main> 
   )
 }
-/*
 
-function Home() {
-  return (
-  <div className="gameMainContainer">
-    <div className="dvGameBoardContainer">
-      <div className="dvGameBoardContents">
-      <Application />
-      </div>
-    </div>
-  </div>
-*/
 function Home() {
   localStorage.removeItem('score');
   localStorage.removeItem('solved');
@@ -264,17 +218,7 @@ function Home() {
     
   );
 }
-/* function WordGame() {
-  return (
-  <div className="gameMainContainer">
-    <div className="dvGameBoardContainer">
-      <div className="dvGameBoardContents">
-      <GameBoard />
-      </div>
-    </div>
-  </div>
-  );
-} */
+
 // Preliminary Button logic is below
 
 // buttons for the main page.

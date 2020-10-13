@@ -3,10 +3,6 @@ import HiddenWord from './HiddenWord';
 
 import './HiddenWordsList.scss';
 
-/*
-{definition, language, word}
-*/
-
 export default function HiddenWordsList(props) {
   
   const getFoundStatus = word => {
@@ -18,13 +14,25 @@ export default function HiddenWordsList(props) {
     }
     return false;
   };
+//
+  const getOpponentFoundStatus = word => {
+    if(props.opponentFoundWords.includes(word.toUpperCase())) {
+      return true;
+    }
+    if(props.opponentFoundWords.includes(word.split('').reverse().join('').toUpperCase())) {
+      return true;
+    }
+    return false;
+  };
 
   const hiddenWords = props.words.map((word, index) => {
     const foundStatus = getFoundStatus(word.word);
+    const opponentFoundStatus = getOpponentFoundStatus(word.word);
     return <HiddenWord 
       key={index} 
       word={word.word} 
       found={foundStatus}
+      opponentFoundStatus={opponentFoundStatus}
     />  
   });
 

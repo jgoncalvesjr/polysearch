@@ -30,7 +30,6 @@ export default function Navbar(props) {
 
   const profileButton = (e) => {
     e.preventDefault();
-    console.log(localStorage.userId)
     document.location.href = "/profile";
   }
 

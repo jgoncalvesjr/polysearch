@@ -1,14 +1,15 @@
 import React, { Children } from "react";
 import DifficultyButton from "./DifficultyButton";
 import NewGameSetup from './NewGameSetup';
-//import useApplicationData from '../hooks/useApplicationData';
 import GridRow from "./GridRow";
 import GameScore from './GameScore';
 import GameTimer from './GameTimer';
 import HiddenWordsList from './HiddenWordsList';
+import LeaderBoard from './LeaderBoard';
 
 import './GameBoard.scss';
 import './GameLobby.scss';
+import { People } from "@material-ui/icons";
 
 export default function GameOverBoard(props) {
 
@@ -27,46 +28,39 @@ export default function GameOverBoard(props) {
     return cord.map(el => {
       return props.game.rows[el.row][el.col];
     }).join('');
-  })
+  });
 
-  // testing a way to get the score for each player and declare a winner at the end of the game.
-/*   let matchWinner = []
-  socket.emit('gameData', {HostedGameId:'game-over', name:localStorage.getItem('username'), score: localStorage.getItem('score')});
+  const opponentFoundWords = props.opponentSolved.map(cord => {
+    return cord.map(el => {
+      return props.game.rows[el.row][el.col];
+    }).join('');
+  });
+
+  const matchWinner = [...props.matchWinner];
+  const localUser = localStorage.getItem('username') ? localStorage.getItem('username') : localStorage.getItem('guestuser');
+  const localUsrAvatar = localStorage.getItem('avatar');
+  const localUsrScore = {
+    name: localUser,
+    score: props.score,
+    avatar: localUsrAvatar
+  }
+  matchWinner.push(localUsrScore);
+  matchWinner.sort((obj1, obj2) => {
+     return obj2.score  - obj1.score;
+  });
   
-  useEffect
-  socket.on('gameData', ({HostedGameId,  name, score}) => {
-    console.log(`Here is the socket info call at the end of the game: gameId: ${HostedGameId} name:${name} score: ${parseInt(score)}`);
-    if(!score){
-      score=0
-    }
-    matchWinner.push({name, score: parseInt(score)})
-  });   */
-
-  /* keep
-  console.log('Match Winner array before local users info: ', matchWinner )// shows the other guys object with their name/score
-
-  
-  const localScore = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 0;
-  matchWinner.push({name:localStorage.getItem('username'), score: localScore });
-
-  console.log('here is the match winner array with both players in objects: ', matchWinner);
-*/
-  // props.matchWinner.sort((obj1, obj2) => {
-  //   return obj1.score  - obj2.score;
-  // });
-//console.log('here is the match winner array after being sorted: ', matchWinner);
-
   return (
     <div>
       <div className="game-board-score-container">
         <GameScore score={props.score} wordCount={props.game.words.length} />
         {/*<GameTimer  duration={props.duration} endGame={props.endGame} multiplayer={props.multiplayer} />*/}
       </div>
-
+      
       <div className="game-board-grid">
         <div className='board-table'>
           {/*{gameGrid}*/}
-          <div className="game-over-title"><h3>Game Over Match Winner: </h3></div>
+          <div className="game-over-title"><h3>Game Over</h3></div>
+          {<LeaderBoard userBoards={matchWinner} wordCount={props.game.words.length} />}
           <div  style={{display: 'flex', flexDirection: 'column'}}>
           <div><button className="multiplayer-lobby-buttons" onClick={props.playAgain}>Play again</button></div>
           <div><button className="multiplayer-lobby-buttons" onClick={props.joinPolySearch}>Join Polysearch</button></div>
@@ -77,6 +71,7 @@ export default function GameOverBoard(props) {
           <HiddenWordsList 
             words={props.game.words} 
             foundWords={foundWords} 
+            opponentFoundWords={opponentFoundWords}
           />
         </div>
       </div>

@@ -1,7 +1,6 @@
 import React, { Children } from "react";
 import DifficultyButton from "./DifficultyButton";
 import NewGameSetup from './NewGameSetup';
-//import useApplicationData from '../hooks/useApplicationData';
 import GridRow from "./GridRow";
 import GameScore from './GameScore';
 import GameTimer from './GameTimer';
@@ -22,7 +21,8 @@ export default function GameBoard(props) {
         row={row} 
         selectGameContent={props.selectGameContent}
         attempts={props.attempts}
-        solved={props.solved}        
+        solved={props.solved} 
+        opponentSolved={props.opponentSolved}       
       />
   });
   //generate foundwords list
@@ -30,7 +30,13 @@ export default function GameBoard(props) {
     return cord.map(el => {
       return props.game.rows[el.row][el.col];
     }).join('');
-  })
+  });
+
+  const opponentFoundWords = props.opponentSolved.map(cord => {
+    return cord.map(el => {
+      return props.game.rows[el.row][el.col];
+    }).join('');
+  });
 
   return (
     <div>
@@ -47,6 +53,7 @@ export default function GameBoard(props) {
           <HiddenWordsList 
             words={props.game.words} 
             foundWords={foundWords} 
+            opponentFoundWords={opponentFoundWords}
           />
         </div>
       </div>
