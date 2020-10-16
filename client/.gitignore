@@ -22,3 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 testGameData.js
+useVisualMode_copy.js
+useVisualMode_hide.js

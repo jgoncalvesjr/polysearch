@@ -1,42 +1,46 @@
 @import "../styles/mixins.scss";
 @import "../styles/variables.scss";
 
-.chat-label-container {
+.leaderboard-label-container {
   display: flex;
   flex-direction: row;
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
+  border: 1px solid #808080;
+  background-color: #d5def6;
+  border-radius: 2px;
   padding: 5px;
-  margin: 5px 0;
-  width: 100%;
+  margin: 1px 0;
+  width: 95%;
+  height:40px;
 
-  .chat-label-avatar {
+  .leaderboard-label-avatar {
     width: 10%; 
     height: 10%;
-    margin: 5px;
-   
+    margin-left: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 10px;
     img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
     }
   }
-  .chat-label-text-container {
+  .leaderboard-label-text-container {
     width:90%;
     padding-left: 15px;
-    .chat-label-text-user {
+    .leaderboard-label-text-user {
       font-weight: 900;
       font-size: 0.7rem;
     }
 
-    .chat-label-text {
-      font-weight: normal;
-      font-size: 1rem;
+    .leaderboard-label-text {
+      font-weight: 800;
+      font-size: 1.25rem;
+      opacity: 0.7;
     }
   }
 }
-.chat-label-container::after {
+.leaderboard-label-container::after {
   content: "";
   clear: both;
   display: table;

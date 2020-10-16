@@ -4,9 +4,7 @@ import axios from 'axios';
 
 export default function JoinGame(props) {
 
-  const { gameid } = useParams();
-  console.log(gameid);
-  
+  const { gameid } = useParams(); 
   const [dataNew, setDataNew] = useState({});
 
   
@@ -26,26 +24,18 @@ export default function JoinGame(props) {
     axios({
       method: 'GET',
       url: `/api/games/${gameid}`
-    }).then(({ data }) => {
-      console.log('Here is the data being retrieved: ',data);
-      console.log('using the JoinGame functional component.')
-      
+    }).then(({ data }) => {    
       // trying to make the data from the axios get request retrievable by all everything.
       setDataNew(data);
     })
       .catch(err => console.log(err));
   }, [gameid]);
 
-  console.log('here is the actual data', dataNew)
-
   // will need to know the host to show/hide the start game button.
   const hostOfGame = dataNew.host_id;
-  console.log('host of the game is(fromJoinGame): ', hostOfGame);
 
   // will need to get the current user to see if the id matches the hostid
   const currentUserId = parseInt(localStorage.getItem('userId'));
-  console.log('current user id is: ', currentUserId);
-
   // game id from the axios call.
   const gameId = dataNew.id;
 
@@ -73,14 +63,3 @@ export default function JoinGame(props) {
   )
   
 }
-/*
-Currently this page will get the 
- -difficulty 
- -game mode
-Need to get it to display: 
-  -the players that are currently in the game.
-  - chat
-
-
-  need to only show the start game button on this page if the currentUser is equal to the host.
-*/

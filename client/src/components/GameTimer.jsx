@@ -7,7 +7,6 @@ export default function GameTimer(props){
 
   const getDurationMilis = () => {
     //expects mm:ss format
-    console.log(props.duration);
     try{
       const arr = props.duration.split(':');
       let duration = parseInt(arr[0]) * 60000;

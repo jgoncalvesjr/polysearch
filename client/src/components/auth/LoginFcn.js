@@ -76,18 +76,14 @@ export default function LoginFcn(props) {
   // handling the submit button.
   const loginButton = (e) => {
     e.preventDefault()
-    console.log(`clicked`)
-
     return axios.post("/login",{
       email: email,
       password: password
       }
       ).then(response => {
-        console.log("login response: ", response)
-        //setUsername(response.data.result.username)
-        //localStorage.setItem('username', response.data.username)
         localStorage.setItem('username', response.data.result.username)
         localStorage.setItem('userId', response.data.result.id) ////added for the new game start button
+        localStorage.setItem('avatar', response.data.result.avatar);
         localStorage.removeItem('guestuser');
         props.setLoggedUser(response.data.result.username)
         history.push('/')
@@ -152,11 +148,6 @@ export default function LoginFcn(props) {
             Sign In
           </Button>
           <Grid container>
-            {/* <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid> */}
             <Grid item>
               <Link href="/registration"  variant="body2">
                 {"Don't have an account? Sign Up"}
@@ -171,6 +162,5 @@ export default function LoginFcn(props) {
     </Container>
     </div>
   )
-
 };
 

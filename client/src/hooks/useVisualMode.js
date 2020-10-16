@@ -1,12 +1,19 @@
 import {useState} from 'react';
 
-function useVisualMode(initMode, initGameId) {
+function useVisualMode(initMode, initGameLink) {
   const [mode, setMode] = useState(initMode);
   const [history, setHistory] = useState([initMode]);
   const [difficulty, setDifficulty] = useState("Easy");
   const [multiplayer, setMultiplayer] = useState(false);
-  const [gameId, setGameId] = useState(initGameId);
+  const [gameId, setGameId] = useState('');
+  const [gameLink, setGameLink] = useState(initGameLink ? initGameLink : '');
   const [hostId, setHostId] = useState('');
+
+  //set the duration of the current game.
+  const [duration, setDuration] = useState('6:00');
+
+  const [rcvdGameOverScore, setRcvdGameOverScore] = useState({});
+  const [matchWinner, setMatchWinner] = useState([]);
 
   //store GridRowSquare id being attempted on the board here
   const [attempts, setAttempts] = useState([]);
@@ -14,23 +21,21 @@ function useVisualMode(initMode, initGameId) {
   //Array of arrays of solved GridRowSquare ids.
   //length of array is score.
   const [solved, setSolved] = useState([]);
-  const [remoteSolved, setRemoteSolved] = useState([]);
+  const [opponentSolved, setOpponentSolved] = useState([]);
+  const [rcvdOponentSolved,  setRcvdOponentSolved] = useState([]);
 
   const [broadcastScore, setBroadcastScore] = useState(false);
   const [score, setScore] = useState(0);
 
-  //set the duration of the current game.
-  const [duration, setDuration] = useState('6:00');
 
   const transition = (newMode, replace = false) => {
     if (replace) {
-      //cannot use back() here I think for the same reason mentioned below about mode.
       const newHistory = [...history.slice(0, history.length-1), newMode];
       setMode(newHistory[newHistory.length - 1]);
       setHistory(newHistory);      
     } else {
       setMode(newMode);
-      const newHistory = [...history, newMode];//cannot use mode here because even though setMode has bein called, it has not rendered yet.
+      const newHistory = [...history, newMode];
       setHistory(newHistory);
     }
   };
@@ -65,10 +70,9 @@ function useVisualMode(initMode, initGameId) {
     setScore(tmpScore);
     localStorage.setItem('score', tmpScore);
   }
-  const updateLatestSolved = (HostedGameSolved) => {
-    const tmpSolved = [...solved, HostedGameSolved];
-    setRemoteSolved(HostedGameSolved);
-    setSolved(tmpSolved);
+  const updatOpponentSolved = (HostedGameSolved) => {
+    const tmpSolved = [...opponentSolved, HostedGameSolved];
+    setOpponentSolved(tmpSolved);
   };
   
   return {
@@ -82,7 +86,6 @@ function useVisualMode(initMode, initGameId) {
     addAttempt, 
     solved, 
     SetCurrentSolved, 
-    updateLatestSolved,
     multiplayer, 
     setMultiplayer, 
     duration, 
@@ -94,8 +97,16 @@ function useVisualMode(initMode, initGameId) {
     broadcastScore,
     setBroadcastScore,
     score,
-    remoteSolved,
-    setRemoteSolved
+    opponentSolved, 
+    setOpponentSolved,
+    updatOpponentSolved,
+    rcvdOponentSolved,  
+    setRcvdOponentSolved,
+    matchWinner, 
+    setMatchWinner,    
+    gameLink,
+    rcvdGameOverScore, 
+    setRcvdGameOverScore
   };
 }
 

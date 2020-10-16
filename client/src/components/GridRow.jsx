@@ -12,6 +12,13 @@ export default function GridRow(props) {
     return props.solved.flat().find(el => el.id === id)? true : false;
   };
 
+  const getOpponentSolved = id => {
+    if (!props.opponentSolved) {
+      return false;
+    }
+    return props.opponentSolved.flat().find(el => el.id === id)? true : false;
+  };
+
   const getAttempted = id => {
     if (!props.attempts) {
       return false;
@@ -22,12 +29,14 @@ export default function GridRow(props) {
     const id = `${props.rowid}-${index}`;
     const attempting = getAttempted(id);
     const solved = getSolved(id);
+    const opponentSolved = getOpponentSolved(id);
       return <GridRowSquare 
         key={id} 
         id={id} 
         content={el} 
         attempting={attempting}
-        solved={solved}         
+        solved={solved} 
+        opponentSolved={opponentSolved}        
         selectGameContent={props.selectGameContent}
       />
   });

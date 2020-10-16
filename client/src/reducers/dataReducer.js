@@ -10,9 +10,6 @@ const dataReducer = (state, action) => {
       users: action.users,
       loading: false,
     },
-    /*DIFFICULTY_LEVEL: {
-      ...state, difficulty: action.difficulty
-    },*/
     SET_NEW_GAME: {
       ...state, game: action.game
     }
