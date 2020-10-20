@@ -2,7 +2,7 @@
 
 ### Version 1.0.0
 
-Welcome to Polyserach, your polyglot word search game!
+Welcome to Polysearch, your polyglot word search game!
 
 There are many word search games available online, but none of them feature more than one language at the same time. So, why not make it multilingual? Furthermore, why not make it multiplayer, and have its words retrieved from an online dictionary? In this case, a direct lookup from the Lexicala API.
 
@@ -12,7 +12,7 @@ This app is built collaboratively by Joao Goncalves Jr, Ryan Hurtis (@rhurtis) a
 
 # Working Product
 
-The following features demonstrate the gameplay features of PolySearch, both for single and multiplayer game.
+The following features demonstrate the gameplay features of PolySearch, both for single and multiplayer games.
 
 ### Main page
 
@@ -29,7 +29,7 @@ As a visitor, you may start a single player game, by selecting from four differe
 - **Hard**: Three Languages
 - **Expert**: Five Languages
 
-In the game setup, you may also choose the duration of your game. If you just want to chill and don't be bothered by a timer, you may set the timer to zero.
+In the game setup, you may also choose the duration of your game. If you just want to chill and not be bothered by a timer, you may set the timer to zero.
 
 ![PolySearch single player setup](https://github.com/jgoncalvesjr/polysearch/blob/docs/readme/docs/polysearch_single_player_settings.png)
 
@@ -44,7 +44,7 @@ Once the timer is over or all words are found, a Game Over screen will be displa
 
 ### Multiplayer
 
-You must be registered and logged in to PolySerach to host a multiplayer game. Once you set up difficulty and game time, a pre-game lobby screen with the game link and settings will open. A game link will be generated, and you may share this link with any other players, and they may join this link by placing `http://localhost:3000/<link>`.
+You must be registered and logged in to PolySerach to host a multiplayer game. Once you set up difficulty and game time, a pre-game lobby screen with the game link and settings will open. A game link will be generated, and you may share this link with any other players, and they may join this link by using `http://localhost:3000/<link>`.
 
 The game host may start the game anytime by clicking the "Start Game" button. This will start a simultaneous multiplayer session among all players. All players may also chat among themselves during gameplay. 
 
@@ -83,7 +83,7 @@ All developers in this project have shared programming and styling roles, and al
 - Improve user interface design
 - Implement leaderboard and game statistics
 - Create a Custom Mode game where the user may select the languages instead of the AI
-- Display the word definitions in the source language as hints, extracted directly from Lexicala just as already available with words
+- Display the word definitions in the source language as hints, extracted directly from Lexicala
 - Implement sound and graphic effects
 - Implement voice pronunciation of the words in the original language as they are found in game
 
