@@ -1,4 +1,4 @@
-# Polysearcn
+# Polysearch
 
 ### Version 1.0.0
 
